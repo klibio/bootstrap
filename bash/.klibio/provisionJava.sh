@@ -1,7 +1,7 @@
 #!/bin/bash
 set -Eeuo pipefail
 
-javaRestAPI=https://api.adoptium.net/
+javaRestAPI=https://api.adoptium.net
 
 export KLIBIO=$HOME/.klibio
 javaDir=$(realpath -s "$KLIBIO/java")
