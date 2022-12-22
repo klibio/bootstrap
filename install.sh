@@ -68,7 +68,7 @@ function askUser() {
                 esac
             done
         else 
-            dlFromGithub $file
+            dlFileFromGithub $file
         fi
     fi
 }
