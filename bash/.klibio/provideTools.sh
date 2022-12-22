@@ -17,6 +17,7 @@ fi
 if [ ! -f $toolsDir/$jq ]; then
   mkdir -p $toolsDir
   curl -s -C - --output $toolsDir/$jq -L https://github.com/stedolan/jq/releases/download/jq-1.6/$jq
+  chmod u+x $toolsDir/$jq
   jq=$toolsDir/$jq
 fi
 echo "using jq version: `$jq --version`"
