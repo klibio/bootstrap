@@ -26,7 +26,7 @@ function dlFileFromGithub() {
     targetFolder=${2:-~}
     pushd $targetFolder > /dev/null
     curl -sSL \
-        https://raw.githubusercontent.com/klibio/bootstrap/main/0_bash/linux/$1 \
+        https://raw.githubusercontent.com/klibio/bootstrap/main/bash/$os/$1 \
         > $1
     popd > /dev/null
 }
@@ -78,9 +78,10 @@ askUser .bashrc
 askUser .gitconfig
 askUser klibio.tar.gz
 
+source ~/.klibio/provisionJava.sh
 
 # identify os
-# copy os specific folder from 0_bash
+# copy os specific folder from bash
 # copy folder .klibio into ~
 # execute provisionJava.sh
 
