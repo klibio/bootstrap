@@ -40,7 +40,7 @@ function dlAndExtractFileFromGithub() {
     echo "downloading and extract $url"
     curl -sSL \
         $url \
-        | tar xvz --skip-old-files -C $targetFolder > /dev/null
+        | tar xvz -C $targetFolder > /dev/null
 }
 
 function askUser() {
