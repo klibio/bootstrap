@@ -23,11 +23,12 @@ cat << EOF
 EOF
 
 function dlFileFromGithub() {
+    file=$(basename -- "$1")
     targetFolder=${2:-~}
     pushd $targetFolder > /dev/null
     curl -sSL \
-        https://raw.githubusercontent.com/klibio/bootstrap/main/bash/$os/$1 \
-        > $1
+        https://raw.githubusercontent.com/klibio/bootstrap/main/bash/$os/$file \
+        > $file
     popd > /dev/null
 }
 
