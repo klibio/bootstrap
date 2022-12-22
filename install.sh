@@ -25,17 +25,21 @@ EOF
 function dlFileFromGithub() {
     file=$(basename -- "$1")
     targetFolder=${2:-~}
+    url=https://raw.githubusercontent.com/klibio/bootstrap/main/bash/$os/$file
     pushd $targetFolder > /dev/null
+    echo "downloading $url"
     curl -sSL \
-        https://raw.githubusercontent.com/klibio/bootstrap/main/bash/$os/$file \
+        $url \
         > $file
     popd > /dev/null
 }
 
 function dlAndExtractFileFromGithub() {
     targetFolder=${2:-~}
+    url=https://raw.githubusercontent.com/klibio/bootstrap/main/$1
+    echo "downloading and extract $url"
     curl -sSL \
-        https://raw.githubusercontent.com/klibio/bootstrap/main/$1 \
+        $url \
         | tar xvz -C $targetFolder > /dev/null
 }
 
