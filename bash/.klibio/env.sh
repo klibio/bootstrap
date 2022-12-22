@@ -14,3 +14,5 @@ if [[ "$OSTYPE" == "linux"* ]]; then
   export os=linux
   export jq=jq-linux64
 fi
+
+echo "running on os $os"

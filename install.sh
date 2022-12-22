@@ -38,7 +38,6 @@ function dlAndExtractFileFromGithub() {
         | tar xvz -C $targetFolder
 }
 
-
 function askUser() {
     file=$1
     targetFolder=${2:-~}
