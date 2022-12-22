@@ -34,7 +34,7 @@ function dlFileFromGithub() {
 function dlAndExtractFileFromGithub() {
     targetFolder=${2:-~}
     curl -sSL \
-        https://raw.githubusercontent.com/klibio/bootstrap/main/klibio.tar.gz \
+        https://raw.githubusercontent.com/klibio/bootstrap/main/$1 \
         | tar xvz -C $targetFolder > /dev/null
 }
 
@@ -42,7 +42,7 @@ function askUser() {
     file=$1
     targetFolder=${2:-~}
     if [[ $file == *.tar.gz ]]; then
-        dirname=`echo "$file" | cut -d'.' -f2`
+        dirname="${file%.*.*}"
         if [ -d "$targetFolder/$dirname" ]; then
             while true; do
                 read -p "Do you wish to overwrite $targetFolder/$dirname? " yn
@@ -73,7 +73,6 @@ function askUser() {
 }
 
 askUser .klibio.tar.gz
-exit 1
 source ~/.klibio/env.sh
 
 askUser .bashrc
