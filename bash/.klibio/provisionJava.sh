@@ -2,7 +2,7 @@
 set -Eeuo pipefail
   javaDir=$(realpath -s "$scriptDir/java")
  toolsDir=$(realpath -s "$scriptDir/tool")
-export KLIBIO="~/.klibio"
+export KLIBIO=~/.klibio
 
 javaRestAPI=https://api.adoptium.net/
 
