@@ -73,9 +73,11 @@ function askUser() {
     fi
 }
 
+askUser klibio.tar.gz
+source ~/.klibio/env.sh
+
 askUser .bashrc
 askUser .gitconfig
-askUser klibio.tar.gz
 
 source ~/.klibio/provisionJava.sh
 
