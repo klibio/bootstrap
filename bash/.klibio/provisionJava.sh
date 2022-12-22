@@ -17,7 +17,7 @@ function provisionJava() {
   declare $currentJava=java$javaVersion
 
   echo -e "#\n# prepare $javaImageType $currentJava for $os and arch $javaArchitecture\n#\n"
-  declare "url=$javaRestAPI/v3/assets/latest/$javaVersion/hotspot?architecture=$javaArchitecture&image_type=$javaImageType&os=$os&vendor=adoptopenjdk"
+  declare "url=$javaRestAPI/v3/assets/latest/$javaVersion/hotspot?architecture=$javaArchitecture&image_type=$javaImageType&os=$os&vendor=eclipse"
   if [ ! -d "$javaDir" ]; then mkdir -p $javaDir 2>/dev/null; fi
   pushd $javaDir
   curl -sSX 'GET' "$url" > resp.json
