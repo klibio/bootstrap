@@ -4,11 +4,10 @@ set -Eeuo pipefail
 javaRestAPI=https://api.adoptium.net/
 
 export KLIBIO=$HOME/.klibio
-  javaDir=$(realpath -s "${KLIBIO}/java")
- toolsDir=$(realpath -s "${KLIBIO}/tool")
+javaDir=$(realpath -s "$KLIBIO/java")
 
-source ${KLIBIO}/env.sh
-source ${KLIBIO}/provideTools.sh
+source $KLIBIO/env.sh
+source $KLIBIO/provideTools.sh
 
 function provisionJava() {
   javaVersion=${1:-17}

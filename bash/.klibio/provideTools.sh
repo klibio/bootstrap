@@ -1,7 +1,10 @@
 #!/bin/bash
 set -Eeuo pipefail
-scriptDir=$(cd "$(dirname "$0")" && pwd)
- toolsDir=$(realpath -s "$scriptDir/tool")
+
+export KLIBIO=$HOME/.klibio
+toolsDir=$(realpath -s "$KLIBIO/tool")
+
+source $KLIBIO/env.sh
 
  # check for curl and exit if not available
 if which curl > /dev/null; then
