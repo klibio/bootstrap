@@ -57,7 +57,7 @@ function askUser() {
             dlAndExtractFileFromGithub $file
         fi
     else
-        file=$targetFolder/$1
+        file=$targetFolder/$file
         if [ -f $file ]; then 
             while true; do
                 read -p "Do you wish to overwrite $file? " yn
