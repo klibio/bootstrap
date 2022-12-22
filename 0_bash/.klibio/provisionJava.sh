@@ -1,39 +1,14 @@
 #!/bin/bash
 set -Eeuo pipefail
 scriptDir=$(cd "$(dirname "$0")" && pwd)
-export KLIBIO="$scriptDir"
   javaDir=$(realpath -s "$scriptDir/java")
  toolsDir=$(realpath -s "$scriptDir/tool")
+export KLIBIO="$scriptDir"
 
-if [[ "$OSTYPE" == "msys" ]]; then
-  os=windows
-  jq=jq-win64.exe
-fi
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  os=mac
-  jq=jq-osx-amd64
-fi
-if [[ "$OSTYPE" == "linux"* ]]; then
-  os=linux
-  jq=jq-linux64
-fi
+javaRestAPI=https://api.adoptium.net/
 
-echo -e "\n##############################\n# Java setup on $os\n##############################\n"
-
-# check for curl and exit if not available
-if which curl > /dev/null; then
-    echo "using available curl"
-  else
-    echo "curl is not available - please install it from https://curl.se/"
-    exit 1;
-fi
-
-if [ ! -f $toolsDir/$jq ]; then
-  mkdir -p $toolsDir
-  curl -s -C - --output $toolsDir/$jq -L https://github.com/stedolan/jq/releases/download/jq-1.6/$jq
-  jq=$toolsDir/$jq
-fi
-echo "using jq version: `$jq --version`"
+source ${scriptDir}/env.sh
+source ${scriptDir}/provideTools.sh
 
 function provisionJava() {
   javaVersion=${1:-17}
@@ -43,7 +18,7 @@ function provisionJava() {
   declare $currentJava=java$javaVersion
 
   echo -e "#\n# prepare $javaImageType $currentJava for $os and arch $javaArchitecture\n#\n"
-  declare "url=https://api.adoptopenjdk.net/v3/assets/latest/$javaVersion/hotspot?architecture=$javaArchitecture&image_type=$javaImageType&os=$os&vendor=adoptopenjdk"
+  declare "url=$javaRestAPI/v3/assets/latest/$javaVersion/hotspot?architecture=$javaArchitecture&image_type=$javaImageType&os=$os&vendor=adoptopenjdk"
   if [ ! -d "$javaDir" ]; then mkdir -p $javaDir 2>/dev/null; fi
   pushd $javaDir
   curl -sSX 'GET' "$url" > resp.json
@@ -75,7 +50,7 @@ function provisionJava() {
   popd
 }
 
-# Java 8
+echo -e "\n##############################\n# Java setup on $os\n##############################\n"
 provisionJava 8
 provisionJava 11
 provisionJava 17
