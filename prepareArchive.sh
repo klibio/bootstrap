@@ -1,7 +1,8 @@
 #!/bin/bash
-set -Eeuo pipefail
 scriptDir=$(cd "$(dirname "$0")" && pwd)
 
-pushd $scriptDir/bash > /dev/null
-tar -zvcf $scriptDir/klibio.tar.gz .klibio
-popd > /dev/null
+file=klibio.tar.gz
+pushd $scriptDir/bash >/dev/null 2>&1
+rm $file >/dev/null 2>&1
+tar -zvcf $scriptDir/$file .klibio
+popd >/dev/null 2>&1
