@@ -1,10 +1,11 @@
 #!/bin/bash
 set -Eeuo pipefail
-  javaDir=$(realpath -s "$scriptDir/java")
- toolsDir=$(realpath -s "$scriptDir/tool")
+
+javaRestAPI=https://api.adoptium.net/
 
 export KLIBIO=$HOME/.klibio
-javaRestAPI=https://api.adoptium.net/
+  javaDir=$(realpath -s "${KLIBIO}/java")
+ toolsDir=$(realpath -s "${KLIBIO}/tool")
 
 source ${KLIBIO}/env.sh
 source ${KLIBIO}/provideTools.sh
