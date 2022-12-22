@@ -1,7 +1,4 @@
 #!/bin/bash
-set -Eeuo pipefail
-scriptDir=$(cd "$(dirname "$0")" && pwd)
-
 if [[ "$OSTYPE" == "msys" ]]; then
   export os=windows
   export jq=jq-win64.exe

@@ -1,14 +1,13 @@
 #!/bin/bash
 set -Eeuo pipefail
-scriptDir=$(cd "$(dirname "$0")" && pwd)
   javaDir=$(realpath -s "$scriptDir/java")
  toolsDir=$(realpath -s "$scriptDir/tool")
-export KLIBIO="$scriptDir"
+export KLIBIO="~/.klibio"
 
 javaRestAPI=https://api.adoptium.net/
 
-source ${scriptDir}/env.sh
-source ${scriptDir}/provideTools.sh
+source ${KLIBIO}/env.sh
+source ${KLIBIO}/provideTools.sh
 
 function provisionJava() {
   javaVersion=${1:-17}
