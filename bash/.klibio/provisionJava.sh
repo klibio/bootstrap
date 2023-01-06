@@ -28,6 +28,9 @@ function provisionJava() {
   rm resp.json
   echo -e "parsed following values from $url\n  javaArchiveLink=$javaArchiveLink\n  javaArchiveName=$javaArchiveName\n  javaReleaseName=$javaReleaseName\n"
 
+  if ( echo $javaArchiveName | grep 'zip' ); then
+
+
   declare archiveDir=$javaDir/archives
   mkdir -p $archiveDir && pushd $archiveDir
   if [ ! -f $javaArchiveName ]; then
@@ -41,7 +44,13 @@ function provisionJava() {
     echo -e "#\n# using existing Java from $installDir/$javaReleaseName\n#\n"
   else 
     echo -e "#\n# extracting Java into $installDir/$javaReleaseName\n#\n"
-    unzip -qq -d "$installDir" "$archiveDir/$javaArchiveName"
+    if [ echo $javaArchiveName | grep 'zip' ]; then
+      unzip -qq -d "$installDir" "$archiveDir/$javaArchiveName"
+    elif [ echo $javaArchiveName | grep 'tar.gz' ]; then
+      tar xvzf "$archiveDir/$javaArchiveName" -C "$installDir"
+    else
+      echo -e "#\n# the archive format could not be recognized \n#\n"
+    fi
     if [ -f $linkDir/$currentJava ]; then rm $linkDir/$currentJava; fi
     ln -s "$installDir/$javaReleaseName" $linkDir/$currentJava
   fi
