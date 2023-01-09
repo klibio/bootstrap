@@ -24,5 +24,5 @@ echo "# DEBUG START"
 
 echo "# test variable existences"
 
-estEnvVar KLIBIO
+testEnvVar KLIBIO
 testEnvVar JAVA_HOME
