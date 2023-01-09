@@ -18,7 +18,7 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-# install  colordiff package :)
+# install colordiff package :)
 alias diff='colordiff'
 
 # handy short cuts #
@@ -37,7 +37,6 @@ alias ports='netstat -tulanp'
 PS1="\D{%Y%m%d-%H%M%S} \u@\H:\w jobs=\j\n$ "
 
 # switching between java versions
-
 alias setJava='source $KLIBIO/setJava.sh'
 
 # configure default java to version 17
