@@ -42,9 +42,9 @@ function provisionJava() {
   else 
     echo -e "#\n# extracting Java into $installDir/$javaReleaseName\n#\n"
     if [[ $javaArchiveName == *.zip ]]; then
-      echo -e "#\n# the archive format is zip \n#\n"
+      unzip -qq -d "$installDir" "$archiveDir/$javaArchiveName"
     elif [[ $javaArchiveName == *.tar.gz ]]; then
-      echo -e "#\n# the archive format is tar.gz \n#\n"
+      tar xvzf "$archiveDir/$javaArchiveName" -C "$installDir"
     else
       echo -e "#\n# the archive format could not be recognized \n#\n"
     fi
