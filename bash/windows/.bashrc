@@ -1,7 +1,6 @@
 # additional path entries can be added here with : as separator
 #PATH=${PATH}:xyz
 
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )
 export KLIBIO=$(echo ~/.klibio)
 
 alias c='clear'
@@ -41,5 +40,5 @@ PS1="\D{%Y%m%d-%H%M%S} \u@\H:\w jobs=\j\n$ "
 
 alias setJava='source $KLIBIO/setJava.sh'
 
-# configure default java to version 11
+# configure default java to version 17
 setJava 17
