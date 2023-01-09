@@ -1,6 +1,7 @@
 #!/bin/bash
 scriptDir=$(cd "$(dirname "$0")" && pwd)
 branch=main
+overwrite=false
 
 for i in "$@"; do
   case $i in
