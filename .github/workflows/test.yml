@@ -6,16 +6,17 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo "# TEST" && bash -x ./install.sh -o -b=$GITHUB_REF_NAME
+      - shell: bash
+        run: echo "# TEST" && bash ./install.sh -o -b=$GITHUB_REF_NAME
   test-on-linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo "# TEST" && bash -x ./install.sh -o -b=$GITHUB_REF_NAME
+      - run: echo "# TEST" && bash ./install.sh -o -b=$GITHUB_REF_NAME
       - run: echo "# DEBUG" && env | sort && ls -lar
   test-on-macosx:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo "# TEST" && bash -x ./install.sh -o -b=$GITHUB_REF_NAME
+      - run: echo "# TEST" && bash ./install.sh -o -b=$GITHUB_REF_NAME
       - run: echo "# DEBUG" && env | sort && ls -lar
