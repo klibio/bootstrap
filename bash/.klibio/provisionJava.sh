@@ -44,10 +44,10 @@ function provisionJava() {
     echo -e "#\n# using existing Java from $installDir/$javaReleaseName\n#\n"
   else 
     echo -e "#\n# extracting Java into $installDir/$javaReleaseName\n#\n"
-    if [ echo $javaArchiveName | grep 'zip' ]; then
-      unzip -qq -d "$installDir" "$archiveDir/$javaArchiveName"
-    elif [ echo $javaArchiveName | grep 'tar.gz' ]; then
-      tar xvzf "$archiveDir/$javaArchiveName" -C "$installDir"
+    if [[ $javaArchiveName == *.zip ]]; then
+      echo -e "#\n# the archive format is zip \n#\n"
+    elif [[ $javaArchiveName == *.tar.gz ]]; then
+      echo -e "#\n# the archive format is tar.gz \n#\n"
     else
       echo -e "#\n# the archive format could not be recognized \n#\n"
     fi
