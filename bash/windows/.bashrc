@@ -43,4 +43,3 @@ alias setJava='source $KLIBIO/setJava.sh'
 
 # configure default java to version 11
 setJava 17
-
