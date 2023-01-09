@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 export KLIBIO=$HOME/.klibio
-toolsDir=$(realpath -s "$KLIBIO/tool")
+toolsDir=$(echo "$KLIBIO/tool")
 
 source $KLIBIO/env.sh
 
