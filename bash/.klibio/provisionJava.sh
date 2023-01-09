@@ -62,5 +62,3 @@ echo -e "\n##############################\n# Java setup on $os\n################
 provisionJava 8
 provisionJava 11
 provisionJava 17
-
-echo "# DEBUG ENV - START" && env | sort | grep -E -i "^(JAVA|java)" && echo "# DEBUG ENV - END"

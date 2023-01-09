@@ -1,22 +1,25 @@
 #!/bin/bash
 scriptDir=$(cd "$(dirname "$0")" && pwd)
+branch=main
 
 for i in "$@"; do
   case $i in
     -o|--overwrite)
-      OW=true
+      overwrite=true
+      shift # past argument=value
+      ;;
+    -b=*|--branch=*)
+      branch="${i#*=}"
       shift # past argument=value
       ;;
     -*|--*)
-      echo "Unknown option $i"
+      echo "Unknow option $i"
       exit 1
       ;;
     *)
       ;;
   esac
 done
-env | sort
-echo OW=$OW
 
 set -Eeuo pipefail
 cat << EOF
@@ -42,7 +45,7 @@ EOF
 function dlFileFromGithub() {
     file=$(basename -- "$1")
     targetFolder=${2:-~}
-    url=https://raw.githubusercontent.com/klibio/bootstrap/main/bash/$os/$file
+    url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/bash/$os/$file
     pushd $targetFolder > /dev/null
     echo "downloading $url"
     curl -sSL \
@@ -53,7 +56,7 @@ function dlFileFromGithub() {
 
 function dlAndExtractFileFromGithub() {
     targetFolder=${2:-~}
-    url=https://raw.githubusercontent.com/klibio/bootstrap/main/$1
+    url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/$1
     echo "downloading and extract $url"
     curl -sSL \
         $url \
@@ -65,7 +68,7 @@ function askUser() {
     targetFolder=${2:-~}
     if [[ $file == *.tar.gz ]]; then
         dirname="${file%.*.*}"
-        if [ -d "$targetFolder/$dirname" ] && [ ! $OW == true ]; then
+        if [ -d "$targetFolder/$dirname" ] && [ ! $overwrite == true ]; then
             while true; do
                 read -p "Do you wish to overwrite $targetFolder/$dirname? " yn
                 case $yn in
@@ -79,7 +82,7 @@ function askUser() {
         fi
     else
         file=$targetFolder/$file
-        if [ -f $file ] && [ ! $OW == true ]; then 
+        if [ -f $file ] && [ ! $overwrite == true ]; then 
             while true; do
                 read -p "Do you wish to overwrite $file? " yn
                 case $yn in
