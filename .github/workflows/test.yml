@@ -6,20 +6,20 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo "# DEBUG" && env | sort && ls -lar
-      - run: echo "# TEST" && install.sh
+      - run: echo "# DEBUG" && env | sort && Get-ChildItem -Recurse
+      - run: echo "# TEST" && bash -x ./install.sh
       - run: echo "# DEBUG" && env | sort
   test-on-ubuntu:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: echo "# DEBUG" && env | sort && ls -lar
-      - run: echo "# TEST" && ./install.sh
+      - run: echo "# TEST" && bash -x ./install.sh
       - run: echo "# DEBUG" && env | sort
   test-on-macos:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - run: echo "# DEBUG" && env | sort && ls -lar
-      - run: echo "# TEST" && ./install.sh
+      - run: echo "# TEST" && bash -x ./install.sh
       - run: echo "# DEBUG" && env | sort
