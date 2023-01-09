@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - shell: bash
-        run: ./pop.sh 
+        run: ./pop.sh $GITHUB_REF_NAME
 #  pop-win32-windows-2019:
 #    runs-on: windows-2019
 #    steps:
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - run: ./pop.sh
+      - run: ./pop.sh $GITHUB_REF_NAME
 #  pop-macosx-macos-10-15:
 #    runs-on: macos-10.15
 #    steps:
@@ -43,4 +43,4 @@ jobs:
     runs-on: macos-12
     steps:
       - uses: actions/checkout@v3
-      - run: ./pop.sh
+      - run: ./pop.sh $GITHUB_REF_NAME
