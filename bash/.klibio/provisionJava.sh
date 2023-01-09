@@ -28,9 +28,6 @@ function provisionJava() {
   rm resp.json
   echo -e "parsed following values from $url\n  javaArchiveLink=$javaArchiveLink\n  javaArchiveName=$javaArchiveName\n  javaReleaseName=$javaReleaseName\n"
 
-  if ( echo $javaArchiveName | grep 'zip' ); then
-
-
   declare archiveDir=$javaDir/archives
   mkdir -p $archiveDir && pushd $archiveDir
   if [ ! -f $javaArchiveName ]; then
