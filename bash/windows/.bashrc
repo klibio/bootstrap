@@ -2,6 +2,7 @@
 #PATH=${PATH}:xyz
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )
+KLIBIO=$(echo ~/.klibio)
 
 alias c='clear'
 
@@ -38,7 +39,7 @@ PS1="\D{%Y%m%d-%H%M%S} \u@\H:\w jobs=\j\n$ "
 
 # switching between java versions
 
-alias setJava='source ~/.klibio/setJava.sh'
+alias setJava='source $KLIBIO/setJava.sh'
 
 # configure default java to version 11
 setJava 17
