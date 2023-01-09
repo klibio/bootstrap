@@ -1,4 +1,6 @@
 #!/bin/bash
+set -Eeuo pipefail
+KLIBIO=$(echo ~/.klibio)
 
 #env variables can be changed only if we call the script with `source setJava.sh`
 
@@ -16,7 +18,8 @@ case $1 in
     unset)
         removeFromPath $oracleJava
         export JAVA_HOME=
-        echo "JAVA_HOME unset - available Java are 8, 11, 11-5, pai11"
+        echo "JAVA_HOME unset - available Java LTS are 8, 11, 17"
+        exit 0
     ;;
     8)
         export JAVA_HOME=$KLIBIO/java/ee/JAVA8
@@ -29,9 +32,10 @@ case $1 in
     ;;
     *)
         echo "usage error: setJava <version>\n version can be one of unset, 8, 11, 17"
+        exit 1
     ;;
 esac
 
 echo JAVA_HOME=$JAVA_HOME
-export PATH=$JAVA_HOME/bin:$PATH;
+export PATH=$JAVA_HOME/bin:$PATH
 java -version
