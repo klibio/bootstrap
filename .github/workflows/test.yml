@@ -1,0 +1,25 @@
+name: test-platforms
+run-name: ${{ github.actor }} is executing OS tests
+on: [push]
+jobs:
+  test-on-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+        env
+        install.sh
+  test-on-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+        env
+        install.sh
+  test-on-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+        env
+        install.sh
