@@ -1,7 +1,24 @@
 #!/bin/bash
-set -Eeuo pipefail
 scriptDir=$(cd "$(dirname "$0")" && pwd)
 
+for i in "$@"; do
+  case $i in
+    -o|--overwrite)
+      OW=true
+      shift # past argument=value
+      ;;
+    -*|--*)
+      echo "Unknown option $i"
+      exit 1
+      ;;
+    *)
+      ;;
+  esac
+done
+env | sort
+echo OW=$OW
+
+set -Eeuo pipefail
 cat << EOF
 
  ##    ## ##      #### ########  ####  ####### 
@@ -48,7 +65,7 @@ function askUser() {
     targetFolder=${2:-~}
     if [[ $file == *.tar.gz ]]; then
         dirname="${file%.*.*}"
-        if [ -d "$targetFolder/$dirname" ]; then
+        if [ -d "$targetFolder/$dirname" ] && [ ! $OW == true ]; then
             while true; do
                 read -p "Do you wish to overwrite $targetFolder/$dirname? " yn
                 case $yn in
@@ -62,7 +79,7 @@ function askUser() {
         fi
     else
         file=$targetFolder/$file
-        if [ -f $file ]; then 
+        if [ -f $file ] && [ ! $OW == true ]; then 
             while true; do
                 read -p "Do you wish to overwrite $file? " yn
                 case $yn in

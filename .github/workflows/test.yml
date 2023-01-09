@@ -2,21 +2,21 @@ name: test-platforms
 run-name: ${{ github.actor }} is executing OS tests
 on: [push]
 jobs:
-  test-on-windows:
+  test-on-win32:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
       - run: echo "# DEBUG" && env | sort && Get-ChildItem -Recurse
       - run: echo "# TEST" && bash -x ./install.sh
       - run: echo "# DEBUG" && env | sort
-  test-on-ubuntu:
+  test-on-linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: echo "# DEBUG" && env | sort && ls -lar
       - run: echo "# TEST" && bash -x ./install.sh
       - run: echo "# DEBUG" && env | sort
-  test-on-macos:
+  test-on-macosx:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
