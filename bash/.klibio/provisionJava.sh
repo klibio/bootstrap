@@ -22,9 +22,9 @@ function provisionJava() {
   pushd $javaDir
   curl -sSX 'GET' "$url" > resp.json
 #  if [ "$?" -ne "0" ]; then echo -e "failing release info download from url=$url\n hence exiting script"; fi
-  declare javaArchiveLink=$( cat resp.json  | jq -r '.[0].binary.package.link' )
-  declare javaArchiveName=$( cat resp.json  | jq -r '.[0].binary.package.name' )
-  declare javaReleaseName=$( cat resp.json  | jq -r '.[0].release_name' )
+  declare javaArchiveLink=$( cat resp.json  | $jq -r '.[0].binary.package.link' )
+  declare javaArchiveName=$( cat resp.json  | $jq -r '.[0].binary.package.name' )
+  declare javaReleaseName=$( cat resp.json  | $jq -r '.[0].release_name' )
   rm resp.json
   echo -e "parsed following values from $url\n  javaArchiveLink=$javaArchiveLink\n  javaArchiveName=$javaArchiveName\n  javaReleaseName=$javaReleaseName\n"
 
