@@ -40,4 +40,4 @@ PS1="\D{%Y%m%d-%H%M%S} \u@\H:\w jobs=\j\n$"
 alias setJava='source $KLIBIO/setJava.sh'
 
 # configure default java to version 17
-setJava 17
+#setJava 17
