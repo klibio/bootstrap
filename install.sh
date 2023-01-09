@@ -1,7 +1,12 @@
 #!/bin/bash
+<<<<<<< HEAD
 script_dir=$(cd "$(dirname "$0")" && pwd)
 branch=main
 overwrite=false
+=======
+scriptDir=$(cd "$(dirname "$0")" && pwd)
+branch=main
+>>>>>>> bd39894... fix os specific execution
 
 for i in "$@"; do
   case $i in
@@ -108,16 +113,6 @@ ask_user .klibio.tar.gz
 
 ask_user .bashrc
 
-<<<<<<< HEAD
 . ~/.klibio/provisionJava.sh
-=======
-source ~/.klib.io/provideEclipseInstaller.sh
-
-# identify os
-# copy os specific folder from bash
-# copy folder .klibio into ~
-# execute provisionJava.sh
-# execute provideEclipseInstaller.sh
->>>>>>> f7473c7... Feature/eclipse installer (#2)
 
 echo "# setup script completed"
