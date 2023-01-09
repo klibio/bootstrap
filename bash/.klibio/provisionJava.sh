@@ -51,19 +51,11 @@ provisionJava() {
   if [ -d "${install_dir}/${java_release_name}" ]; then
     echo -e "#\n# using existing Java from ${install_dir}/${java_release_name}\n#\n"
   else 
-<<<<<<< HEAD
     echo -e "#\n# extracting Java into ${install_dir}/${java_release_name}\n#\n"
     if [[ ${java_archive_name} == *.zip ]]; then
       unzip -qq -d "${install_dir}" "${archive_dir}/${java_archive_name}"
     elif [[ ${java_archive_name} == *.tar.gz ]]; then
       tar xvzf "${archive_dir}/${java_archive_name}" -C "${install_dir}"
-=======
-    echo -e "#\n# extracting Java into $installDir/$javaReleaseName\n#\n"
-    if [[ $javaArchiveName == *.zip ]]; then
-      unzip -qq -d "$installDir" "$archiveDir/$javaArchiveName"
-    elif [[ $javaArchiveName == *.tar.gz ]]; then
-      tar xvzf "$archiveDir/$javaArchiveName" -C "$installDir"
->>>>>>> 8dfda8e... Readd unzip-tar command
     else
       echo -e "#\n# the archive format could not be recognized \n#\n"
     fi
