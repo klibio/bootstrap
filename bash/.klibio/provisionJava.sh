@@ -4,7 +4,7 @@ set -Eeuo pipefail
 javaRestAPI=https://api.adoptium.net
 
 export KLIBIO=$HOME/.klibio
-javaDir=$(realpath -s "$KLIBIO/java")
+javaDir=$(echo "$KLIBIO/java")
 
 source $KLIBIO/env.sh
 source $KLIBIO/provideTools.sh
