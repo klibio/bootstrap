@@ -68,7 +68,7 @@ function askUser() {
                 case $yn in
                     [Yy]* ) dlFileFromGithub $file; break;;
                     [Nn]* ) break;;
-                    * ) echo "Please answer yes or no.";;
+                    * ) echo "Please answer [y]es or [n]o.";;
                 esac
             done
         else 
