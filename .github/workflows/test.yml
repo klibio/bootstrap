@@ -1,7 +1,7 @@
 # available github action variables can be found
 # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
 name: proof-of-performance-on-platforms
-run-name: ${{ github.actor }} is executing OS tests on branch ${{ github.ref_name }}
+run-name: executing OS tests on branch ${{github.ref_name}} for ${{github.actor}}
 on: [push,pull_request]
 jobs:
 #  pop-win32-windows-2022:
