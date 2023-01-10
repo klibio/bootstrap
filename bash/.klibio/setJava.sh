@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x          # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
@@ -14,12 +15,9 @@ if [ -n "${JAVA_HOME+x}" ]; then
     removeFromPath $JAVA_HOME  
 fi
 
-oracleJava="/c/Program Files (x86)/Common Files/Oracle/Java/javapath"
-
 case $1 in
     unset)
-        removeFromPath $oracleJava
-        export JAVA_HOME=
+        unset JAVA_HOME
         echo "JAVA_HOME unset - available Java LTS are 8, 11, 17"
         exit 0
     ;;
