@@ -1,8 +1,10 @@
 #!/bin/bash
+
 #set -o xtrace   # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
+
 KLIBIO=${KLIBIO:=`echo $HOME/.klibio`}
 export KLIBIO=${KLIBIO}
 java_home_suffix=${java_home_suffix:=}
