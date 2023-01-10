@@ -7,23 +7,23 @@ jobs:
 #    steps:
 #      - uses: actions/checkout@v3
 #      - shell: bash
-#        run: ./pop.sh $GITHUB_REF_NAME
+#        run: ./pop.sh ${{github.ref_name}}
 #  pop-win32-windows-2019:
 #    runs-on: windows-2019
 #    steps:
 #      - uses: actions/checkout@v3
 #      - shell: bash
-#        run: ./pop.sh $GITHUB_REF_NAME
+#        run: ./pop.sh ${{github.ref_name}}
 #  pop-linux-ubuntu-18-04:
 #    runs-on: ubuntu-18.04
 #    steps:
 #      - uses: actions/checkout@v3
-#      - run: ./pop.sh $GITHUB_REF_NAME
+#      - run: ./pop.sh ${{github.ref_name}}
 #  pop-linux-ubuntu-20-04:
 #    runs-on: ubuntu-20.04
 #    steps:
 #      - uses: actions/checkout@v3
-#      - run: ./pop.sh $GITHUB_REF_NAME
+#      - run: ./pop.sh ${{github.ref_name}}
   pop-linux-ubuntu-22-04:
     runs-on: ubuntu-22.04
     steps:
@@ -33,14 +33,14 @@ jobs:
 #    runs-on: macos-10.15
 #    steps:
 #      - uses: actions/checkout@v3
-#      - run: ./pop.sh $GITHUB_REF_NAME
+#      - run: ./pop.sh ${{github.ref_name}}
 #  pop-macosx-macos-11:
 #    runs-on: macos-11
 #    steps:
 #      - uses: actions/checkout@v3
-#      - run: ./pop.sh $GITHUB_REF_NAME
+#      - run: ./pop.sh ${{github.ref_name}}
 #  pop-macosx-macos-12:
 #    runs-on: macos-12
 #    steps:
 #      - uses: actions/checkout@v3
-#      - run: ./pop.sh $GITHUB_REF_NAME
+#      - run: ./pop.sh ${{github.ref_name}}
