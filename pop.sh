@@ -15,7 +15,9 @@ function testEnvVar() {
 }
 
 echo "# INSTALL"
-./install.sh -o -b=$GITHUB_REF_NAME
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/$GITHUB_REF_NAME/install.sh)"
+
+echo "# source the installed .bashrc file "
 source "$HOME"/.bashrc
 
 echo "# DEBUG START"
