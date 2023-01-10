@@ -15,9 +15,9 @@ ls -la ~/.bashrc
 echo "### content of ~/.bashrc"
 cat ~/.bashrc
 
-echo "### source "
+echo "### source .bashrc"
 shopt -s expand_aliases
-source ~/.bashrc
+source $HOME/.bashrc
 
 ls -la ~/.klibio/*
 ls -la ~/.klibio/*/*
