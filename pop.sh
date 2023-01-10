@@ -10,9 +10,13 @@ set -o pipefail # exit if any pipe command is failing
 branch=${1:-main}
 . /dev/stdin <<< "$(cat bash/.klibio/lib.bash)"
 
+<<<<<<< HEAD
 headline "proof-of-performance execution"
 
 padout "# execute users bash INSTALL command"
+=======
+echo "# INSTALL"
+>>>>>>> b2dfb9f... fix java version testing
 curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install.sh > ./klibio_setup.sh
 chmod u+x ./klibio_setup.sh
 bash ./klibio_setup.sh -b=${branch} -o
