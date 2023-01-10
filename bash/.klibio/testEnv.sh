@@ -1,4 +1,4 @@
-#!/bin/bash -li
+#!/bin/bash
 
 # activate bash checks
 #set -o xtrace   # activate debug
