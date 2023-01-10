@@ -35,7 +35,7 @@ alias
 echo "# DEBUG END"
 
 echo "# source the installed .bashrc file "
-source "$HOME"/.bashrc
+source ~/.bashrc
 
 echo "# test variable existences"
 testEnvVar KLIBIO
