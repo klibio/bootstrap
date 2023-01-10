@@ -7,11 +7,15 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # load library
 branch=${branch:-main}
 . /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/lib.bash)"
 =======
 export KLIBIO=${KLIBIO:=$(echo $HOME/.klibio)}
+=======
+export KLIBIO=${KLIBIO:=`echo $HOME/.klibio`}
+>>>>>>> 4b258ed... fix java version testing
 javaDir=$(echo "$KLIBIO/java")
 >>>>>>> b2dfb9f... fix java version testing
 
