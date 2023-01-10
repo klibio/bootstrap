@@ -13,7 +13,7 @@ echo "# DEBUG START"
 echo "## DEBUG environment variables"
 env | sort 
 
-echo "## DEBUG directories/files"
+echo "## DEBUG directories/files - only relevant are displayed"
 ls -la ~/.bashrc
 ls -la ~/.klibio/*
 ls -la ~/.klibio/*/*
@@ -40,11 +40,13 @@ echo "# test variable existences"
 testEnvVar KLIBIO
 
 function testJava() {
+    set +u
     declare javaVersion=$1
     echo "## testing java $javaVersion"
     setJava $javaVersion
     testEnvVar JAVA_HOME
     java -version
+    set -u
 }
 
 echo "# test java version"
