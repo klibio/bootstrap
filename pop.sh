@@ -16,7 +16,8 @@ function testEnvVar() {
 }
 
 echo "# INSTALL"
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install.sh -b=${branch})"
+# for argument passing see https://unix.stackexchange.com/a/144519/116365
+/bin/bash -c '$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/"${branch}"/install.sh) "$@"' bash -b=${branch}
 
 echo "# source the installed .bashrc file "
 source "$HOME"/.bashrc
