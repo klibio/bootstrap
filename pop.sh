@@ -21,14 +21,28 @@ chmod u+x ./klibio_setup.sh
 bash ./klibio_setup.sh -b=${branch} -o
 rm klibio_setup.sh
 
+echo "# DEBUG START"
+env | sort && ls -la ~/.klibio/*/*
+echo "# DEBUG START"
+
+
 echo "# source the installed .bashrc file "
 source "$HOME"/.bashrc
 
-echo "# DEBUG START"
-env | sort && ls -lar
-echo "# DEBUG START"
-
 echo "# test variable existences"
-
 testEnvVar KLIBIO
+
+setJava 8
+testEnvVar JAVA_HOME
+java -version
+
+setJava 11
+testEnvVar JAVA_HOME
+java -version
+
+setJava 17
+testEnvVar JAVA_HOME
+java -version
+
+setJava unset
 testEnvVar JAVA_HOME
