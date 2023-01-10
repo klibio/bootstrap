@@ -16,7 +16,7 @@ function testEnvVar() {
 }
 
 echo "# INSTALL"
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/$branch/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/$branch/install.sh) -b $branch"
 
 echo "# source the installed .bashrc file "
 source "$HOME"/.bashrc
