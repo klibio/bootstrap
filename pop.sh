@@ -43,7 +43,8 @@ testEnvVar KLIBIO
 function testJava() {
     declare javaVersion=$1
     echo "## testing java $javaVersion"
-    setJava javaVersion
+    set -x
+    setJava $javaVersion
     testEnvVar JAVA_HOME
     java -version
 }
