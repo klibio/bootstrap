@@ -22,7 +22,7 @@ bash ./klibio_setup.sh -b=${branch} -o
 rm klibio_setup.sh
 
 echo "# source the installed .bashrc file "
-source ~/.bashrc
+shopt -s expand_aliases source ~/.bashrc
 
 echo "# DEBUG START"
 
