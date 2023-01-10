@@ -3,16 +3,6 @@ set -Eeuo pipefail
 
 branch=${1:-main}
 
-function testEnvVar() {
-    set +u
-    declare var=$1
-    if [ -n "${!var}" ]; then
-        echo "found var $var=${!var}"
-    else
-        echo "missing variable $var" && exit 1
-    fi
-    set -u
-}
 
 echo "# INSTALL"
 curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install.sh > ./klibio_setup.sh
@@ -21,37 +11,6 @@ chmod u+x ./klibio_setup.sh
 bash ./klibio_setup.sh -b=${branch} -o
 rm klibio_setup.sh
 
-echo "# source the installed .bashrc file "
-shopt -s expand_aliases source ~/.bashrc
-
-echo "# DEBUG START"
-
-echo "## DEBUG environment variables"
-env | sort 
-
-echo "## DEBUG directories/files"
-ls -la ~/.bashrc
-ls -la ~/.klibio/*
-ls -la ~/.klibio/*/*
-
-echo "## DEBUG alias"
-alias -p
-
-echo "# DEBUG END"
-
-echo "# test variable existences"
-testEnvVar KLIBIO
-
-function testJava() {
-    declare javaVersion=$1
-    echo "## testing java $javaVersion"
-    setJava $javaVersion
-    testEnvVar JAVA_HOME
-    java -version
-}
-
-echo "# test java version"
-
-testJava 8
-testJava 11
-testJava 17
+echo "# launch a new bash with the actual test (sourcing the installed .bashrc) "
+set +u
+BASH_ENV=~/.bashrc bash ~/.klibio/testEnv.sh
