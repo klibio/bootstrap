@@ -14,10 +14,12 @@ source $KLIBIO/env.sh
 downloadUrl=https://download.eclipse.org/oomph/products/latest/eclipse-inst-$eclInstaller
 outputFile=eclipse-inst-jre-$eclInstaller
 
+echo -e "#\n# downloading $outputFile to $toolsArchives\n#\n"
 curl -sSL \
     $downloadUrl \
     > $toolsArchives/$outputFile
 
+echo -e "#\n# extracting $outputFile to $installerDir\n#\n"
 if [[ $os == linux ]]; then
     tar -zxvf "eclipse-inst-jre-linux64.tar.gz" -C "$installerDir"
 elif [[ $os == windows ]]; then
