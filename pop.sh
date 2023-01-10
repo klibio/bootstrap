@@ -35,7 +35,7 @@ ls -la ~/.klibio/*
 ls -la ~/.klibio/*/*
 
 echo "## DEBUG alias"
-alias
+alias -p
 
 echo "# DEBUG END"
 
