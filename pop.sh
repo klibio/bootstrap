@@ -21,21 +21,21 @@ chmod u+x ./klibio_setup.sh
 bash ./klibio_setup.sh -b=${branch} -o
 rm klibio_setup.sh
 
+echo "# source the installed .bashrc file "
+source ~/.bashrc
+
 echo "# DEBUG START"
 
-echo "## environment variables"
+echo "## DEBUG environment variables"
 env | sort 
 
-echo "## directories/files"
+echo "## DEBUG directories/files"
 ls -la ~/.klibio/*/*
 
-echo "## alias"
+echo "## DEBUG alias"
 alias
 
 echo "# DEBUG END"
-
-echo "# source the installed .bashrc file "
-source ~/.bashrc
 
 echo "# test variable existences"
 testEnvVar KLIBIO
