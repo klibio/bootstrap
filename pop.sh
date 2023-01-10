@@ -40,17 +40,16 @@ echo "# DEBUG END"
 echo "# test variable existences"
 testEnvVar KLIBIO
 
-setJava 8
-testEnvVar JAVA_HOME
-java -version
+function testJava() {
+    declare javaVersion=$1
+    echo "## testing java $javaVersion"
+    setJava javaVersion
+    testEnvVar JAVA_HOME
+    java -version
+}
 
-setJava 11
-testEnvVar JAVA_HOME
-java -version
+echo "# test java version"
 
-setJava 17
-testEnvVar JAVA_HOME
-java -version
-
-setJava unset
-testEnvVar JAVA_HOME
+testJava 8
+testJava 11
+testJava 17
