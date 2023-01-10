@@ -22,9 +22,17 @@ bash ./klibio_setup.sh -b=${branch} -o
 rm klibio_setup.sh
 
 echo "# DEBUG START"
-env | sort && ls -la ~/.klibio/*/*
-echo "# DEBUG START"
 
+echo "## environment variables"
+env | sort 
+
+echo "## directories/files"
+ls -la ~/.klibio/*/*
+
+echo "## alias"
+alias
+
+echo "# DEBUG END"
 
 echo "# source the installed .bashrc file "
 source "$HOME"/.bashrc
