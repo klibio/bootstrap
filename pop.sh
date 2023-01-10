@@ -1,7 +1,7 @@
 #!/bin/bash
 set -Eeuo pipefail
 
-GITHUB_REF_NAME=${1:-main}
+branch=${1:-main}
 
 function testEnvVar() {
     set +u
@@ -15,7 +15,7 @@ function testEnvVar() {
 }
 
 echo "# INSTALL"
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/$GITHUB_REF_NAME/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/$branch/install.sh)"
 
 echo "# source the installed .bashrc file "
 source "$HOME"/.bashrc

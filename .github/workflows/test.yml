@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - run: ./pop.sh ${{github.ref_name}}
+      - run: ./pop.sh "${{github.ref_name}}"
 #  pop-macosx-macos-10-15:
 #    runs-on: macos-10.15
 #    steps:
