@@ -111,4 +111,4 @@ source ~/.klibio/provisionJava.sh
 # copy folder .klibio into ~
 # execute provisionJava.sh
 
-echo "setup script completed"
+echo "# setup script completed"

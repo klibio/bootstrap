@@ -3,7 +3,8 @@ set -Eeuo pipefail
 
 javaRestAPI=https://api.adoptium.net
 
-export KLIBIO=${KLIBIO:=`echo $HOME/.klibio`}
+KLIBIO=${KLIBIO:=`echo $HOME/.klibio`}
+export KLIBIO=$KLIBIO
 javaDir=$(echo "$KLIBIO/java")
 
 source $KLIBIO/env.sh
