@@ -1,4 +1,4 @@
-#!/bin/bash -li
+#!/bin/bash
 
 set -x          # activate debug
 set -o nounset  # exit with error on unset variables
@@ -14,6 +14,10 @@ echo "## DEBUG directories/files - only relevant are displayed"
 ls -la ~/.bashrc
 echo "### content of ~/.bashrc"
 cat ~/.bashrc
+
+echo "### source "
+shopt -s expand_aliases
+source ~/.bashrc
 
 ls -la ~/.klibio/*
 ls -la ~/.klibio/*/*
