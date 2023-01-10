@@ -47,7 +47,7 @@ function testJava() {
     set +u
     declare javaVersion=$1
     echo "## testing java $javaVersion"
-    setJava $javaVersion
+    source ${KLIBIO}/setJava.sh $javaVersion
     testEnvVar JAVA_HOME
     java -version
     set -u
