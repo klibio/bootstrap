@@ -1,12 +1,9 @@
-#!/bin/bash
+#!/bin/bash -li
 
 set -x          # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # 
-
-shopt -s expand_aliases
-source ~/.bashrc
 
 echo "# DEBUG START"
 
