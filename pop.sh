@@ -3,7 +3,6 @@ set -Eeuo pipefail
 
 branch=${1:-main}
 
-
 echo "# INSTALL"
 curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install.sh > ./klibio_setup.sh
 chmod u+x ./klibio_setup.sh
