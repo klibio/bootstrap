@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 set -Eeuo pipefail
 
 branch=${1:-main}
