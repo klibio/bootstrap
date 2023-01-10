@@ -12,6 +12,9 @@ env | sort
 
 echo "## DEBUG directories/files - only relevant are displayed"
 ls -la ~/.bashrc
+echo "### content of ~/.bashrc"
+cat ~/.bashrc
+
 ls -la ~/.klibio/*
 ls -la ~/.klibio/*/*
 
