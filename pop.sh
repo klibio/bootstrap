@@ -8,7 +8,7 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 # default variables
-local branch=${1:-main}
+branch=${1:-main}
 
 # load library
 . /dev/stdin <<< "$(curl -s /klibio/bootstrap/${branch}/bash/.klibio/lib.bash)"
