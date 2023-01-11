@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -o xtrace   # activate debug
+# activate bash checks
+#set -o xtrace   # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
@@ -28,7 +29,7 @@ alias -p
 echo "# DEBUG END"
 
 # test for variable existence and output value if found
-testEnvVar() {
+test_env_var() {
     set +u
     declare var=$1
     echo -ne "checking for $var ... "
@@ -41,14 +42,14 @@ testEnvVar() {
 }
 
 echo "# test variable existences"
-testEnvVar KLIBIO
+test_env_var KLIBIO
 
 testJava() {
     set +u
     declare javaVersion=$1
     echo "## testing java $javaVersion"
     source ${KLIBIO}/setJava.sh $javaVersion
-    testEnvVar JAVA_HOME
+    test_env_var JAVA_HOME
     java -version
     set -u
 }
