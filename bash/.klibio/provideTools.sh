@@ -21,10 +21,10 @@ if which curl > /dev/null; then
     exit 1;
 fi
 
-if [ ! -f $tools_dir/$jq ]; then
-  mkdir -p $tools_dir
-  curl -s -C - --output $tools_dir/$jq -L ${jq_download_link}/$jq
-  chmod u+x $tools_dir/$jq
-  jq=$tools_dir/$jq
+if [ ! -f ${tools_dir}/${jq} ]; then
+  mkdir -p ${tools_dir}
+  curl -s -C - --output ${tools_dir}/${jq} -L ${jq_download_link}/${jq}
+  chmod u+x ${tools_dir}/${jq}
+  jq=${tools_dir}/${jq}
 fi
-echo "using jq version: $($jq --version)"
+echo "using jq version: $(${jq} --version)"
