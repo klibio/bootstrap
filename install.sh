@@ -1,12 +1,7 @@
 #!/bin/bash
-<<<<<<< HEAD
 script_dir=$(cd "$(dirname "$0")" && pwd)
 branch=main
 overwrite=false
-=======
-scriptDir=$(cd "$(dirname "$0")" && pwd)
-branch=main
->>>>>>> bd39894... fix os specific execution
 
 for i in "$@"; do
   case $i in
