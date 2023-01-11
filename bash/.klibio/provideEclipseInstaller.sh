@@ -16,6 +16,7 @@ tools_dir=$(realpath -s "${KLIBIO}/tool")
 tools_archives="${tools_dir}/archives"
 installer_dir="${tools_dir}/eclipse-installer"
 
+
 mkdir -p ${installer_dir}
 mkdir -p ${tools_archives}
 
@@ -23,6 +24,7 @@ mkdir -p ${tools_archives}
 
 download_url="https://download.eclipse.org/oomph/products/latest/eclipse-inst-jre-${eclInstaller}"
 output_file="eclipse-inst-jre-${eclInstaller}"
+
 
 echo -e "#\n# downloading $output_file to $tools_archives\n#\n"
 curl -sSL \
