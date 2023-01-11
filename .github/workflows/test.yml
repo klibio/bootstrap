@@ -2,7 +2,7 @@
 # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
 name: proof-of-performance-on-platforms
 run-name: executing OS tests on branch ${{github.ref_name}} for ${{github.actor}}
-on: [push,pull_request]
+on: [pull_request]
 jobs:
   pop-win32-windows-2022:
     runs-on: windows-2022
