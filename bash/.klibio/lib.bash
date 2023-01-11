@@ -1,5 +1,6 @@
 #!/bin/bash
-# activate bash checks for unset vars, pipe fails
+
+# activate bash checks
 #set -o xtrace   # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value

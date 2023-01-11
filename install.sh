@@ -1,5 +1,5 @@
 #!/bin/bash
-scriptDir=$(cd "$(dirname "$0")" && pwd)
+script_dir=$(cd "$(dirname "$0")" && pwd)
 branch=main
 overwrite=false
 
@@ -22,7 +22,12 @@ for i in "$@"; do
   esac
 done
 
-set -Eeuo pipefail
+# activate bash checks
+#set -o xtrace   # activate debug
+set -o nounset  # exit with error on unset variables
+set -o errexit  # exit if any statement returns a non-true return value
+set -o pipefail # exit if any pipe command is failing
+
 cat << EOF
 
  ##    ## ##      #### ########  ####  ####### 
@@ -47,7 +52,7 @@ dlFileFromGithub() {
     file=$(basename -- "$1")
     targetFolder=${2:-~}
     url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/bash/$os/$file
-    pushd $targetFolder > /dev/null
+    pushd $targetFolder > /dev/nullUser
     echo "downloading $url"
     curl -sSL \
         $url \
@@ -55,7 +60,7 @@ dlFileFromGithub() {
     popd > /dev/null
 }
 
-dlAndExtractFileFromGithub() {
+download_and_extract_file_from_github() {
     targetFolder=${2:-~}
     url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/$1
     echo "downloading and extract $url"
@@ -64,7 +69,7 @@ dlAndExtractFileFromGithub() {
         | tar xvz -C $targetFolder > /dev/null
 }
 
-askUser() {
+ask_user() {
     file=$1
     targetFolder=${2:-~}
     if [[ $file == *.tar.gz ]]; then
@@ -73,13 +78,13 @@ askUser() {
             while true; do
                 read -p "Do you wish to overwrite $targetFolder/$dirname? " yn
                 case $yn in
-                    [Yy]* ) dlAndExtractFileFromGithub $file; break;;
+                    [Yy]* ) download_and_extract_file_from_github $file; break;;
                     [Nn]* ) break;;
                     * ) echo "Please answer yes or no.";;
                 esac
             done
         else
-            dlAndExtractFileFromGithub $file
+            download_and_extract_file_from_github $file
         fi
     else
         file=$targetFolder/$file
@@ -98,11 +103,11 @@ askUser() {
     fi
 }
 
-askUser .klibio.tar.gz
+ask_user .klibio.tar.gz
 . ~/.klibio/env.sh
 
-askUser .bashrc
-askUser .gitconfig
+ask_user .bashrc
+ask_user .gitconfig
 
 . ~/.klibio/provisionJava.sh
 
