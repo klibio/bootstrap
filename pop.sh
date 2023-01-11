@@ -6,10 +6,8 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-# default variables
-branch=${1:-main}
-
 # load library
+branch=${1:-main}
 . /dev/stdin <<< "$(curl -s https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/lib.bash)"
 
 headline "proof-of-performance execution"

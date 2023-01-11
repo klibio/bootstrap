@@ -42,3 +42,11 @@ succ() {
     echo -e " - SUCCESS"
   fi
 }
+
+is_debug() {
+    if ${DEBUG:-false}; then
+        "$@"
+    else
+        "$@" >/dev/null 2>&1
+    fi
+}
