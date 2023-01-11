@@ -10,11 +10,11 @@ set -o pipefail # exit if any pipe command is failing
 branch=${1:-main}
 . /dev/stdin <<< "$(cat bash/.klibio/lib.bash)"
 
-echo "# INSTALL"
+padout "# execute user INSTALL commaind "
 curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install.sh > ./klibio_setup.sh
 chmod u+x ./klibio_setup.sh
 bash ./klibio_setup.sh -b=${branch} -o
 rm klibio_setup.sh
 
-echo "# launch a new bash with the actual test (sourcing the installed .bashrc) "
+padout "# launch a new bash with the actual test (sourcing the installed .bashrc) "
 bash ~/.klibio/testEnv.sh
