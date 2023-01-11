@@ -16,11 +16,12 @@ ls -la ~/.bashrc
 echo "### content of ~/.bashrc"
 cat ~/.bashrc
 
-echo "### source .bashrc"
-. $HOME/.bashrc
-
+# must be used before sourcing .bashrc (cause ls will become an alias)
 ls -la ~/.klibio/*
 ls -la ~/.klibio/*/*
+
+echo "### source .bashrc"
+. $HOME/.bashrc
 
 echo "## DEBUG alias"
 alias -p
