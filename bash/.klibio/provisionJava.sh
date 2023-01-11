@@ -51,7 +51,7 @@ provisionJava() {
   if [ -d "${install_dir}/${java_release_name}" ]; then
     echo -e "#\n# using existing Java from ${install_dir}/${java_release_name}\n#\n"
   else 
-    echo -e "#\n# extracting Java into ${install_dir}/{$java_release_name}\n#\n"
+    echo -e "#\n# extracting Java into ${install_dir}/${java_release_name}\n#\n"
     if [[ ${java_archive_name} == *.zip ]]; then
       unzip -qq -d "${install_dir}" "${archive_dir}/${java_archive_name}"
     elif [[ ${java_archive_name} == *.tar.gz ]]; then
