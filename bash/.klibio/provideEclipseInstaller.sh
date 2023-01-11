@@ -11,19 +11,18 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-export KLIBIO=${HOME}/.klibio
+export KLIBIO="${HOME}/.klibio"
 tools_dir=$(realpath -s "${KLIBIO}/tool")
-tools_archives=${tools_dir}/archives
-installer_dir=${tools_dir}/eclipse-installer
+tools_archives="${tools_dir}/archives"
+installer_dir="${tools_dir}/eclipse-installer"
 
 mkdir -p ${installer_dir}
 mkdir -p ${tools_archives}
 
 . ${KLIBIO}/env.sh
-env | sort | grep "ecl"
 
-download_url=https://download.eclipse.org/oomph/products/latest/eclipse-inst-jre-${eclInstaller}
-output_file=eclipse-inst-jre-${eclInstaller}
+download_url="https://download.eclipse.org/oomph/products/latest/eclipse-inst-jre-${eclInstaller}"
+output_file="eclipse-inst-jre-${eclInstaller}"
 
 echo -e "#\n# downloading $output_file to $tools_archives\n#\n"
 curl -sSL \
