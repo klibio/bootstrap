@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # activate bash checks
 #set -o xtrace   # activate debug
 set -o nounset  # exit with error on unset variables
@@ -11,7 +10,7 @@ set -o pipefail # exit if any pipe command is failing
 branch=${1:-main}
 
 # load library
-. /dev/stdin <<< "$(curl -s /klibio/bootstrap/${branch}/bash/.klibio/lib.bash)"
+. /dev/stdin <<< "$(curl -s https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/lib.bash)"
 
 headline "proof-of-performance"
 
