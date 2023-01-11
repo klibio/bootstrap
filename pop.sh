@@ -12,7 +12,7 @@ branch=${1:-main}
 # load library
 . /dev/stdin <<< "$(curl -s https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/lib.bash)"
 
-headline "proof-of-performance"
+headline "proof-of-performance execution"
 
 padout "# execute users bash INSTALL command"
 curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install.sh > ./klibio_setup.sh

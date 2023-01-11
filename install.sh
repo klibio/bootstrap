@@ -111,9 +111,4 @@ ask_user .gitconfig
 
 . ~/.klibio/provisionJava.sh
 
-# identify os
-# copy os specific folder from bash
-# copy folder .klibio into ~
-# execute provisionJava.sh
-
 echo "# setup script completed"
