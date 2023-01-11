@@ -43,7 +43,7 @@ cat << EOF
 
 EOF
 
-function dlFileFromGithub() {
+dlFileFromGithub() {
     file=$(basename -- "$1")
     targetFolder=${2:-~}
     url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/bash/$os/$file
@@ -55,7 +55,7 @@ function dlFileFromGithub() {
     popd > /dev/null
 }
 
-function dlAndExtractFileFromGithub() {
+dlAndExtractFileFromGithub() {
     targetFolder=${2:-~}
     url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/$1
     echo "downloading and extract $url"
@@ -64,7 +64,7 @@ function dlAndExtractFileFromGithub() {
         | tar xvz -C $targetFolder > /dev/null
 }
 
-function askUser() {
+askUser() {
     file=$1
     targetFolder=${2:-~}
     if [[ $file == *.tar.gz ]]; then
@@ -99,12 +99,12 @@ function askUser() {
 }
 
 askUser .klibio.tar.gz
-source ~/.klibio/env.sh
+. ~/.klibio/env.sh
 
 askUser .bashrc
 askUser .gitconfig
 
-source ~/.klibio/provisionJava.sh
+. ~/.klibio/provisionJava.sh
 
 # identify os
 # copy os specific folder from bash

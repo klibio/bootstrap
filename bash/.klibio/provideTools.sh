@@ -4,7 +4,7 @@ set -Eeuo pipefail
 export KLIBIO=$HOME/.klibio
 toolsDir=$(echo "$KLIBIO/tool")
 
-source $KLIBIO/env.sh
+. $KLIBIO/env.sh
 
  # check for curl and exit if not available
 if which curl > /dev/null; then
@@ -20,4 +20,4 @@ if [ ! -f $toolsDir/$jq ]; then
   chmod u+x $toolsDir/$jq
   jq=$toolsDir/$jq
 fi
-echo "using jq version: `$jq --version`"
+echo "using jq version: $($jq --version)"

@@ -1,19 +1,19 @@
 #!/bin/bash
-#set -x          # activate debug
+#set -o xtrace   # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 javaRestAPI=https://api.adoptium.net
 
-KLIBIO=${KLIBIO:=`echo $HOME/.klibio`}
+KLIBIO=${KLIBIO:=$(echo $HOME/.klibio)}
 export KLIBIO=$KLIBIO
 javaDir=$(echo "$KLIBIO/java")
 
-source $KLIBIO/env.sh
-source $KLIBIO/provideTools.sh
+. $KLIBIO/env.sh
+. $KLIBIO/provideTools.sh
 
-function provisionJava() {
+provisionJava() {
   javaVersion=${1:-17}
   javaImageType=${2:-jdk}
   javaArchitecture=${3:-x64}
