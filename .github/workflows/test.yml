@@ -3,10 +3,14 @@
 name: proof-of-performance build
 run-name: executing OS tests on branch ${{github.ref_name}} for ${{github.actor}}
 <<<<<<< HEAD
+<<<<<<< HEAD
 on: [pull_request]
 =======
 on: [push,pull_request]
 >>>>>>> 41b17e5... adding badge
+=======
+on: [pull_request]
+>>>>>>> 9ed7c59... adding badge
 jobs:
 #  pop-win32-windows-2022:
 #    runs-on: windows-2022
