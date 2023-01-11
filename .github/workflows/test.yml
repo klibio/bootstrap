@@ -1,6 +1,6 @@
 # available github action variables can be found
 # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
-name: proof-of-performance-on-platforms
+name: proof-of-performance build
 run-name: executing OS tests on branch ${{github.ref_name}} for ${{github.actor}}
 on: [push,pull_request]
 jobs:
