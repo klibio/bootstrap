@@ -27,9 +27,9 @@ provisionJava() {
   declare $current_java=java${java_version}
 
   echo -e "#\n# prepare ${java_image_type} ${current_java} for ${os} and arch ${java_architecture}\n#\n"
-  declare "url=${java_rest_api}/v3/assets/latest/${java_version}/hotspot?architecture=${java_architecture}&image_type=${java_image_type}&os=$os&vendor=eclipse"
-  if [ ! -d "$java_dir" ]; then mkdir -p $java_dir 2>/dev/null; fi
-  pushd $java_dir
+  declare "url=${java_rest_api}/v3/assets/latest/${java_version}/hotspot?architecture=${java_architecture}&image_type=${java_image_type}&os=${os}&vendor=eclipse"
+  if [ ! -d "${java_dir}" ]; then mkdir -p ${java_dir} 2>/dev/null; fi
+  pushd ${java_dir}
   curl -sSX 'GET' "$url" > resp.json
 #  if [ "$?" -ne "0" ]; then echo -e "failing release info download from url=$url\n hence exiting script"; fi
   declare java_archive_link=$( cat resp.json  | $jq -r '.[0].binary.package.link' )
@@ -37,7 +37,7 @@ provisionJava() {
   declare java_release_name=$( cat resp.json  | $jq -r '.[0].release_name' )
   rm resp.json
  
-# is_debug echo -e "parsed following values from $url\n  java_archive_link=$java_archive_link\n  java_archive_link=$java_archive_link\n  java_release_name=$java_release_name\n"
+  is_debug echo -e "parsed following values from $url\n  java_archive_link=${java_archive_link}\n  java_archive_link=${java_archive_link}\n  java_release_name=${java_release_name}\n"
 
   declare archive_dir=${java_dir}/archives
   mkdir -p ${archive_dir} && pushd ${archive_dir}
