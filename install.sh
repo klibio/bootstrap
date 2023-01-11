@@ -48,11 +48,11 @@ cat << EOF
 
 EOF
 
-dlFileFromGithub() {
+dl_file_from_github() {
     file=$(basename -- "$1")
     targetFolder=${2:-~}
     url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/bash/$os/$file
-    pushd $targetFolder > /dev/nullUser
+    pushd $targetFolder > /dev/null
     echo "downloading $url"
     curl -sSL \
         $url \
@@ -92,13 +92,13 @@ ask_user() {
             while true; do
                 read -p "Do you wish to overwrite $file? " yn
                 case $yn in
-                    [Yy]* ) dlFileFromGithub $file; break;;
+                    [Yy]* ) dl_file_from_github $file; break;;
                     [Nn]* ) break;;
                     * ) echo "Please answer [y]es or [n]o.";;
                 esac
             done
         else 
-            dlFileFromGithub $file
+            dl_file_from_github $file
         fi
     fi
 }

@@ -14,7 +14,7 @@ branch=${1:-main}
 
 headline "proof-of-performance"
 
-padout "# execute user INSTALL commaind "
+padout "# execute users bash INSTALL command"
 curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install.sh > ./klibio_setup.sh
 chmod u+x ./klibio_setup.sh
 bash ./klibio_setup.sh -b=${branch} -o

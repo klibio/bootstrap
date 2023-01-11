@@ -10,6 +10,7 @@ NC='\033[0m' # no color
 BLUE='\033[0;34m';
 RED='\e[31m';
 GREEN='\e[42m';
+
 headline() {
   if [ -t 1 ]; then # identify if stdout is terminal
     echo -ne "${BLUE}#\n# $1\n#\n${NC}"
@@ -17,6 +18,7 @@ headline() {
     echo -ne "#\n# $1\n#\n"
   fi
 }
+
 padout() {
   if [ -t 1 ]; then # identify if stdout is terminal
     printf -v x '%-60s' "$1"; echo -ne "${BLUE}$(date +%H:%M:%S) $x${NC}"
@@ -24,6 +26,7 @@ padout() {
     printf -v x '%-60s' "$1"; echo -ne "$(date +%H:%M:%S) $x"
   fi
 }
+
 err() {
   if [ -t 1 ]; then # identify if stdout is terminal
     echo -e " - ${RED}FAILED${NC}"
@@ -31,6 +34,7 @@ err() {
     echo -e " - FAILED"
   fi
 }
+
 succ() {
   if [ -t 1 ]; then # identify if stdout is terminal
     echo -e " - ${GREEN}SUCCESS${NC}"
