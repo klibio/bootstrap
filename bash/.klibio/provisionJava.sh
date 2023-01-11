@@ -37,7 +37,7 @@ provisionJava() {
   declare java_release_name=$( cat resp.json  | $jq -r '.[0].release_name' )
   rm resp.json
  
-  is_debug echo -e "parsed following values from $url\n  java_archive_link=${java_archive_link}\n  java_archive_link=${java_archive_link}\n  java_release_name=${java_release_name}\n"
+  echo -e "parsed following values from $url\n  java_archive_link=${java_archive_link}\n  java_archive_name=${java_archive_name}\n  java_release_name=${java_release_name}\n"
 
   declare archive_dir=${java_dir}/archives
   mkdir -p ${archive_dir} && pushd ${archive_dir}
@@ -51,11 +51,11 @@ provisionJava() {
   if [ -d "${install_dir}/${java_release_name}" ]; then
     echo -e "#\n# using existing Java from ${install_dir}/${java_release_name}\n#\n"
   else 
-    echo -e "#\n# extracting Java into $install_dir/$java_release_name\n#\n"
+    echo -e "#\n# extracting Java into ${install_dir}/{$java_release_name}\n#\n"
     if [[ ${java_archive_link} == *.zip ]]; then
-      unzip -qq -d "${install_dir}" "${archive_dir}/${java_archive_link}"
-    elif [[ ${java_archive_link} == *.tar.gz ]]; then
-      tar xvzf "${archive_dir}/${java_archive_link}" -C "${install_dir}"
+      unzip -qq -d "${install_dir}" "${archive_dir}/${java_archive_name}"
+    elif [[ ${java_archive_name} == *.tar.gz ]]; then
+      tar xvzf "${archive_dir}/${java_archive_name}" -C "${install_dir}"
     else
       echo -e "#\n# the archive format could not be recognized \n#\n"
     fi
