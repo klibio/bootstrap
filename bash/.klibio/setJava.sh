@@ -10,7 +10,7 @@ java_home_suffix=${java_home_suffix:=}
 
 . ${KLIBIO}/env.sh
 
-. $KLIBIO/env.sh
+. ${KLIBIO}/env.sh
 
 #env variables can be changed only if we call the script with `source setJava.sh`
 
