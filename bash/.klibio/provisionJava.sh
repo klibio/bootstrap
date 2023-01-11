@@ -39,28 +39,28 @@ provisionJava() {
  
 # is_debug echo -e "parsed following values from $url\n  java_archive_link=$java_archive_link\n  java_archive_link=$java_archive_link\n  java_release_name=$java_release_name\n"
 
-  declare archiveDir=$java_dir/archives
-  mkdir -p $archiveDir && pushd $archiveDir
+  declare archive_dir=$java_dir/archives
+  mkdir -p $archive_dir && pushd $archive_dir
   if [ ! -f $java_archive_link ]; then
     curl -s -C - -k -O -L $java_archive_link
   fi
 
-  declare installDir=$java_dir/exec
+  declare install_dir=$java_dir/exec
   declare linkDir=$java_dir/ee
-  mkdir -p $installDir && mkdir -p $linkDir && pushd $installDir
-  if [ -d "$installDir/$java_release_name" ]; then
-    echo -e "#\n# using existing Java from $installDir/$java_release_name\n#\n"
+  mkdir -p $install_dir && mkdir -p $linkDir && pushd $install_dir
+  if [ -d "$install_dir/$java_release_name" ]; then
+    echo -e "#\n# using existing Java from $install_dir/$java_release_name\n#\n"
   else 
-    echo -e "#\n# extracting Java into $installDir/$java_release_name\n#\n"
+    echo -e "#\n# extracting Java into $install_dir/$java_release_name\n#\n"
     if [[ $java_archive_link == *.zip ]]; then
-      unzip -qq -d "$installDir" "$archiveDir/$java_archive_link"
+      unzip -qq -d "$install_dir" "$archive_dir/$java_archive_link"
     elif [[ $java_archive_link == *.tar.gz ]]; then
-      tar xvzf "$archiveDir/$java_archive_link" -C "$installDir"
+      tar xvzf "$archive_dir/$java_archive_link" -C "$install_dir"
     else
       echo -e "#\n# the archive format could not be recognized \n#\n"
     fi
     if [ -f $linkDir/$current_java ]; then rm $linkDir/$current_java; fi
-    ln -s "$installDir/$java_release_name" $linkDir/$current_java
+    ln -s "$install_dir/$java_release_name" $linkDir/$current_java
   fi
 
   popd
