@@ -41,7 +41,7 @@ provisionJava() {
 
   declare archive_dir=${java_dir}/archives
   mkdir -p ${archive_dir} && pushd ${archive_dir}
-  if [ ! -f ${java_archive_link} ]; then
+  if [ ! -f ${java_archive_name} ]; then
     curl -s -C - -k -O -L ${java_archive_link}
   fi
 
