@@ -108,6 +108,16 @@ ask_user .klibio.tar.gz
 
 ask_user .bashrc
 
+<<<<<<< HEAD
 . ~/.klibio/provisionJava.sh
+=======
+source ~/.klib.io/provideEclipseInstaller.sh
+
+# identify os
+# copy os specific folder from bash
+# copy folder .klibio into ~
+# execute provisionJava.sh
+# execute provideEclipseInstaller.sh
+>>>>>>> f7473c7... Feature/eclipse installer (#2)
 
 echo "# setup script completed"
