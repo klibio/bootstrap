@@ -11,7 +11,7 @@ mkdir -p $toolsArchives
 
 source $KLIBIO/env.sh
 
-downloadUrl=https://download.eclipse.org/oomph/products/latest/eclipse-inst-$eclInstaller
+downloadUrl=https://download.eclipse.org/oomph/products/latest/eclipse-inst-jre-$eclInstaller
 outputFile=eclipse-inst-jre-$eclInstaller
 
 echo -e "#\n# downloading $outputFile to $toolsArchives\n#\n"
