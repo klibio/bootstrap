@@ -23,13 +23,13 @@ case $1 in
         exit 0
     ;;
     8)
-        export JAVA_HOME=$KLIBIO/java/ee/JAVA8
+        export JAVA_HOME=$KLIBIO/java/ee/JAVA8${java_home_suffix}
     ;;
     11)
-        export JAVA_HOME=$KLIBIO/java/ee/JAVA11
+        export JAVA_HOME=$KLIBIO/java/ee/JAVA11${java_home_suffix}
     ;;
     17)
-        export JAVA_HOME=$KLIBIO/java/ee/JAVA17
+        export JAVA_HOME=$KLIBIO/java/ee/JAVA17${java_home_suffix}
     ;;
     *)
         echo "usage error: setJava <version>\n version can be one of unset, 8, 11, 17"
@@ -39,4 +39,6 @@ esac
 
 echo JAVA_HOME=$JAVA_HOME
 export PATH=$JAVA_HOME/bin:$PATH
+
+
 java -version
