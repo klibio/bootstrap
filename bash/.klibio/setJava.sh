@@ -6,6 +6,8 @@ set -o pipefail # exit if any pipe command is failing
 KLIBIO=${KLIBIO:=`echo $HOME/.klibio`}
 export KLIBIO=$KLIBIO
 
+. $KLIBIO/env.sh
+
 #env variables can be changed only if we call the script with `source setJava.sh`
 
 removeFromPath () {
