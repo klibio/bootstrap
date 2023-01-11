@@ -11,4 +11,4 @@ bash ./klibio_setup.sh -b=${branch} -o
 rm klibio_setup.sh
 
 echo "# launch a new bash with the actual test (sourcing the installed .bashrc) "
-~/.klibio/testEnv.sh
+bash -x ~/.klibio/testEnv.sh
