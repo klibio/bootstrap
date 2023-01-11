@@ -107,7 +107,6 @@ ask_user .klibio.tar.gz
 . ~/.klibio/env.sh
 
 ask_user .bashrc
-ask_user .gitconfig
 
 . ~/.klibio/provisionJava.sh
 
