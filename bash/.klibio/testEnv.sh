@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x          # activate debug
+#set -x          # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
