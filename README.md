@@ -1,6 +1,6 @@
 # bootstrap your java developer machine
 
-![proof-of-performance-on-platforms](https://github.com/klibio/bootstrap/actions/workflows/test.yml/badge.svg)
+![proof-of-performance build](https://github.com/klibio/bootstrap/actions/workflows/test.yml/badge.svg)
 
 quick and easy bash, java and eclipse setup
 
