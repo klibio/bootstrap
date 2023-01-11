@@ -37,7 +37,7 @@ provisionJava() {
   declare java_release_name=$( cat resp.json  | $jq -r '.[0].release_name' )
   rm resp.json
  
- is_debug echo -e "parsed following values from $url\n  java_archive_link=$java_archive_link\n  java_archive_link=$java_archive_link\n  java_release_name=$java_release_name\n"
+# is_debug echo -e "parsed following values from $url\n  java_archive_link=$java_archive_link\n  java_archive_link=$java_archive_link\n  java_release_name=$java_release_name\n"
 
   declare archiveDir=$java_dir/archives
   mkdir -p $archiveDir && pushd $archiveDir
