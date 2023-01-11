@@ -23,11 +23,11 @@ provisionJava() {
   java_version=${1:-17}
   java_image_type=${2:-jdk}
   java_architecture=${3:-x64}
-  current_java=JAVA$java_version
-  declare $current_java=java$java_version
+  current_java=JAVA${java_version}
+  declare $current_java=java${java_version}
 
-  echo -e "#\n# prepare $java_image_type $current_java for $os and arch $java_architecture\n#\n"
-  declare "url=$java_rest_api/v3/assets/latest/$java_version/hotspot?architecture=$java_architecture&image_type=$java_image_type&os=$os&vendor=eclipse"
+  echo -e "#\n# prepare ${java_image_type} ${current_java} for ${os} and arch ${java_architecture}\n#\n"
+  declare "url=${java_rest_api}/v3/assets/latest/${java_version}/hotspot?architecture=${java_architecture}&image_type=${java_image_type}&os=$os&vendor=eclipse"
   if [ ! -d "$java_dir" ]; then mkdir -p $java_dir 2>/dev/null; fi
   pushd $java_dir
   curl -sSX 'GET' "$url" > resp.json
@@ -39,28 +39,28 @@ provisionJava() {
  
 # is_debug echo -e "parsed following values from $url\n  java_archive_link=$java_archive_link\n  java_archive_link=$java_archive_link\n  java_release_name=$java_release_name\n"
 
-  declare archive_dir=$java_dir/archives
-  mkdir -p $archive_dir && pushd $archive_dir
-  if [ ! -f $java_archive_link ]; then
-    curl -s -C - -k -O -L $java_archive_link
+  declare archive_dir=${java_dir}/archives
+  mkdir -p ${archive_dir} && pushd ${archive_dir}
+  if [ ! -f ${java_archive_link} ]; then
+    curl -s -C - -k -O -L ${java_archive_link}
   fi
 
-  declare install_dir=$java_dir/exec
-  declare linkDir=$java_dir/ee
-  mkdir -p $install_dir && mkdir -p $linkDir && pushd $install_dir
-  if [ -d "$install_dir/$java_release_name" ]; then
-    echo -e "#\n# using existing Java from $install_dir/$java_release_name\n#\n"
+  declare install_dir=${java_dir}/exec
+  declare link_dir=${java_dir}/ee
+  mkdir -p ${install_dir} && mkdir -p ${link_dir} && pushd ${install_dir}
+  if [ -d "${install_dir}/${java_release_name}" ]; then
+    echo -e "#\n# using existing Java from ${install_dir}/${java_release_name}\n#\n"
   else 
     echo -e "#\n# extracting Java into $install_dir/$java_release_name\n#\n"
-    if [[ $java_archive_link == *.zip ]]; then
-      unzip -qq -d "$install_dir" "$archive_dir/$java_archive_link"
-    elif [[ $java_archive_link == *.tar.gz ]]; then
-      tar xvzf "$archive_dir/$java_archive_link" -C "$install_dir"
+    if [[ ${java_archive_link} == *.zip ]]; then
+      unzip -qq -d "${install_dir}" "${archive_dir}/${java_archive_link}"
+    elif [[ ${java_archive_link} == *.tar.gz ]]; then
+      tar xvzf "${archive_dir}/${java_archive_link}" -C "${install_dir}"
     else
       echo -e "#\n# the archive format could not be recognized \n#\n"
     fi
-    if [ -f $linkDir/$current_java ]; then rm $linkDir/$current_java; fi
-    ln -s "$install_dir/$java_release_name" $linkDir/$current_java
+    if [ -f ${link_dir}/${current_java} ]; then rm ${link_dir}/${current_java}; fi
+    ln -s "${install_dir}/${java_release_name}" ${link_dir}/${current_java}
   fi
 
   popd
