@@ -17,7 +17,6 @@ echo "### content of ~/.bashrc"
 cat ~/.bashrc
 
 echo "### source .bashrc"
-shopt -s expand_aliases
 . $HOME/.bashrc
 
 ls -la ~/.klibio/*
