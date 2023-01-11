@@ -44,3 +44,7 @@ echo JAVA_HOME=${JAVA_HOME}
 export PATH=${JAVA_HOME}/bin:$PATH
 
 java -version
+
+# restore default behaviour
+set +o errexit  # exit if any statement returns a non-true return value
+set +o pipefail # exit if any pipe command is failing
