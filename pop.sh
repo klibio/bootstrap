@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# proof-of-performance execution
+#
 
 # activate bash checks
 #set -o xtrace   # activate debug
@@ -6,12 +9,12 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
+echo "# load klibio library"
+. /dev/stdin <<< "$(cat bash/.klibio/env.sh)"
+. /dev/stdin <<< "$(cat bash/.klibio/lib.bash)"
+
 echo "# github env"
 env | sort
-
-branch=${1:-main}
-echo "# load klibio library"
-. /dev/stdin <<< "$(cat bash/.klibio/lib.bash)"
 
 headline "proof-of-performance execution"
 

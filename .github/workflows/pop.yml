@@ -1,0 +1,35 @@
+# available github action variables can be found
+# https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+name: proof-of-performance build
+on: [push,pull_request]
+env:
+  AGENT_ID: github_runner
+  GH_BRANCH: ${{ github.head_ref || github.ref_name }}
+run-name: proof-of-performance on branch ${{ github.head_ref || github.ref_name }} for ${{github.actor}}
+jobs:
+  pop-on-os-matrix:
+    name: pop
+    strategy:
+      matrix:
+        os:
+#          - macos-10.15
+#          - macos-11
+#          - macos-12
+          - macos-latest
+#          - ubuntu-18.04
+#          - ubuntu-20.04
+#          - ubuntu-22.04
+          - ubuntu-latest
+#          - windows-2022
+#          - windows-2019
+          - windows-latest
+        arch:
+          - X86
+          - X64
+          - ARM
+          - ARM64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - shell: bash
+        run: ./pop.sh
