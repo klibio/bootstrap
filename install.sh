@@ -58,7 +58,7 @@ github_provision .klibio.tar.gz
 github_provision .bashrc
 . /dev/stdin <<< "$(cat ~/.klibio/provision-java.sh)"
 
-~/.x <<< cat << EOF
+~/.x << cat << EOF
 if [ -f $HOME/.bash_aliases ]
 then
   . $HOME/.bash_aliases
