@@ -7,7 +7,7 @@
 # shell variables
 ###########################################################
 
-if [ -v "KLIBIO_AVAILABLE" ]; then return; fi
+if [ -v "KLIBIO_AVAILABLE" ]; then echo "klibio lib already available"; return; fi
 
 export KLIBIO=${KLIBIO:=$(echo ~/.klibio)}
 
