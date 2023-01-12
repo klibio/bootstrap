@@ -15,7 +15,7 @@ fi
 PS1="\D{%Y%m%d-%H%M%S} \u@\H:\w jobs=\j\n$ "
 
 # load aliases
-if [ -f $HOME/.bash_aliases ]
+if [ -f ~/.bash_aliases ]
 then
-  . $HOME/.bash_aliases
+  . ~/.bash_aliases
 fi

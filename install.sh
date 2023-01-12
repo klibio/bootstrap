@@ -61,9 +61,8 @@ github_provision .bash_aliases
 
 cat << EOT >> ~/.bashrc
 # source the klibio bash extension
-if [ -f $HOME/.bash_klibio ]
-then
-  . $HOME/.bash_klibio
+if [ -f ~/.bash_klibio ]; then
+  . ~/.bash_klibio
 fi
 EOT
 

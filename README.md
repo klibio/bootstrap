@@ -5,7 +5,7 @@
 quick and easy setup of 
 
 * bash
-* java LTS 
+* java LTS [8, 11, 17]
 * eclipse/oomph installer 
 
 on supported os[windows,mac,linux] and arch[arm,arm64,x86,x64]
