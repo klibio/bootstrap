@@ -15,9 +15,9 @@ branch=$(git rev-parse --abbrev-ref HEAD) && branch=${branch:-main}
 
 headline "proof-of-performance execution - started"
 
-headline "# execute users bash INSTALL command"
-curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install.sh > ./klibio_setup.sh
-chmod u+x ./klibio_setup.sh
+headline "# execute users command - install-klibio.sh"
+curl -fsSLO https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
+chmod u+x ./install-klibio.sh
 bash ./klibio_setup.sh -b=${branch} -o
 rm klibio_setup.sh
 

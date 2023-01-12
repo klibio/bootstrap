@@ -17,13 +17,13 @@ underlying principles are
 # direct installation
 execute the following script for installation on a machine inside a bash
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/main/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/main/install-klibio.sh)"
 ```
 
 # local execution with parameters
 ```bash
 
-curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install.sh > ./klibio_setup.sh
+curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh > ./klibio_setup.sh
 chmod u+x ./klibio_setup.sh
 bash ./klibio_setup.sh -b=${branch} -o
 rm klibio_setup.sh
