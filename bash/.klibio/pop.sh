@@ -26,6 +26,7 @@ ls -la ~/.klibio/*/*
 # so some commands like e.g. ls or cat might not work
 ###########################################################
 echo "### source .bashrc"
+shopt -s expand_aliases
 . ~/.bashrc
 
 echo "## DEBUG alias - start"
