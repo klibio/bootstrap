@@ -8,6 +8,7 @@ env:
 run-name: executing OS tests on branch ${{ github.head_ref || github.ref_name }} for ${{github.actor}}
 jobs:
   pop-on-os-matrix:
+    name: pop on platform OS runner.os
     strategy:
       matrix:
         os:
@@ -23,7 +24,6 @@ jobs:
 #          - windows-2019
           - windows-latest
     runs-on: ${{ matrix.os }}
-    name: pop on platform OS runner.os
     steps:
       - uses: actions/checkout@v3
       - shell: bash
