@@ -54,12 +54,12 @@ cat << EOT
 EOT
 
 github_provision .klibio.tar.gz
-
 github_provision .bash_klibio
 github_provision .bash_aliases
+
 . /dev/stdin <<< "$(cat ~/.klibio/provision-java.sh)"
 
-cat << EOT >> ~/.x
+cat << EOT >> ~/.bashrc
 # source the klibio bash extension
 if [ -f $HOME/.bash_klibio ]
 then
