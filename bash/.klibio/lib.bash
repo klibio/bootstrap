@@ -1,10 +1,56 @@
 #!/bin/bash
 
-# activate bash checks
+# activate debugging
 #set -o xtrace   # activate debug
-set -o nounset  # exit with error on unset variables
-set -o errexit  # exit if any statement returns a non-true return value
-set -o pipefail # exit if any pipe command is failing
+
+###########################################################
+# shell variables
+###########################################################
+
+# general 
+export          date=$(date +'%Y.%m.%d-%H.%M.%S')
+
+export        branch=$(git rev-parse --abbrev-ref HEAD)
+export       vcs_ref=$(git rev-list -1 HEAD)
+export vcs_ref_short=$(git describe --dirty --always)
+
+# export variable into build agents e.g. github runner, azure runner
+declare -a build_agent_vars=(
+  "date"
+  ,"branch"
+  ,"vcs_ref"
+  ,"vcs_ref_short"
+)
+if [ -v "AGENT_ID" ]; then
+  echo "running inside workflow pipeline - hence set variables"
+  for i in "@{build_agent_vars[@]}" do
+    echo "##vso[task.setvariable variable=${i^^}]${i}"
+  done
+fi
+
+# OS specific environment variables
+
+if [[ "$OSTYPE" == "msys" ]]; then
+  export os=windows
+  export jq=jq-win64.exe
+  export eclInstaller=win64.zip
+fi
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  export os=mac
+  export jq=jq-osx-amd64
+  export eclInstaller=mac64.tar.gz
+  export java_home_suffix=/Contents/Home
+fi
+if [[ "$OSTYPE" == "linux"* ]]; then
+  export os=linux
+  export jq=jq-linux64
+  export eclInstaller=linux64.tar.gz
+fi
+
+
+###########################################################
+# color settings for console output
+###########################################################
 
 NC='\033[0m' # no color
 BLUE='\033[0;34m';
