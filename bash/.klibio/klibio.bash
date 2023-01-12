@@ -7,6 +7,8 @@ set -o xtrace   # activate debug
 # shell variables
 ###########################################################
 
+export KLIBIO=${KLIBIO:=$(echo $HOME/.klibio)}
+
 # general 
 export          date=$(date +'%Y.%m.%d-%H.%M.%S')
 
