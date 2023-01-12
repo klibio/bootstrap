@@ -7,8 +7,6 @@ set -o xtrace   # activate debug
 # shell variables
 ###########################################################
 
-if [ -v "KLIBIO_AVAILABLE" ]; then echo "klibio lib already available"; return; fi
-
 export KLIBIO=${KLIBIO:=$(echo ~/.klibio)}
 
 # general 
@@ -158,6 +156,3 @@ github_provision() {
         fi
     fi
 }
-
-## avoid a
-export KLIBIO_AVAILABLE=true
