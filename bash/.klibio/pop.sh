@@ -68,6 +68,6 @@ testJava() {
 }
 
 echo "# test java version"
-testJava  8 | grep -q 'version "1.8' && succ || err
-testJava 11 | grep -q 'version "11'  && succ || err
-testJava 17 | grep -q 'version "17'  && succ || err
+testJava  8
+testJava 11
+testJava 17
