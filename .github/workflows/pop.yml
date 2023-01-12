@@ -8,7 +8,7 @@ env:
 run-name: executing OS tests on branch ${{ github.head_ref || github.ref_name }} for ${{github.actor}}
 jobs:
   pop-on-os-matrix:
-    name: execute proof-of-performance on platform OS
+    name: pop on platform OS $RUNNER_OS
     strategy:
       matrix:
         os:
