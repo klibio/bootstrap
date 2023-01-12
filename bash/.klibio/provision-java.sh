@@ -17,7 +17,7 @@ export KLIBIO=$KLIBIO
 java_dir=$(echo "$KLIBIO/java")
 
 . /dev/stdin <<< "$(cat ~/.klibio/lib.bash)"
-. /dev/stdin <<< "$(cat ~/.klibio/provideTools.sh)"
+. /dev/stdin <<< "$(cat ~/.klibio/provision-tools.sh)"
 
 provisionJava() {
   java_version=${1:-17}

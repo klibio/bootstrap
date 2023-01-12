@@ -109,6 +109,6 @@ ask_user .klibio.tar.gz
 . /dev/stdin <<< "$(cat ~/.klibio/lib.bash)"
 
 ask_user .bashrc
-. /dev/stdin <<< "$(cat ~/.klibio/provisionJava.sh)"
+. /dev/stdin <<< "$(cat ~/.klibio/provision-java.sh)"
 
 echo "# setup script completed"
