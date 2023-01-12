@@ -7,7 +7,7 @@
 # shell variables
 ###########################################################
 
-if [ -v "KLIBIO_AVAILABLE" ]; then exit 0; fi
+if [ -v "KLIBIO_AVAILABLE" ]; then return; fi
 
 export KLIBIO=${KLIBIO:=$(echo ~/.klibio)}
 
@@ -159,4 +159,5 @@ github_provision() {
     fi
 }
 
-KLIBIO_AVAILABLE=true
+## avoid a
+export KLIBIO_AVAILABLE=true
