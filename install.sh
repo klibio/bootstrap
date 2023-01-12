@@ -53,12 +53,15 @@ cat << EOT
 ###########################################################
 EOT
 
+headline "provision github sources"
 github_provision .klibio.tar.gz
 github_provision .bash_klibio
 github_provision .bash_aliases
 
+headline "provision java"
 . /dev/stdin <<< "$(cat ~/.klibio/provision-java.sh)"
 
+headline "configure ~/.bashrc"
 cat << EOT >> ~/.bashrc
 # source the klibio bash extension
 if [ -f ~/.bash_klibio ]; then
@@ -66,4 +69,4 @@ if [ -f ~/.bash_klibio ]; then
 fi
 EOT
 
-echo "# setup script completed"
+headline "klibio setup script completed"
