@@ -1,14 +1,12 @@
-# 
-
 export KLIBIO=$(echo ~/.klibio)
 
 # java settings
 if [ -f ${KLIBIO}/set-java.sh ]
 then
-  # configure default java to version 17
-  ${KLIBIO}/set-java.sh 17
   # append klibio tools folder to path
   export PATH=${PATH}:${KLIBIO}
+  # configure default java to version 17
+  set-java.sh 17
 fi
 
 # define prompt

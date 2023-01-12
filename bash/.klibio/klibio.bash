@@ -8,6 +8,7 @@ set -o xtrace   # activate debug
 ###########################################################
 
 export KLIBIO=${KLIBIO:=$(echo ~/.klibio)}
+export PATH=$PATH:$KLIBIO
 
 # general 
 export          date=$(date +'%Y.%m.%d-%H.%M.%S')
