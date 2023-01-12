@@ -10,6 +10,10 @@ quick and easy setup of
 
 on supported os[windows,mac,linux] and arch[arm,arm64,x86,x64]
 
+underlying principles are
+* minimal host changes (only additions in `.bashrc` scripts and `PATH` variable)
+* idempotent execution (can be consecutively executed give same result)
+
 # direct installation
 execute the following script for installation on a machine inside a bash
 ```bash
