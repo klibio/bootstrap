@@ -21,7 +21,7 @@ ls -la ~/.klibio/*
 ls -la ~/.klibio/*/*
 
 echo "### source .bashrc"
-. $HOME/.bashrc
+. ~/.bashrc
 
 echo "## DEBUG alias"
 alias -p
@@ -59,4 +59,4 @@ testJava 8
 testJava 11
 testJava 17
 
-cat ~/.x
+cat ~/.bashrc
