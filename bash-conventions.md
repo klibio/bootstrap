@@ -22,7 +22,7 @@ Here you can find a series of tips when developing a Bash script:
     - **pipefail**: sets the exit code of a pipeline to that of the rightmost command to exit with a non-zero status, or to zero if all commands of the pipeline exit successfully.
     - **xtrace**: only for debugging.
 - Create a main function for scripts long enough to contain at least one other function.
-- Use `local` when declaring variables, unless there is reason to use `declare`.
+- Use `local` when declaring variables in functions, unless there is reason to use `declare`.
 - Use `readonly` when defining "read only" constants.
 - Use `:-` for variables that could be undeclared.
 - Naming conventions:
