@@ -32,9 +32,9 @@ echo "## DEBUG alias - start"
 alias -p
 echo "## DEBUG alias - end"
 
-echo "## DEBUG functions - start"
-declare -F
-echo "## DEBUG functions - end"
+#echo "## DEBUG functions - start"
+#declare -F
+#echo "## DEBUG functions - end"
 
 echo "## DEBUG PATH"
 echo $PATH
