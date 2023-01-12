@@ -31,7 +31,7 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-cat << EOF
+cat << EOT
 ###########################################################
 
        ##    ## ##      #### ########  ####  ####### 
@@ -51,18 +51,20 @@ cat << EOF
         ######  ########    ##     #######  ##       
 
 ###########################################################
-EOF
+EOT
 
 github_provision .klibio.tar.gz
 
-github_provision .bashrc
+github_provision .bash_klibio
+github_provision .bash_aliases
 . /dev/stdin <<< "$(cat ~/.klibio/provision-java.sh)"
 
-~/.x << cat << EOF
-if [ -f $HOME/.bash_aliases ]
+cat << EOT >> ~/.x
+# source the klibio bash extension
+if [ -f $HOME/.bash_klibio ]
 then
-  . $HOME/.bash_aliases
+  . $HOME/.bash_klibio
 fi
-EOF
+EOT
 
 echo "# setup script completed"
