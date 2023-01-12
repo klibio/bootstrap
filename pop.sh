@@ -9,7 +9,6 @@ set -o pipefail # exit if any pipe command is failing
 echo "# github env"
 env | sort
 
-branch=$(git rev-parse --abbrev-ref HEAD)
 echo "# load klibio library"
 . /dev/stdin <<< "$(cat bash/.klibio/lib.bash)"
 

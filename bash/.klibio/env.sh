@@ -1,4 +1,18 @@
 #!/bin/bash
+#
+# identify and analyse the environment running on
+#
+
+# general 
+export branch=$(git rev-parse --abbrev-ref HEAD)
+
+# export variable into 
+if [ -v "AGENT_ID" ]; then
+  echo "running inside workflow pipeline - hence set variables"
+  echo "##vso[task.setvariable variable=BRANCH]${branch}"
+fir
+
+# OS specific environment variables
 
 if [[ "$OSTYPE" == "msys" ]]; then
   export os=windows
