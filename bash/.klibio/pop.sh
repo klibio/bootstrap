@@ -26,13 +26,16 @@ ls -la ~/.klibio/*/*
 # so some commands like e.g. ls or cat might not work
 ###########################################################
 echo "### source .bashrc"
+shopt -s expand_aliases
 . ~/.bashrc
 
 echo "## DEBUG alias - start"
 alias -p
 echo "## DEBUG alias - end"
 
+echo "## DEBUG PATH"
 echo $PATH
+
 echo "# DEBUG END"
 
 # test for variable existence and output value if found
