@@ -1,6 +1,6 @@
 #!/bin/bash
 script_dir=$(cd "$(dirname "$0")" && pwd)
-branch=main
+branch=${main:-$(git rev-parse --abbrev-ref HEAD)}
 overwrite=false
 
 for i in "$@"; do

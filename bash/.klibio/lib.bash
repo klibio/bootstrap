@@ -24,7 +24,6 @@ if [ -v "AGENT_ID" ]; then
   for i in "${build_agent_vars[@]}"; do
     echo "##vso[task.setvariable variable=${i^^}]${!i}"
   done
-  env | sort
 fi
 
 # OS specific environment variables
