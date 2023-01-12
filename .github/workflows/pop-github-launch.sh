@@ -18,8 +18,8 @@ headline "proof-of-performance execution - started"
 headline "# execute users command - install-klibio.sh"
 curl -fsSLO https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
 chmod u+x ./install-klibio.sh
-bash ./klibio_setup.sh -b=${branch} -o
-rm klibio_setup.sh
+bash ./install-klibio.sh -b=${branch} -o
+rm install-klibio.sh
 
 padout "# launch a new bash with the actual test (sourcing the installed .bashrc) "
 bash ~/.klibio/pop.sh
