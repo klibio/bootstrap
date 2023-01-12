@@ -5,7 +5,7 @@ on: [push,pull_request]
 env:
   AGENT_ID: github_runner
   GH_BRANCH: ${{ github.head_ref || github.ref_name }}
-run-name: executing OS tests on branch ${BRANCH} for ${{github.actor}}
+run-name: executing OS tests on branch ${GH_BRANCH} for ${{github.actor}}
 jobs:
   pop-on-os-matrix:
     name: execute proof-of-performance on platform OS
