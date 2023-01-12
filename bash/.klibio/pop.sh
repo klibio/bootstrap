@@ -26,12 +26,15 @@ ls -la ~/.klibio/*/*
 # so some commands like e.g. ls or cat might not work
 ###########################################################
 echo "### source .bashrc"
-set -o expand_aliases
 . ~/.bashrc
 
 echo "## DEBUG alias - start"
 alias -p
 echo "## DEBUG alias - end"
+
+echo "## DEBUG functions - start"
+decalre -F
+echo "## DEBUG functions - end"
 
 echo "## DEBUG PATH"
 echo $PATH
