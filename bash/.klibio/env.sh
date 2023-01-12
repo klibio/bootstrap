@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if [[ "$OSTYPE" == "msys" ]]; then
   export os=windows
   export jq=jq-win64.exe
