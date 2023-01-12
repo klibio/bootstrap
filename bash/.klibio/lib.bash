@@ -17,9 +17,7 @@ export vcs_ref_short=$(git describe --dirty --always)
 # export variable into build agents e.g. github runner, azure runner
 declare -a build_agent_vars=(
   "date"
-  ,"branch"
-  ,"vcs_ref"
-  ,"vcs_ref_short"
+  "branch" "vcs_ref" "vcs_ref_short" # git variables
 )
 if [ -v "AGENT_ID" ]; then
   echo "running inside workflow pipeline - hence set variables"
