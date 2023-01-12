@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # activate bash checks
-#set -o xtrace   # activate debug
+set -o xtrace   # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
@@ -55,7 +55,7 @@ testJava() {
     set +u
     declare javaVersion=$1
     echo "## testing java $javaVersion"
-    source set-java.sh $javaVersion
+    set-java.sh $javaVersion
     test_env_var JAVA_HOME
     java -version
     set -u
