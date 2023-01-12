@@ -6,8 +6,11 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-# load library
+echo "# github env"
+env | sort
+
 branch=${1:-main}
+echo "# load klibio library"
 . /dev/stdin <<< "$(cat bash/.klibio/lib.bash)"
 
 headline "proof-of-performance execution"
