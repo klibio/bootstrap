@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # activate debugging
-#set -o xtrace   # activate debug
+set -o xtrace   # activate debug
 
 ###########################################################
 # shell variables
@@ -24,7 +24,8 @@ declare -a build_agent_vars=(
 if [ -v "AGENT_ID" ]; then
   echo "running inside workflow pipeline - hence set variables"
   for i in "@{build_agent_vars[@]}" do
-    echo "##vso[task.setvariable variable=${i^^}]${i}"
+    upper_i=${i^^}
+    echo "##vso[task.setvariable variable=${upper_i}]${i}"
   done
 fi
 
