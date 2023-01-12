@@ -1,6 +1,6 @@
 # available github action variables can be found
 # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
-name: proof-on-performance build
+name: pop
 on: [push,pull_request]
 env:
   AGENT_ID: github_runner

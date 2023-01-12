@@ -8,7 +8,7 @@ set -o pipefail # exit if any pipe command is failing
 
 # load library
 branch=${branch:-main}
-. /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/lib.bash)"
+. /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash)"
 
 java_rest_api=https://api.adoptium.net
 
@@ -16,7 +16,7 @@ KLIBIO=${KLIBIO:=$(echo $HOME/.klibio)}
 export KLIBIO=$KLIBIO
 java_dir=$(echo "$KLIBIO/java")
 
-. /dev/stdin <<< "$(cat ~/.klibio/lib.bash)"
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
 . /dev/stdin <<< "$(cat ~/.klibio/provision-tools.sh)"
 
 provisionJava() {

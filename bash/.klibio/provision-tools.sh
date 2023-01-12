@@ -11,7 +11,7 @@ tools_dir=$(echo "$KLIBIO/tool")
 
 jq_download_link=https://github.com/stedolan/jq/releases/download/jq-1.6
 
-. /dev/stdin <<< "$(cat ~/.klibio/lib.bash)"
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
 
  # check for curl and exit if not available
 if which curl > /dev/null; then

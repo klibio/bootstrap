@@ -11,7 +11,7 @@ set -o pipefail # exit if any pipe command is failing
 
 echo "# load klibio library"
 branch=$(git rev-parse --abbrev-ref HEAD) && branch=${branch:-main}
-. /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/lib.bash)"
+. /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash)"
 
 headline "proof-of-performance execution - started"
 

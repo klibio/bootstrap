@@ -55,6 +55,7 @@ BLUE='\033[0;34m';
 RED='\e[31m';
 GREEN='\e[42m';
 
+# write a 3 lines spanning headline to standard out
 headline() {
   if [ -t 1 ]; then # identify if stdout is terminal
     echo -ne "${BLUE}#\n# $1\n#\n${NC}"
@@ -92,5 +93,64 @@ is_debug() {
         "$@"
     else
         "$@" >/dev/null 2>&1
+    fi
+}
+
+###########################################################
+# github dowload util functions
+###########################################################
+
+download_file_from_github() {
+    file=$(basename -- "$1")
+    targetFolder=${2:-~}
+    url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/bash/$os/$file
+    pushd $targetFolder > /dev/null
+    echo "downloading $url"
+    curl -sSL \
+        $url \
+        > $file
+    popd > /dev/null
+}
+
+download_and_extract_file_from_github() {
+    targetFolder=${2:-~}
+    url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/$1
+    echo "downloading and extract $url"
+    curl -sSL \
+        $url \
+        | tar xvz -C $targetFolder > /dev/null
+}
+
+ask_user() {
+    file=$1
+    targetFolder=${2:-~}
+    if [[ $file == *.tar.gz ]]; then
+        dirname="${file%.*.*}"
+        if [ -d "$targetFolder/$dirname" ] && [ ! $overwrite == true ]; then
+            while true; do
+                read -p "Do you wish to overwrite $targetFolder/$dirname? " yn
+                case $yn in
+                    [Yy]* ) download_and_extract_file_from_github $file; break;;
+                    [Nn]* ) break;;
+                    * ) echo "Please answer yes or no.";;
+                esac
+            done
+        else
+            download_and_extract_file_from_github $file
+        fi
+    else
+        file=$targetFolder/$file
+        if [ -f $file ] && [ ! $overwrite == true ]; then 
+            while true; do
+                read -p "Do you wish to overwrite $file? " yn
+                case $yn in
+                    [Yy]* ) download_file_from_github $file; break;;
+                    [Nn]* ) break;;
+                    * ) echo "Please answer [y]es or [n]o.";;
+                esac
+            done
+        else 
+            download_file_from_github $file
+        fi
     fi
 }

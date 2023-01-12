@@ -7,7 +7,7 @@ KLIBIO=${KLIBIO:=`echo $HOME/.klibio`}
 export KLIBIO=${KLIBIO}
 java_home_suffix=${java_home_suffix:=}
 
-. /dev/stdin <<< "$(cat ~/.klibio/lib.bash)"
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
 
 #env variables can be changed only if we call the script with `source set-java.sh`
 

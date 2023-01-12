@@ -19,7 +19,7 @@ installer_dir="${tools_dir}/eclipse-installer"
 mkdir -p ${installer_dir}
 mkdir -p ${tools_archives}
 
-. /dev/stdin <<< "$(cat ~/.klibio/lib.bash)"
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
 
 download_url="https://download.eclipse.org/oomph/products/latest/eclipse-inst-jre-${eclInstaller}"
 output_file="eclipse-inst-jre-${eclInstaller}"
