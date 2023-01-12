@@ -58,3 +58,5 @@ echo "# test java version"
 testJava 8
 testJava 11
 testJava 17
+
+cat ~/.x

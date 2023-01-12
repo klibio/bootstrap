@@ -1,7 +1,10 @@
 #!/bin/bash
 script_dir=$(cd "$(dirname "$0")" && pwd)
-branch=$(git rev-parse --abbrev-ref HEAD) && branch=${branch:-main}
 overwrite=false
+
+# load library
+branch=$(git rev-parse --abbrev-ref HEAD) && branch=${branch:-main}
+. /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash)"
 
 for i in "$@"; do
   case $i in
@@ -50,10 +53,16 @@ cat << EOF
 ###########################################################
 EOF
 
-ask_user .klibio.tar.gz
-. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
+github_provision .klibio.tar.gz
 
-ask_user .bashrc
+github_provision .bashrc
 . /dev/stdin <<< "$(cat ~/.klibio/provision-java.sh)"
+
+~/.x <<< cat << EOF
+if [ -f $HOME/.bash_aliases ]
+then
+  . $HOME/.bash_aliases
+fi
+EOF
 
 echo "# setup script completed"

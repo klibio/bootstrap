@@ -121,7 +121,7 @@ download_and_extract_file_from_github() {
         | tar xvz -C $targetFolder > /dev/null
 }
 
-ask_user() {
+github_provision() {
     file=$1
     targetFolder=${2:-~}
     if [[ $file == *.tar.gz ]]; then
