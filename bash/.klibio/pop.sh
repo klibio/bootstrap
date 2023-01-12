@@ -33,7 +33,7 @@ alias -p
 echo "## DEBUG alias - end"
 
 echo "## DEBUG functions - start"
-decalre -F
+declare -F
 echo "## DEBUG functions - end"
 
 echo "## DEBUG PATH"
