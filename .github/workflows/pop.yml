@@ -32,4 +32,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - shell: bash
-        run: ./.github/workflows/pop-github-launch.sh
+        run: .github/workflows/pop-github-launch.sh
