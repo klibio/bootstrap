@@ -23,6 +23,11 @@ jobs:
 #          - windows-2022
 #          - windows-2019
           - windows-latest
+        arch:
+          - X86
+          - X64
+          - ARM
+          - ARM64
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
