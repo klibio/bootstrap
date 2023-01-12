@@ -8,7 +8,7 @@ env:
 run-name: proof-of-performance on branch ${{ github.head_ref || github.ref_name }} for ${{github.actor}}
 jobs:
   pop-on-os-matrix:
-    name: pop on runner.os runner.arch
+    name: pop
     strategy:
       matrix:
         os:
