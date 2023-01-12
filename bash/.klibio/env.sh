@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# identify and analyse the environment running on
+# identify and analyse the environment from the platform/OS running on
 #
 
 # general 
@@ -10,7 +10,7 @@ export branch=$(git rev-parse --abbrev-ref HEAD)
 if [ -v "AGENT_ID" ]; then
   echo "running inside workflow pipeline - hence set variables"
   echo "##vso[task.setvariable variable=BRANCH]${branch}"
-fir
+fi
 
 # OS specific environment variables
 

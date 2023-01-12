@@ -3,41 +3,19 @@
 
 export KLIBIO=$(echo ~/.klibio)
 
-alias c='clear'
+# java settings
+if [ -f $KLIBIO/setJava.sh ]
+then
+  # configure default java to version 17
+  $KLIBIO/setJava.sh 17
+  # switching java version alias
+  alias setJava='. $KLIBIO/setJava.sh'
+fi
 
-alias ls='ls --color=auto'
-alias l='ls -la --color=auto'
-alias ll='ls -la --color=auto'
-alias l.='ls -d .* --color=auto'
-
-# avoid misspelllings
-alias cd..='cd ..'
-
-## Colorize the grep command output for ease of use (good for log files)##
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-
-# install colordiff package :)
-alias diff='colordiff'
-
-# handy short cuts #
-alias h='history'
-alias j='jobs -l'
-
-# create a new set of commands
-alias path='echo -e ${PATH//:/\\n}'
-alias now='date +"%T'
-alias nowtime=now
-alias nowdate='date +"%d-%m-%Y"'
-
-# show open ports
-alias ports='netstat -tulanp'
-
+# define prompt
 PS1="\D{%Y%m%d-%H%M%S} \u@\H:\w jobs=\j\n$ "
 
-# switching between java versions
-alias setJava='. $KLIBIO/setJava.sh'
-
-# configure default java to version 17
-$KLIBIO/setJava.sh 17
+if [ -f $HOME/.bash_aliases ]
+then
+  . $HOME/.bash_aliases
+fi
