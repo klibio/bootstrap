@@ -4,12 +4,12 @@
 export KLIBIO=$(echo ~/.klibio)
 
 # java settings
-if [ -f $KLIBIO/setJava.sh ]
+if [ -f $KLIBIO/set-java.sh ]
 then
   # configure default java to version 17
-  $KLIBIO/setJava.sh 17
+  $KLIBIO/set-java.sh 17
   # switching java version alias
-  alias setJava='. $KLIBIO/setJava.sh'
+  alias set-java='. $KLIBIO/set-java.sh'
 fi
 
 # define prompt

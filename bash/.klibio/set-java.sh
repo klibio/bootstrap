@@ -9,7 +9,7 @@ java_home_suffix=${java_home_suffix:=}
 
 . /dev/stdin <<< "$(cat ~/.klibio/lib.bash)"
 
-#env variables can be changed only if we call the script with `source setJava.sh`
+#env variables can be changed only if we call the script with `source set-java.sh`
 
 removeFromPath () {
     export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
@@ -35,7 +35,7 @@ case $1 in
         export JAVA_HOME=${KLIBIO}/java/ee/JAVA17${java_home_suffix}
     ;;
     *)
-        echo "usage error: setJava <version>\n version can be one of unset, 8, 11, 17"
+        echo "usage error: set-java <version>\n version can be one of unset, 8, 11, 17"
         exit 1
     ;;
 esac
