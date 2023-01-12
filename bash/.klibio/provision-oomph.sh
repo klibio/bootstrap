@@ -6,21 +6,21 @@
 # The eclipse-installer archive will be extracted into ~/.klibio/tool/eclipse-installer
 
 # activate bash checks
-# set -o xtrace   # activate debug
+#set -o xtrace   # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-export KLIBIO="${HOME}/.klibio"
-tools_dir=$(realpath -s "${KLIBIO}/tool")
+# load library
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
+
+tools_dir=$(echo "${KLIBIO}/tool")
 tools_archives="${tools_dir}/archives"
 installer_dir="${tools_dir}/eclipse-installer"
-
 
 mkdir -p ${installer_dir}
 mkdir -p ${tools_archives}
 
-. ${KLIBIO}/env.sh
 
 download_url="https://download.eclipse.org/oomph/products/latest/eclipse-inst-jre-${eclInstaller}"
 output_file="eclipse-inst-jre-${eclInstaller}"

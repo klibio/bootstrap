@@ -3,13 +3,10 @@
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
-KLIBIO=${KLIBIO:=`echo $HOME/.klibio`}
-export KLIBIO=${KLIBIO}
+
+# load library
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
 java_home_suffix=${java_home_suffix:=}
-
-. ${KLIBIO}/env.sh
-
-#env variables can be changed only if we call the script with `source setJava.sh`
 
 removeFromPath () {
     export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
@@ -35,7 +32,7 @@ case $1 in
         export JAVA_HOME=${KLIBIO}/java/ee/JAVA17${java_home_suffix}
     ;;
     *)
-        echo "usage error: setJava <version>\n version can be one of unset, 8, 11, 17"
+        echo "usage error: set-java <version>\n version can be one of unset, 8, 11, 17"
         exit 1
     ;;
 esac

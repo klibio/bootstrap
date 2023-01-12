@@ -1,11 +1,11 @@
 # available github action variables can be found
 # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
-name: proof-of-performance build
+name: pop
 on: [push,pull_request]
 env:
   AGENT_ID: github_runner
   GH_BRANCH: ${{ github.head_ref || github.ref_name }}
-run-name: proof-of-performance on branch ${{ github.head_ref || github.ref_name }} for ${{github.actor}}
+run-name: pop branch ${{ github.head_ref || github.ref_name }} for ${{github.actor}}
 jobs:
   pop-on-os-matrix:
     name: pop
@@ -32,4 +32,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - shell: bash
-        run: ./pop.sh
+        run: .github/workflows/pop-github-launch.sh

@@ -4,22 +4,26 @@
 
 quick and easy setup of 
 
-* bash
-* java LTS 
+* bash (aliases, prompt)
+* java LTS [8, 11, 17] e.g. `set-java 11`
 * eclipse/oomph installer 
 
 on supported os[windows,mac,linux] and arch[arm,arm64,x86,x64]
 
+underlying principles are
+* minimal host changes (only additions in `.bashrc` scripts and `PATH` variable)
+* idempotent execution (can be consecutively executed give same result)
+
 # direct installation
 execute the following script for installation on a machine inside a bash
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/main/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/main/install-klibio.sh)"
 ```
 
 # local execution with parameters
 ```bash
 
-curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install.sh > ./klibio_setup.sh
+curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh > ./klibio_setup.sh
 chmod u+x ./klibio_setup.sh
 bash ./klibio_setup.sh -b=${branch} -o
 rm klibio_setup.sh
@@ -29,3 +33,7 @@ with optional parameters
 -b=<branch_name>    install from a specific branch
 -o                  force overwrite existing files 
 ```
+
+# glossary
+
+pop - proof-of-performance is used as term instead of test - we want to assure spec'd functionality

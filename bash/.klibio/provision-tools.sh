@@ -6,12 +6,14 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-KLIBIO=${KLIBIO:=$(echo $HOME/.klibio)}
-tools_dir=$(echo "$KLIBIO/tool")
+# load library
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
+
+tools_dir=$(echo "${KLIBIO}/tool")
 
 jq_download_link=https://github.com/stedolan/jq/releases/download/jq-1.6
 
-. $KLIBIO/env.sh
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
 
  # check for curl and exit if not available
 if which curl > /dev/null; then
