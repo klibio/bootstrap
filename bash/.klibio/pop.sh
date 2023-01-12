@@ -13,19 +13,26 @@ env | sort
 
 echo "## DEBUG directories/files - only relevant are displayed"
 ls -la ~/.bashrc
-echo "### content of ~/.bashrc"
-cat ~/.bashrc
 
-# must be used before sourcing .bashrc (cause ls will become an alias)
+echo "### content of ~/.bashrc - start"
+cat ~/.bashrc
+echo "### content of ~/.bashrc - end"
+
 ls -la ~/.klibio/*
 ls -la ~/.klibio/*/*
 
+###########################################################
+# HINT aliases are loaded by following command
+# so some commands like e.g. ls or cat might not work
+###########################################################
 echo "### source .bashrc"
 . ~/.bashrc
 
-echo "## DEBUG alias"
+echo "## DEBUG alias - start"
 alias -p
+echo "## DEBUG alias - end"
 
+echo $PATH
 echo "# DEBUG END"
 
 # test for variable existence and output value if found
@@ -48,7 +55,7 @@ testJava() {
     set +u
     declare javaVersion=$1
     echo "## testing java $javaVersion"
-    source ${KLIBIO}/set-java.sh $javaVersion
+    source set-java.sh $javaVersion
     test_env_var JAVA_HOME
     java -version
     set -u
@@ -58,5 +65,3 @@ echo "# test java version"
 testJava 8
 testJava 11
 testJava 17
-
-cat ~/.bashrc

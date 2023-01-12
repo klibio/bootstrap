@@ -4,8 +4,8 @@
 
 quick and easy setup of 
 
-* bash
-* java LTS [8, 11, 17]
+* bash (aliases, prompt)
+* java LTS [8, 11, 17] e.g. `set-java 11`
 * eclipse/oomph installer 
 
 on supported os[windows,mac,linux] and arch[arm,arm64,x86,x64]
