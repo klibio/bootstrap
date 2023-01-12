@@ -7,14 +7,10 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 # load library
-branch=$(git rev-parse --abbrev-ref HEAD) && branch=${branch:-main}
-. /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash)"
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
 
 java_rest_api=https://api.adoptium.net
-
-KLIBIO=${KLIBIO:=$(echo $HOME/.klibio)}
-export KLIBIO=$KLIBIO
-java_dir=$(echo "$KLIBIO/java")
+java_dir=$(echo "${KLIBIO}/java")
 
 . /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
 . /dev/stdin <<< "$(cat ~/.klibio/provision-tools.sh)"
