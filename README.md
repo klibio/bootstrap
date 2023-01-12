@@ -29,3 +29,7 @@ with optional parameters
 -b=<branch_name>    install from a specific branch
 -o                  force overwrite existing files 
 ```
+
+# glossary
+
+pop - proof-of-performance is used as term instead of test - we want to assure spec'd functionality
