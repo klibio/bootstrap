@@ -15,7 +15,7 @@ underlying principles are
 * idempotent execution (can be consecutively executed give same result)
 
 # direct installation
-execute the following script for installation on a machine inside a bash
+execute the following script for installation
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/main/install-klibio.sh)"
 ```
