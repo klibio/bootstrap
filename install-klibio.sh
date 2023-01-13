@@ -11,7 +11,7 @@ set -o pipefail # exit if any pipe command is failing
 
 script_dir=$(cd "$(dirname "$0")" && pwd)
 # development variable
-dev=false
+local_dev=false
 overwrite=false
 
 # tool variables
@@ -35,7 +35,7 @@ for i in "$@"; do
       ;;
     # for develoment purposes
     -dev)
-      dev=true
+      local_dev=true
       shift # past argument=value
       ;;
     -b=*|--branch=*)
@@ -54,7 +54,7 @@ done
 
 # load library
 branch=${branch:-main}
-if [[ "${dev}"=="true" ]]; then
+if [[ "${local_dev}"=="true" ]]; then
   echo "###########################################################"
   echo -e "\n#\n# LOCAL DEVELOPMENT active\n#\n"
   echo "###########################################################"
