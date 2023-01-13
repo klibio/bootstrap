@@ -9,6 +9,11 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
+echo "# DEBUG start"
+env | sort
+echo "arch=$(arch)"
+echo "# DEBUG end"
+
 echo "# load klibio library"
 branch=$(git rev-parse --abbrev-ref HEAD) && branch=${branch:-main}
 . /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash)"
