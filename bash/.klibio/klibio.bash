@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # activate debugging
-#set -o xtrace   # activate debug
+set -o xtrace   # activate debug
 
 ###########################################################
 # shell variables
