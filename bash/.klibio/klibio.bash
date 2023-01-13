@@ -24,10 +24,9 @@ declare -a build_agent_vars=(
 if [[ -n ${AGENT_ID:-} ]]; then
   echo "running inside workflow pipeline - hence set variables"
   for i in "${build_agent_vars[@]}"; do
-    echo $i 
-    echo ${i^^} 
-    echo ${!i} 
-    echo "##vso[task.setvariable variable=${i^^}]${!i}"
+    key=$(echo $i | tr '[:upper:]')
+    value=$(echo ${!i})
+    echo "##vso[task.setvariable variable=${key}]${value}"
   done
 fi
 
