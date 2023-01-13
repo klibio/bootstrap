@@ -50,7 +50,7 @@ fi
 if [[ "$OSTYPE" == "linux"* ]]; then
   export os=linux
   export jq=jq-linux64
-  if [[ "arm64" == "$(arch)"]]; then
+  if [[ "arm64" == "$(arch)" ]]; then
     export oomph_suffix=linux-aarch64.tar.gz
   else
     export oomph_suffix=linux64.tar.gz
