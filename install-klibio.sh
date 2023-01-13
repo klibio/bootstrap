@@ -31,7 +31,7 @@ for i in "$@"; do
       shift # past argument=value
       ;;
     # for develoment purposes
-    -dev)
+    --dev)
       local_dev=true
       shift # past argument=value
       ;;

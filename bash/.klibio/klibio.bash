@@ -130,7 +130,7 @@ github_provision() {
     target_folder=${2:-~}
     if [[ $file == *.tar.gz ]]; then
         dirname="${file%.*.*}"
-        if [ -d "$target_folder/$dirname" ] && [ ! ${overwrite} == true ]; then
+        if [ -d "$target_folder/$dirname" ] && [ ! ${overwrite:-false} == true ]; then
             while true; do
                 read -p "Do you wish to overwrite ${target_folder}/${dirname}? " yn
                 case $yn in
