@@ -43,7 +43,7 @@ provisionJava() {
 
   declare install_dir=${java_dir}/exec
   declare link_dir=${java_dir}/ee
-  mkdir -p ${install_dir} && mkdir -p ${link_dir} >/dev/null 2>&1 && pushd ${install_dir} >/dev/null 2>&1
+  mkdir -p ${install_dir} >/dev/null 2>&1 && mkdir -p ${link_dir} >/dev/null 2>&1 && pushd ${install_dir} >/dev/null 2>&1
   if [ -d "${install_dir}/${java_release_name}" ]; then
     echo -e "#\n# using existing Java from ${install_dir}/${java_release_name}\n#\n"
   else 

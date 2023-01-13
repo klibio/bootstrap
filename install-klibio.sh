@@ -23,11 +23,9 @@ for i in "$@"; do
     # tool parameter
     -j|--java)
       java=1
-      shift # past argument=value
       ;;
     -o|--oomph)
       oomph=1
-      shift # past argument=value
       ;;
 
     -f|--force)

@@ -22,7 +22,7 @@ declare -a build_agent_vars=(
   "date"
   "branch" "vcs_ref" "vcs_ref_short" # git variables
 )
-if [ -v "AGENT_ID" ]; then
+if [[ -v "AGENT_ID" ]]; then
   echo "running inside workflow pipeline - hence set variables"
   for i in "${build_agent_vars[@]}"; do
     echo "##vso[task.setvariable variable=${i^^}]${!i}"
@@ -60,7 +60,7 @@ GREEN='\e[42m';
 
 # write a 3 lines spanning headline to standard out
 headline() {
-  if [ -t 1 ]; then # identify if stdout is terminal
+  if [[ -t 1 ]]; then # identify if stdout is terminal
     echo -ne "${BLUE}#\n# $1\n#\n${NC}"
   else
     echo -ne "#\n# $1\n#\n"
@@ -68,7 +68,7 @@ headline() {
 }
 
 padout() {
-  if [ -t 1 ]; then # identify if stdout is terminal
+  if [[ -t 1 ]]; then # identify if stdout is terminal
     printf -v x '%-60s' "$1"; echo -ne "${BLUE}$(date +%H:%M:%S) $x${NC}"
   else
     printf -v x '%-60s' "$1"; echo -ne "$(date +%H:%M:%S) $x"
@@ -76,7 +76,7 @@ padout() {
 }
 
 err() {
-  if [ -t 1 ]; then # identify if stdout is terminal
+  if [[ -t 1 ]]; then # identify if stdout is terminal
     echo -e " - ${RED}FAILED${NC}"
   else
     echo -e " - FAILED"
@@ -84,7 +84,7 @@ err() {
 }
 
 succ() {
-  if [ -t 1 ]; then # identify if stdout is terminal
+  if [[ -t 1 ]]; then # identify if stdout is terminal
     echo -e " - ${GREEN}SUCCESS${NC}"
   else
     echo -e " - SUCCESS"
@@ -143,7 +143,7 @@ github_provision() {
         fi
     else
         file=${target_folder}/${file}
-        if [ -f ${file} ] && [ ! ${overwrite} == true ]; then 
+        if [[ -f ${file} ]] && [[ ! ${overwrite} == true ]]; then 
             while true; do
                 read -p "Do you wish to overwrite $file? " yn
                 case $yn in
@@ -156,4 +156,17 @@ github_provision() {
             download_file_from_github $file
         fi
     fi
+}
+
+confirm() {
+    # call with a prompt string or use a default
+    read -r -p "${1:-Are you sure? [y/N]} " response
+    case "${response}" in
+        [yY][eE][sS]|[yY]) 
+            true
+            ;;
+        *)
+            false
+            ;;
+    esac
 }
