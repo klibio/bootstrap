@@ -11,7 +11,7 @@ set -o pipefail # exit if any pipe command is failing
 
 script_dir=$(cd "$(dirname "$0")" && pwd)
 # development variable
-pop=false
+dev=false
 overwrite=false
 
 # tool variables
@@ -32,10 +32,14 @@ for i in "$@"; do
 
     -f|--force)
       overwrite=true
-      echo "# skip user questions and force overwriting of files and dirs"
+      echo "# skip user questions and force overwriting of files and directories"
       shift # past argument=value
       ;;
     # for develoment purposes
+    -dev=*)
+      dev=true
+      shift # past argument=value
+      ;;
     -b=*|--branch=*)
       branch="${i#*=}"
       shift # past argument=value
@@ -52,11 +56,19 @@ done
 
 # load library
 branch=${branch:-main}
-lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash
-echo "sourcing ${lib_url})"
-. /dev/stdin <<< "$(curl -fsSL ${lib_url})"
+if [[ "${dev}"=="true" ]]; then
+  echo "###########################################################"
+  echo -e "\n#\n# LOCAL DEVELOPMENT active\n#\n"
+  echo "###########################################################"
+  echo "sourcing ${script_dir}/bash/.klibio/klibio.bash"
+  . /dev/stdin <<< $(cat ${script_dir}/bash/.klibio/klibio.bash)
+else
+  lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash
+  echo "sourcing ${lib_url}"
+  . /dev/stdin <<< "$(curl -fsSL ${lib_url})"
+fi
 
-headline /dev/stdin <<EOT
+headline "$(cat <<-EOM
 ###########################################################
 
        ##    ## ##      #### ########  ####  ####### 
@@ -76,20 +88,23 @@ headline /dev/stdin <<EOT
         ######  ########    ##     #######  ##       
 
 ###########################################################
-EOT
+EOM
+)"
 
 headline "provision github sources and configure ~/.bashrc"
 github_provision .klibio.tar.gz
 github_provision .bash_klibio
 github_provision .bash_aliases
 
-cat << EOT >> ~/.bashrc
+if [ -z $(grep "# klibio bash extension" ~/.bashrc) ]; then
+  cat << EOT >> ~/.bashrc
 
-# source the klibio bash extension
+# klibio bash extension
 if [ -f ~/.bash_klibio ]; then
   . ~/.bash_klibio
 fi
 EOT
+fi
 
 provide_tool () {
   tool=$1
