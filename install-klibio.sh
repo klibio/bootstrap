@@ -24,16 +24,12 @@ for i in "$@"; do
     -o|--oomph)
       oomph=1
       ;;
-
+    # for develoment purposes
     -f|--force)
       overwrite=true
-      echo "# skip user questions and force overwriting of files and directories"
-      shift # past argument=value
       ;;
-    # for develoment purposes
     --dev)
       local_dev=true
-      shift # past argument=value
       ;;
     -b=*|--branch=*)
       branch="${i#*=}"
