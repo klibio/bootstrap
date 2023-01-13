@@ -105,9 +105,9 @@ is_debug() {
 
 download_file_from_github() {
     file=$(basename -- "$1")
-    targetFolder=${2:-~}
+    target_folder=${2:-~}
     url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/bash/$os/$file
-    pushd $targetFolder > /dev/null
+    pushd $target_folder > /dev/null
     echo "downloading $url"
     curl -sSL \
         $url \
@@ -116,22 +116,22 @@ download_file_from_github() {
 }
 
 download_and_extract_file_from_github() {
-    targetFolder=${2:-~}
+    target_folder=${2:-~}
     url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/$1
     echo "downloading and extract $url"
     curl -sSL \
         $url \
-        | tar xvz -C $targetFolder > /dev/null
+        | tar xvz -C $target_folder > /dev/null
 }
 
 github_provision() {
     file=$1
-    targetFolder=${2:-~}
+    target_folder=${2:-~}
     if [[ $file == *.tar.gz ]]; then
         dirname="${file%.*.*}"
-        if [ -d "$targetFolder/$dirname" ] && [ ! $overwrite == true ]; then
+        if [ -d "$target_folder/$dirname" ] && [ ! ${overwrite} == true ]; then
             while true; do
-                read -p "Do you wish to overwrite $targetFolder/$dirname? " yn
+                read -p "Do you wish to overwrite ${target_folder}/${dirname}? " yn
                 case $yn in
                     [Yy]* ) download_and_extract_file_from_github $file; break;;
                     [Nn]* ) break;;
@@ -142,8 +142,8 @@ github_provision() {
             download_and_extract_file_from_github $file
         fi
     else
-        file=$targetFolder/$file
-        if [ -f $file ] && [ ! $overwrite == true ]; then 
+        file=${target_folder}/${file}
+        if [ -f ${file} ] && [ ! ${overwrite} == true ]; then 
             while true; do
                 read -p "Do you wish to overwrite $file? " yn
                 case $yn in

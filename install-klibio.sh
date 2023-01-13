@@ -10,24 +10,37 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 script_dir=$(cd "$(dirname "$0")" && pwd)
+# development variable
+pop=false
 overwrite=false
 
-# load library
-branch=$(git rev-parse --abbrev-ref HEAD) && branch=${branch:-main}
-. /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash)"
+# tool variables
+declare var{java,oomph}=0
 
 for i in "$@"; do
   case $i in
-    -o|--overwrite)
+    # tool parameter
+    -j|--java)
+      java=1
+      shift # past argument=value
+      ;;
+    -o|--oomph)
+      oomph=1
+      shift # past argument=value
+      ;;
+
+    -f|--force)
       overwrite=true
       shift # past argument=value
       ;;
+    # for develoment purposes
     -b=*|--branch=*)
       branch="${i#*=}"
       shift # past argument=value
       ;;
+    # default for unknown parameter
     -*|--*)
-      echo "Unknow option $i"
+      echo "unknow option $i provided"
       exit 1
       ;;
     *)
@@ -35,7 +48,13 @@ for i in "$@"; do
   esac
 done
 
-cat << EOT
+# load library
+branch=${branch:-main}
+lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash
+echo "sourcing ${lib_url})"
+. /dev/stdin <<< "$(curl -fsSL ${lib_url})"
+
+headline /dev/stdin <<EOT
 ###########################################################
 
        ##    ## ##      #### ########  ####  ####### 
@@ -57,15 +76,11 @@ cat << EOT
 ###########################################################
 EOT
 
-headline "provision github sources"
+headline "provision github sources and configure ~/.bashrc"
 github_provision .klibio.tar.gz
 github_provision .bash_klibio
 github_provision .bash_aliases
 
-headline "provision java"
-. /dev/stdin <<< "$(cat ~/.klibio/provision-java.sh)"
-
-headline "configure ~/.bashrc"
 cat << EOT >> ~/.bashrc
 
 # source the klibio bash extension
@@ -73,5 +88,15 @@ if [ -f ~/.bash_klibio ]; then
   . ~/.bash_klibio
 fi
 EOT
+
+provide_tool () {
+  tool=$1
+  provision_tool=~/.klibio/provision-${tool}.sh
+  headline "provision ${tool}"
+  . ${provision_tool}
+}
+
+(($java)) && provide_tool java || echo "skip java provisioning"
+(($oomph)) && provide_tool oomph || echo "skip oomph provisioning"
 
 headline "klibio setup script completed"
