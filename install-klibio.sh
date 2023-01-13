@@ -32,6 +32,7 @@ for i in "$@"; do
 
     -f|--force)
       overwrite=true
+      echo "# skip user questions and force overwriting of files and dirs"
       shift # past argument=value
       ;;
     # for develoment purposes

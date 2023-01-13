@@ -33,7 +33,7 @@ case ${os} in
     tar -zxvf "eclipse-inst-jre-linux64.tar.gz" -C "${installer_dir}"
     ;;
   windows)
-    unzip -qq -d "${installer_dir}" "${tools_archives}/${output_file}"
+    unzip -qq -o -d "${installer_dir}" "${tools_archives}/${output_file}"
     ;;
   mac)
     tar -zxvf "eclipse-inst-jre-linux64.tar.gz" -C "${installer_dir}"
