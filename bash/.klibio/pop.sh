@@ -19,7 +19,6 @@ cat ~/.bashrc
 echo "### content of ~/.bashrc - end"
 
 ls -la ~/.klibio/*
-ls -la ~/.klibio/*/*
 
 ###########################################################
 # HINT aliases are loaded by following command

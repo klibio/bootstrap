@@ -12,7 +12,6 @@ export PATH=$PATH:$KLIBIO
 
 # general 
 export          date=$(date +'%Y.%m.%d-%H.%M.%S')
-
 export        branch=$(git rev-parse --abbrev-ref HEAD)
 export       vcs_ref=$(git rev-list -1 HEAD)
 export vcs_ref_short=$(git describe --dirty --always)
@@ -22,10 +21,12 @@ declare -a build_agent_vars=(
   "date"
   "branch" "vcs_ref" "vcs_ref_short" # git variables
 )
-if [ -v "AGENT_ID" ]; then
+if [[ ! -n ${AGENT_ID:-} ]]; then
   echo "running inside workflow pipeline - hence set variables"
   for i in "${build_agent_vars[@]}"; do
-    echo "##vso[task.setvariable variable=${i^^}]${!i}"
+    key=$(echo $i | tr '[:lower:]' '[:upper:]')
+    value=$(echo ${!i})
+    echo "##vso[task.setvariable variable=${key}]${value}"
   done
 fi
 
@@ -34,18 +35,26 @@ fi
 if [[ "$OSTYPE" == "msys" ]]; then
   export os=windows
   export jq=jq-win64.exe
-  export eclInstaller=win64.zip
+  export oomph_suffix=win64.zip
 fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
   export os=mac
   export jq=jq-osx-amd64
-  export eclInstaller=mac64.tar.gz
+  if [[ "$(uname -a)" == "arm"* ]]; then
+    export oomph_suffix=mac-aarch64.tar.gz
+  else
+    export oomph_suffix=mac64.tar.gz
+  fi
   export java_home_suffix=/Contents/Home
 fi
 if [[ "$OSTYPE" == "linux"* ]]; then
   export os=linux
   export jq=jq-linux64
-  export eclInstaller=linux64.tar.gz
+  if [[ "$(uname -a)" == "arm"* ]]; then
+    export oomph_suffix=linux-aarch64.tar.gz
+  else
+    export oomph_suffix=linux64.tar.gz
+  fi
 fi
 
 
@@ -60,7 +69,7 @@ GREEN='\e[42m';
 
 # write a 3 lines spanning headline to standard out
 headline() {
-  if [ -t 1 ]; then # identify if stdout is terminal
+  if [[ -t 1 ]]; then # identify if stdout is terminal
     echo -ne "${BLUE}#\n# $1\n#\n${NC}"
   else
     echo -ne "#\n# $1\n#\n"
@@ -68,7 +77,7 @@ headline() {
 }
 
 padout() {
-  if [ -t 1 ]; then # identify if stdout is terminal
+  if [[ -t 1 ]]; then # identify if stdout is terminal
     printf -v x '%-60s' "$1"; echo -ne "${BLUE}$(date +%H:%M:%S) $x${NC}"
   else
     printf -v x '%-60s' "$1"; echo -ne "$(date +%H:%M:%S) $x"
@@ -76,7 +85,7 @@ padout() {
 }
 
 err() {
-  if [ -t 1 ]; then # identify if stdout is terminal
+  if [[ -t 1 ]]; then # identify if stdout is terminal
     echo -e " - ${RED}FAILED${NC}"
   else
     echo -e " - FAILED"
@@ -84,7 +93,7 @@ err() {
 }
 
 succ() {
-  if [ -t 1 ]; then # identify if stdout is terminal
+  if [[ -t 1 ]]; then # identify if stdout is terminal
     echo -e " - ${GREEN}SUCCESS${NC}"
   else
     echo -e " - SUCCESS"
@@ -105,35 +114,35 @@ is_debug() {
 
 download_file_from_github() {
     file=$(basename -- "$1")
-    targetFolder=${2:-~}
-    url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/bash/$os/$file
-    pushd $targetFolder > /dev/null
-    echo "downloading $url"
+    target_folder=${2:-~}
+    url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/${os}/${file}
+    pushd ${target_folder} >/dev/null 2>&1
+    echo "downloading and save into ${target_folder}/${file}"
     curl -sSL \
-        $url \
-        > $file
-    popd > /dev/null
+        ${url} \
+        > ${file}
+    popd >/dev/null 2>&1
 }
 
 download_and_extract_file_from_github() {
-    targetFolder=${2:-~}
-    url=https://raw.githubusercontent.com/klibio/bootstrap/$branch/$1
-    echo "downloading and extract $url"
+    target_folder=${2:-~}
+    url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/$1
+    echo "downloading and extract into ${target_folder}"
     curl -sSL \
-        $url \
-        | tar xvz -C $targetFolder > /dev/null
+        ${url} \
+        | tar xvz -C ${target_folder} > /dev/null
 }
 
 github_provision() {
     file=$1
-    targetFolder=${2:-~}
+    target_folder=${2:-~}
     if [[ $file == *.tar.gz ]]; then
         dirname="${file%.*.*}"
-        if [ -d "$targetFolder/$dirname" ] && [ ! $overwrite == true ]; then
+        if [ -d "$target_folder/$dirname" ] && [ ! ${overwrite:-false} == true ]; then
             while true; do
-                read -p "Do you wish to overwrite $targetFolder/$dirname? " yn
+                read -p "Do you wish to overwrite ${target_folder}/${dirname}? " yn
                 case $yn in
-                    [Yy]* ) download_and_extract_file_from_github $file; break;;
+                    [Yy]* ) download_and_extract_file_from_github ${file}; break;;
                     [Nn]* ) break;;
                     * ) echo "Please answer yes or no.";;
                 esac
@@ -142,8 +151,8 @@ github_provision() {
             download_and_extract_file_from_github $file
         fi
     else
-        file=$targetFolder/$file
-        if [ -f $file ] && [ ! $overwrite == true ]; then 
+        file=${target_folder}/${file}
+        if [[ -f ${file} ]] && [[ ! ${overwrite:-false} == true ]]; then 
             while true; do
                 read -p "Do you wish to overwrite $file? " yn
                 case $yn in
@@ -156,4 +165,17 @@ github_provision() {
             download_file_from_github $file
         fi
     fi
+}
+
+confirm() {
+    # call with a prompt string or use a default
+    read -r -p "${1:-Are you sure? [y/N]} " response
+    case "${response}" in
+        [yY][eE][sS]|[yY]) 
+            true
+            ;;
+        *)
+            false
+            ;;
+    esac
 }

@@ -8,7 +8,7 @@ quick and easy setup of
 * java LTS [8, 11, 17] e.g. `set-java 11`
 * eclipse/oomph installer 
 
-on supported os[windows,mac,linux] and arch[arm,arm64,x86,x64]
+on supported os[windows,mac,linux] and arch[arm64,x64]
 
 underlying principles are
 * minimal host changes (only additions in `.bashrc` scripts and `PATH` variable)
@@ -25,13 +25,15 @@ execute the following script for installation
 
 curl -fsSLO https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
 chmod u+x ./install-klibio.sh
-bash ./install-klibio.sh -b=${branch} -o
+bash ./install-klibio.sh -b=${branch} -f -o
 rm install-klibio.sh
 
 with optional parameters
 
 -b=<branch_name>    install from a specific branch
--o                  force overwrite existing files 
+-j                  install java LTS versions
+-o                  install eclipse installer / oomph
+-f                  force overwrite existing files
 ```
 
 # glossary
