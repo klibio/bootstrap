@@ -8,7 +8,7 @@ quick and easy setup of
 * java LTS [8, 11, 17] e.g. `set-java 11`
 * eclipse/oomph installer 
 
-on supported os[windows,mac,linux] and arch[arm,arm64,x86,x64]
+on supported os[windows,mac,linux] and arch[arm64,x64]
 
 underlying principles are
 * minimal host changes (only additions in `.bashrc` scripts and `PATH` variable)
