@@ -40,13 +40,21 @@ fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
   export os=mac
   export jq=jq-osx-amd64
-  export eclInstaller=mac64.tar.gz
+  if [["$(arch)" == "arm64"]]; then
+    export eclInstaller=mac-aarch64.tar.gz
+  else
+    export eclInstaller=mac64.tar.gz
+  fi
   export java_home_suffix=/Contents/Home
 fi
 if [[ "$OSTYPE" == "linux"* ]]; then
   export os=linux
   export jq=jq-linux64
-  export eclInstaller=linux64.tar.gz
+  if [["$(arch)" == "arm64"]]; then
+    export eclInstaller=linux-aarch64.tar.gz
+  else
+    export eclInstaller=linux64.tar.gz
+  fi
 fi
 
 
