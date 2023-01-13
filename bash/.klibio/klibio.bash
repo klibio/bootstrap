@@ -22,7 +22,7 @@ declare -a build_agent_vars=(
   "date"
   "branch" "vcs_ref" "vcs_ref_short" # git variables
 )
-if [[ -v "AGENT_ID" ]]; then
+if [[ -n "AGENT_ID" ]]; then
   echo "running inside workflow pipeline - hence set variables"
   for i in "${build_agent_vars[@]}"; do
     echo "##vso[task.setvariable variable=${i^^}]${!i}"
