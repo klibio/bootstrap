@@ -12,7 +12,6 @@ export PATH=$PATH:$KLIBIO
 
 # general 
 export          date=$(date +'%Y.%m.%d-%H.%M.%S')
-
 export        branch=$(git rev-parse --abbrev-ref HEAD)
 export       vcs_ref=$(git rev-list -1 HEAD)
 export vcs_ref_short=$(git describe --dirty --always)
@@ -22,7 +21,7 @@ declare -a build_agent_vars=(
   "date"
   "branch" "vcs_ref" "vcs_ref_short" # git variables
 )
-if [[ -n "AGENT_ID" ]]; then
+if [[ -n ${AGENT_ID:-} ]]; then
   echo "running inside workflow pipeline - hence set variables"
   for i in "${build_agent_vars[@]}"; do
     echo "##vso[task.setvariable variable=${i^^}]${!i}"

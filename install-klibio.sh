@@ -107,8 +107,9 @@ fi
 provide_tool () {
   tool=$1
   provision_tool=~/.klibio/provision-${tool}.sh
-  headline "provision ${tool}"
+  headline "provision ${tool} start"
   . ${provision_tool}
+  headline "provision ${tool} finished"
 }
 
 (($java))  && provide_tool java  || echo "skip java provisioning"
