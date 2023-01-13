@@ -40,8 +40,7 @@ fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
   export os=mac
   export jq=jq-osx-amd64
-  echo "arch=$(arch)"
-  if [[ "$(arch)" == "arm"* ]]; then
+  if [[ "$(uname -a)" == "arm"* ]]; then
     export oomph_suffix=mac-aarch64.tar.gz
   else
     export oomph_suffix=mac64.tar.gz
@@ -51,7 +50,7 @@ fi
 if [[ "$OSTYPE" == "linux"* ]]; then
   export os=linux
   export jq=jq-linux64
-  if [[ "$(arch)" == "arm"* ]]; then
+  if [[ "$(uname -a)" == "arm"* ]]; then
     export oomph_suffix=linux-aarch64.tar.gz
   else
     export oomph_suffix=linux64.tar.gz

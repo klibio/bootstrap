@@ -10,8 +10,9 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 echo "# DEBUG start"
-env | sort
+echo "uname=$(uname -a)"
 echo "arch=$(arch)"
+env | sort
 echo "# DEBUG end"
 
 echo "# load klibio library"
