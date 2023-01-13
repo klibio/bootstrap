@@ -67,6 +67,7 @@ headline "provision java"
 
 headline "configure ~/.bashrc"
 cat << EOT >> ~/.bashrc
+
 # source the klibio bash extension
 if [ -f ~/.bash_klibio ]; then
   . ~/.bash_klibio
