@@ -30,13 +30,13 @@ curl -sSL \
 echo -e "#\n# extracting $output_file to $installer_dir\n#\n"
 case ${os} in
   linux)
-    tar -zxvf "eclipse-inst-jre-linux64.tar.gz" -C "${installer_dir}"
+    tar -zxvf "eclipse-inst-jre-${eclInstaller}" -C "${installer_dir}"
     ;;
   windows)
     unzip -qq -o -d "${installer_dir}" "${tools_archives}/${output_file}"
     ;;
   mac)
-    tar -zxvf "eclipse-inst-jre-linux64.tar.gz" -C "${installer_dir}"
+    tar -zxvf "eclipse-inst-jre-${eclInstaller}" -C "${installer_dir}"
     ;;
   *)
     echo -e "#\n# OS is none of the supported linux|windows|mac. Aborting... \n#\n" && exit 1
