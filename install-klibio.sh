@@ -111,7 +111,7 @@ provide_tool () {
   . ${provision_tool}
 }
 
-(($java)) && provide_tool java || echo "skip java provisioning"
+(($java))  && provide_tool java  || echo "skip java provisioning"
 (($oomph)) && provide_tool oomph || echo "skip oomph provisioning"
 
 headline "klibio setup script completed"
