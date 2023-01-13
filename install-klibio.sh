@@ -44,7 +44,7 @@ done
 
 # load library
 branch=${branch:-main}
-if [[ "${LOCAL_DEV:-false}"=="true" ]]; then
+if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
   echo "###########################################################"
   echo -e "\n#\n# LOCAL DEVELOPMENT active\n#\n"
   echo "###########################################################"
