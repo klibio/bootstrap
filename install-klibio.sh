@@ -36,7 +36,7 @@ for i in "$@"; do
       shift # past argument=value
       ;;
     # for develoment purposes
-    -dev=*)
+    -dev)
       dev=true
       shift # past argument=value
       ;;
@@ -96,7 +96,7 @@ github_provision .klibio.tar.gz
 github_provision .bash_klibio
 github_provision .bash_aliases
 
-if [ -z $(grep "# klibio bash extension" ~/.bashrc) ]; then
+if [[ -z $(grep "# klibio bash extension" ~/.bashrc) ]]; then
   cat << EOT >> ~/.bashrc
 
 # klibio bash extension
