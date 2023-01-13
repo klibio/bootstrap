@@ -40,6 +40,7 @@ provisionJava() {
   if [ ! -f ${java_archive_name} ]; then
     curl -s -C - -k -O -L ${java_archive_link}
   fi
+  popd >/dev/null 2>&1
 
   declare install_dir=${java_dir}/exec
   declare link_dir=${java_dir}/ee
@@ -47,7 +48,7 @@ provisionJava() {
   if [ -d "${install_dir}/${java_release_name}" ]; then
     echo -e "#\n# using existing Java from ${install_dir}/${java_release_name}\n#\n"
   else 
-    echo -e "#\n# extracting Java into ${install_dir}/{$java_release_name}\n#\n"
+    echo -e "#\n# extracting Java into ${install_dir}/${java_release_name}\n#\n"
     if [[ ${java_archive_name} == *.zip ]]; then
       unzip -qq -d "${install_dir}" "${archive_dir}/${java_archive_name}"
     elif [[ ${java_archive_name} == *.tar.gz ]]; then
@@ -58,7 +59,7 @@ provisionJava() {
     if [ -f ${link_dir}/${current_java} ]; then rm ${link_dir}/${current_java}; fi
     ln -s "${install_dir}/${java_release_name}" ${link_dir}/${current_java}
   fi
-
+  popd >/dev/null 2>&1
   popd >/dev/null 2>&1
 }
 

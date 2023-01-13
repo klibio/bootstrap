@@ -21,7 +21,7 @@ declare -a build_agent_vars=(
   "date"
   "branch" "vcs_ref" "vcs_ref_short" # git variables
 )
-if [[ -n ${AGENT_ID:-} ]]; then
+if [[ ! -n ${AGENT_ID:-} ]]; then
   echo "running inside workflow pipeline - hence set variables"
   for i in "${build_agent_vars[@]}"; do
     key=$(echo $i | tr '[:lower:]' '[:upper:]')
@@ -134,7 +134,7 @@ github_provision() {
             while true; do
                 read -p "Do you wish to overwrite ${target_folder}/${dirname}? " yn
                 case $yn in
-                    [Yy]* ) download_and_extract_file_from_github $file; break;;
+                    [Yy]* ) download_and_extract_file_from_github ${file}; break;;
                     [Nn]* ) break;;
                     * ) echo "Please answer yes or no.";;
                 esac
@@ -144,7 +144,7 @@ github_provision() {
         fi
     else
         file=${target_folder}/${file}
-        if [[ -f ${file} ]] && [[ ! ${overwrite} == true ]]; then 
+        if [[ -f ${file} ]] && [[ ! ${overwrite:-false} == true ]]; then 
             while true; do
                 read -p "Do you wish to overwrite $file? " yn
                 case $yn in

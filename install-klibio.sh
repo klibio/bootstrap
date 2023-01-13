@@ -10,9 +10,6 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 script_dir=$(cd "$(dirname "$0")" && pwd)
-# development variable
-local_dev=false
-overwrite=false
 
 # tool variables
 java=0
@@ -54,7 +51,7 @@ done
 
 # load library
 branch=${branch:-main}
-if [[ "${local_dev}"=="true" ]]; then
+if [[ "${local_dev:-false}"=="true" ]]; then
   echo "###########################################################"
   echo -e "\n#\n# LOCAL DEVELOPMENT active\n#\n"
   echo "###########################################################"
