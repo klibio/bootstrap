@@ -28,9 +28,6 @@ for i in "$@"; do
     -f|--force)
       overwrite=true
       ;;
-    --dev)
-      local_dev=true
-      ;;
     -b=*|--branch=*)
       branch="${i#*=}"
       shift # past argument=value
@@ -47,7 +44,7 @@ done
 
 # load library
 branch=${branch:-main}
-if [[ "${local_dev:-false}"=="true" ]]; then
+if [[ "${LOCAL_DEV:-false}"=="true" ]]; then
   echo "###########################################################"
   echo -e "\n#\n# LOCAL DEVELOPMENT active\n#\n"
   echo "###########################################################"
