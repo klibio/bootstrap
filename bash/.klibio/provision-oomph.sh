@@ -19,8 +19,8 @@ installer_dir="${tools_dir}/eclipse-installer"
 mkdir -p ${installer_dir}
 mkdir -p ${tools_archives}
 
-download_url="https://download.eclipse.org/oomph/products/latest/eclipse-inst-jre-${eclInstaller}"
-output_file="eclipse-inst-jre-${eclInstaller}"
+download_url="https://download.eclipse.org/oomph/products/latest/eclipse-inst-jre-${oomph_suffix}"
+output_file="eclipse-inst-jre-${oomph_suffix}"
 
 echo -e "#\n# downloading $output_file to $tools_archives\n#\n"
 curl -sSL \
@@ -30,13 +30,13 @@ curl -sSL \
 echo -e "#\n# extracting $output_file to $installer_dir\n#\n"
 case ${os} in
   linux)
-    tar -zxvf "eclipse-inst-jre-${eclInstaller}" -C "${installer_dir}"
+    tar -zxvf "eclipse-inst-jre-${oomph_suffix}" -C "${installer_dir}"
     ;;
   windows)
     unzip -qq -o -d "${installer_dir}" "${tools_archives}/${output_file}"
     ;;
   mac)
-    tar -zxvf "eclipse-inst-jre-${eclInstaller}" -C "${installer_dir}"
+    tar -zxvf "eclipse-inst-jre-${oomph_suffix}" -C "${installer_dir}"
     ;;
   *)
     echo -e "#\n# OS is none of the supported linux|windows|mac. Aborting... \n#\n" && exit 1

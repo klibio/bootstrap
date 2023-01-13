@@ -25,13 +25,15 @@ execute the following script for installation
 
 curl -fsSLO https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
 chmod u+x ./install-klibio.sh
-bash ./install-klibio.sh -b=${branch} -o
+bash ./install-klibio.sh -b=${branch} -f -o
 rm install-klibio.sh
 
 with optional parameters
 
 -b=<branch_name>    install from a specific branch
--o                  force overwrite existing files 
+-j                  install java LTS versions
+-o                  install eclipse installer / oomph
+-f                  force overwrite existing files
 ```
 
 # glossary

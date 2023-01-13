@@ -35,15 +35,15 @@ fi
 if [[ "$OSTYPE" == "msys" ]]; then
   export os=windows
   export jq=jq-win64.exe
-  export eclInstaller=win64.zip
+  export oomph_suffix=win64.zip
 fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
   export os=mac
   export jq=jq-osx-amd64
   if [["$(arch)" == "arm64"]]; then
-    export eclInstaller=mac-aarch64.tar.gz
+    export oomph_suffix=mac-aarch64.tar.gz
   else
-    export eclInstaller=mac64.tar.gz
+    export oomph_suffix=mac64.tar.gz
   fi
   export java_home_suffix=/Contents/Home
 fi
@@ -51,9 +51,9 @@ if [[ "$OSTYPE" == "linux"* ]]; then
   export os=linux
   export jq=jq-linux64
   if [["$(arch)" == "arm64"]]; then
-    export eclInstaller=linux-aarch64.tar.gz
+    export oomph_suffix=linux-aarch64.tar.gz
   else
-    export eclInstaller=linux64.tar.gz
+    export oomph_suffix=linux64.tar.gz
   fi
 fi
 
