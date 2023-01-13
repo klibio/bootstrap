@@ -15,7 +15,8 @@ pop=false
 overwrite=false
 
 # tool variables
-declare var{java,oomph}=0
+java=0
+oomph=0
 
 for i in "$@"; do
   case $i in
