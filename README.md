@@ -23,10 +23,10 @@ execute the following script for installation on a machine inside a bash
 # local execution with parameters
 ```bash
 
-curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh > ./klibio_setup.sh
-chmod u+x ./klibio_setup.sh
-bash ./klibio_setup.sh -b=${branch} -o
-rm klibio_setup.sh
+curl -fsSLO https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
+chmod u+x ./install-klibio.sh
+bash ./install-klibio.sh -b=${branch} -o
+rm install-klibio.sh
 
 with optional parameters
 
