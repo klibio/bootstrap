@@ -87,10 +87,7 @@ github_provision .bash_aliases
 if [[ -z $(grep "# klibio bash extension" ~/.bashrc) ]]; then
   cat << EOT >> ~/.bashrc
 
-headline "configure ~/.bashrc"
-cat << EOT >> ~/.bashrc
-
-# source the klibio bash extension
+# klibio bash extension
 if [ -f ~/.bash_klibio ]; then
   . ~/.bash_klibio
 fi
