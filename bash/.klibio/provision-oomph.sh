@@ -22,23 +22,29 @@ mkdir -p ${tools_archives}
 download_url="https://download.eclipse.org/oomph/products/latest/eclipse-inst-jre-${oomph_suffix}"
 output_file="eclipse-inst-jre-${oomph_suffix}"
 
-echo -e "#\n# downloading ${output_file} to ${tools_archives}\n#\n"
-curl -sSL \
-    ${download_url} \
-    > ${tools_archives}/${output_file}
+if [ ! -f ${tools_archives}/${output_file} ]; then
+  echo -e "#\n# downloading ${output_file} to ${tools_archives}\n#\n"
+  curl -sSL \
+      ${download_url} \
+      > ${tools_archives}/${output_file}
+fi
 
-echo -e "#\n# extracting ${output_file} to ${installer_dir}\n#\n"
-case ${os} in
-  linux)
-    tar -zxvf "eclipse-inst-jre-${oomph_suffix}" -C "${installer_dir}"
-    ;;
-  windows)
-    unzip -qq -o -d "${installer_dir}" "${tools_archives}/${output_file}"
-    ;;
-  mac)
-    tar -xvf "eclipse-inst-jre-${oomph_suffix}" -C "${installer_dir}"
-    ;;
-  *)
-    echo -e "#\n# OS is none of the supported linux|windows|mac. Aborting... \n#\n" && exit 1
-    exit 1
-esac
+if [ -d "${installer_dir}" ]; then
+  echo -e "#\n# using existing installer from ${installer_dir}\n#\n"
+else 
+  echo -e "#\n# extracting ${output_file} to ${installer_dir}\n#\n"
+  case ${os} in
+    linux)
+      tar -zxvf "eclipse-inst-jre-${oomph_suffix}" -C "${installer_dir}"
+      ;;
+    windows)
+      unzip -qq -o -d "${installer_dir}" "${tools_archives}/${output_file}"
+      ;;
+    mac)
+      tar -xvf "eclipse-inst-jre-${oomph_suffix}" -C "${installer_dir}"
+      ;;
+    *)
+      echo -e "#\n# OS is none of the supported linux|windows|mac. Aborting... \n#\n" && exit 1
+      exit 1
+  esac
+fi
