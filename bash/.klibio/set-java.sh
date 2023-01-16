@@ -48,7 +48,7 @@ export PATH=${JAVA_HOME}/bin:$PATH
 
 java -version
 
-// reset the bash settings
+# reset the bash settings
 set +o nounset  # exit with error on unset variables
 set +o errexit  # exit if any statement returns a non-true return value
 set +o pipefail # exit if any pipe command is failing
