@@ -9,7 +9,9 @@ set -o pipefail # exit if any pipe command is failing
 java_home_suffix=${java_home_suffix:=}
 
 removeFromPath () {
-    export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
+    local segment=$1
+    # *nix remove segment from path (and optional trailing colon)
+    export PATH=$(echo ${PATH} | sed -E -e "s;${segment}:?;;" -e "s;:$;;")
 }
 
 if [ -n "${JAVA_HOME+x}" ]; then  
@@ -18,17 +20,21 @@ fi
 
 case $1 in
     unset)
+        removeFromPath $JAVA_HOME
         unset JAVA_HOME
         echo "JAVA_HOME unset - available Java LTS are 8, 11, 17"
         exit 0
     ;;
     8)
+        removeFromPath $JAVA_HOME
         export JAVA_HOME=${KLIBIO}/java/ee/JAVA8${java_home_suffix}
     ;;
     11)
+        removeFromPath $JAVA_HOME
         export JAVA_HOME=${KLIBIO}/java/ee/JAVA11${java_home_suffix}
     ;;
     17)
+        removeFromPath $JAVA_HOME
         export JAVA_HOME=${KLIBIO}/java/ee/JAVA17${java_home_suffix}
     ;;
     *)
@@ -41,3 +47,8 @@ echo JAVA_HOME=${JAVA_HOME}
 export PATH=${JAVA_HOME}/bin:$PATH
 
 java -version
+
+// reset the bash settings
+set +o nounset  # exit with error on unset variables
+set +o errexit  # exit if any statement returns a non-true return value
+set +o pipefail # exit if any pipe command is failing
