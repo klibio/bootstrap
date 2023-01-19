@@ -18,11 +18,11 @@ if [ -n "${JAVA_HOME+x}" ]; then
     removeFromPath $JAVA_HOME  
 fi
 
-case $1 in
+case ${1:-"x"} in
     unset)
         removeFromPath $JAVA_HOME
         unset JAVA_HOME
-        echo "JAVA_HOME unset - available Java LTS are 8, 11, 17"
+        echo "available Java LTS are 8, 11, 17"
         exit 0
     ;;
     8)
@@ -38,7 +38,7 @@ case $1 in
         export JAVA_HOME=${KLIBIO}/java/ee/JAVA17${java_home_suffix}
     ;;
     *)
-        echo "usage error: set-java <version>\n version can be one of unset, 8, 11, 17"
+        echo -e "usage error: set-java <version>\n version can be one of <unset, 8, 11, 17>"
         exit 1
     ;;
 esac
