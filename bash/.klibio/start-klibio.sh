@@ -6,6 +6,9 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
+# load library
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
+
 if [[ "$#" == 0 ]]; then
   echo "$(cat <<-EOM
 # please provide one or more of the following applications are available
@@ -20,9 +23,9 @@ oomph=0
 for i in "$@"; do
   case $i in
     # tool parameter
-    -o|--oomph)
-      oomph=1
+    -o=*|--oomph=*)
       oomph_config="${i#*=}"
+      oomph=1
       shift # past argument=value
       ;;
     # tool parameter
@@ -47,7 +50,7 @@ done
 # Command line argument for specifying a Configuration https://www.eclipse.org/forums/index.php/t/1086000/
 
 if (($oomph)); then
-  echo "# launching in separate window oomph with config ${oomph_config}"
+  echo "# launching in separate window oomph with config ${branch}/${oomph_config/\//_}.setup"
   #config_url=http://git.eclipse.org/c/emf/org.eclipse.emf.git/plain/releng/org.eclipse.emf.releng/EMFDevelopmentEnvironmentConfiguration.setup
   #config_url=file:/X:/git/github.com/klibio/bootstrap/bash/.klibio/oomph/config/KlibioBoostrapConfiguration.setup
   config_url=https://raw.githubusercontent.com/klibio/bootstrap/feature/oomph-configs/bash/.klibio/oomph/config/KlibioBoostrapConfiguration.setup
