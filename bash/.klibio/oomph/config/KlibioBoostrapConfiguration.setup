@@ -8,7 +8,7 @@
       name="klibio.boostrap.installation"
       label="klibio/boostrap Installation">
     <productVersion
-        href="../products/osgi-dev.setup#//@versions[name='2022-12']"/>
+        href="../products/klibio.products.setup#//@products[name='klibio.osgi.dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
     <description>The klibio/boostrap installation provides cool stuff.</description>
   </installation>
   <workspace
