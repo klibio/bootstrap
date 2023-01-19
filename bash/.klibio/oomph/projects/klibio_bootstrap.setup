@@ -6,16 +6,16 @@
     xmlns:git="http://www.eclipse.org/oomph/setup/git/1.0"
     xmlns:jdt="http://www.eclipse.org/oomph/setup/jdt/1.0"
     xmlns:predicates="http://www.eclipse.org/oomph/predicates/1.0"
-    xmlns:projects="http://www.eclipse.org/oomph/setup/projects/1.0"
     xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+    xmlns:setup.p2="http://www.eclipse.org/oomph/setup/p2/1.0"
     xmlns:setup.workingsets="http://www.eclipse.org/oomph/setup/workingsets/1.0"
-    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/projects/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Projects.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
-    name="bootstrap.git"
+    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
+    name="klibio.bootstrap"
     label="klibio/bootstrap">
   <setupTask
       xsi:type="jdt:JRETask"
-      version="JavaSE-17"
-      location="${jre.location-17}">
+      version="JavaSE-11"
+      location="${jre.location-11}">
     <description>Define the JRE needed to compile and run the Java projects of ${scope.project.label}</description>
   </setupTask>
   <setupTask
@@ -46,10 +46,14 @@
     </content>
   </setupTask>
   <setupTask
+      xsi:type="setup.p2:P2Task"
+      label="git tools">
+    <description>Install the tools needed in the IDE to work with the source code for ${scope.project.label}</description>
+  </setupTask>
+  <setupTask
       xsi:type="git:GitCloneTask"
-      id="bootstrap.git.clone"
-      remoteURI="klibio/bootstrap"
-      pushURI="">
+      id="git.clone.bootstrap"
+      remoteURI="klibio/bootstrap">
     <annotation
         source="http://www.eclipse.org/oomph/setup/InducedChoices">
       <detail
@@ -83,21 +87,15 @@
   <stream name="main"
       label="main">
     <setupTask
-        xsi:type="projects:ProjectsImportTask">
-      <sourceLocator
-          rootFolder="${bootstrap.git.clone.location}"
-          locateNestedProjects="true"/>
-    </setupTask>
-    <setupTask
         xsi:type="setup:EclipseIniTask"
-        option="-Doomph.redirection.bootstrap.git"
-        value="=https://raw.githubusercontent.com/klibio/bootstrap.git/master//klibio_bootstrap.setup->${git.clone.bootstrap.git.location|uri}//klibio_bootstrap.setup"
+        option="-Doomph.redirection.bootstrap"
+        value="=https://raw.githubusercontent.com/klibio/bootstrap/master//klibio_bootstrap.setup->${git.clone.bootstrap.location|uri}//klibio_bootstrap.setup"
         vm="true">
       <description>Set an Oomph redirection system property to redirect the logical location of this setup to its physical location in the Git clone.</description>
     </setupTask>
   </stream>
   <logicalProjectContainer
       xsi:type="setup:ProjectCatalog"
-      href="klibio.projects.setup#/"/>
+      href="index:/org.eclipse.setup#//@projectCatalogs[name='com.github']"/>
   <description>klibio/bootstrap provides cool stuff.</description>
 </setup:Project>

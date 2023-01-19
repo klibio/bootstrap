@@ -169,7 +169,5 @@
       <description>Choose from the available Github URIs</description>
     </setupTask>
   </setupTask>
-  <project href="klibio_bootstrap.setup#/"/>
-  <project href="klibio_bootstrap2.setup#/"/>
   <description>klibio projects provides cool projects.</description>
 </setup:ProjectCatalog>
