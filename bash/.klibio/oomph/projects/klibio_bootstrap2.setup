@@ -248,12 +248,12 @@
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>
   </setupTask>
-  <stream name="master"
-      label="Master">
+  <stream name="main"
+      label="main">
     <setupTask
         xsi:type="setup:EclipseIniTask"
         option="-Doomph.redirection.klibio_bootstrap2"
-        value="=https://raw.githubusercontent.com/klibio/bootstrap.git/master//klibio_bootstrap2.setup->${git.clone.klibio_bootstrap2.location|uri}//klibio_bootstrap2.setup"
+        value="=https://raw.githubusercontent.com/klibio/bootstrap/feature/oomph-configs/bash/.klibio/oomph/projects/klibio_bootstrap2.setup->${git.clone.klibio_bootstrap2.location|uri}//klibio_bootstrap2.setup"
         vm="true">
       <description>Set an Oomph redirection system property to redirect the logical location of this setup to its physical location in the Git clone.</description>
     </setupTask>
