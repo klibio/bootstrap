@@ -47,7 +47,8 @@ done
 if (($oomph)); then
   echo "# launching in a separate window oomph eclipse installer"
   #config_url=http://git.eclipse.org/c/emf/org.eclipse.emf.git/plain/releng/org.eclipse.emf.releng/EMFDevelopmentEnvironmentConfiguration.setup
-  config_url=file:/X:/git/github.com/klibio/bootstrap/bash/.klibio/oomph/KlibioBoostrapConfiguration.setup
+  #config_url=file:/X:/git/github.com/klibio/bootstrap/bash/.klibio/oomph/config/KlibioBoostrapConfiguration.setup
+  config_url=https://raw.githubusercontent.com/klibio/bootstrap/feature/oomph-configs/bash/.klibio/oomph/config/KlibioBoostrapConfiguration.setup
   jvm=$(echo ~/.klibio/java/ee/JAVA11/bin)
   ~/.klibio/tool/eclipse-installer/eclipse-inst.exe \
     -vm ${jvm} \
