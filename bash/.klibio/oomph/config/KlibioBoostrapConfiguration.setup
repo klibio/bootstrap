@@ -15,7 +15,7 @@
       name="klibio.boostrap.workspace"
       label="klibio/boostrap Workspace">
     <stream
-        href="../projects/klibio.projects.setup#//@projects[name='klibio_bootstrap2']/@streams[name='master']"/>
+        href="../projects/klibio_bootstrap2.setup#//@streams[name='main']"/>
     <description>The klibio/boostrap workspace provides cool stuff.</description>
   </workspace>
   <description>The boostrap configuration provides cool stuff.</description>
