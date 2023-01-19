@@ -11,12 +11,12 @@
     xmlns:setup.targlets="http://www.eclipse.org/oomph/setup/targlets/1.0"
     xmlns:setup.workingsets="http://www.eclipse.org/oomph/setup/workingsets/1.0"
     xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/targlets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupTarglets.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
-    name="bootstrap.git"
-    label="Bootstrap GIT">
+    name="klibio_bootstrap2"
+    label="klibio/bootstrap2">
   <setupTask
       xsi:type="jdt:JRETask"
-      version="JavaSE-11"
-      location="${jre.location-11}">
+      version="JavaSE-17"
+      location="${jre.location-17}">
     <description>Define the JRE needed to compile and run the Java projects of ${scope.project.label}</description>
   </setupTask>
   <setupTask
@@ -57,7 +57,7 @@
   </setupTask>
   <setupTask
       xsi:type="git:GitCloneTask"
-      id="git.clone.bootstrap.git"
+      id="git.clone.klibio_bootstrap2"
       remoteURI="klibio/bootstrap.git">
     <annotation
         source="http://www.eclipse.org/oomph/setup/InducedChoices">
@@ -86,7 +86,7 @@
       <requirement
           name="*"/>
       <sourceLocator
-          rootFolder="${git.clone.bootstrap.git.location}"
+          rootFolder="${git.clone.klibio_bootstrap2.location}"
           locateNestedProjects="true"/>
       <repositoryList
           name="2023-03">
@@ -252,8 +252,8 @@
       label="Master">
     <setupTask
         xsi:type="setup:EclipseIniTask"
-        option="-Doomph.redirection.bootstrap.git"
-        value="=https://raw.githubusercontent.com/klibio/bootstrap.git/master//BootstrapGIT.setup->${git.clone.bootstrap.git.location|uri}//BootstrapGIT.setup"
+        option="-Doomph.redirection.klibio_bootstrap2"
+        value="=https://raw.githubusercontent.com/klibio/bootstrap.git/master//klibio_bootstrap2.setup->${git.clone.klibio_bootstrap2.location|uri}//klibio_bootstrap2.setup"
         vm="true">
       <description>Set an Oomph redirection system property to redirect the logical location of this setup to its physical location in the Git clone.</description>
     </setupTask>
@@ -261,5 +261,5 @@
   <logicalProjectContainer
       xsi:type="setup:ProjectCatalog"
       href="index:/org.eclipse.setup#//@projectCatalogs[name='com.github']"/>
-  <description>Bootstrap GIT provides cool stuff.</description>
+  <description>klibio/bootstrap2 provides cool stuff.</description>
 </setup:Project>

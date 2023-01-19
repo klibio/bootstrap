@@ -6,6 +6,17 @@
     xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
     name="klibio.projects"
     label="klibio projects">
+  <annotation
+      source="http://www.eclipse.org/oomph/setup/BrandingInfo">
+    <detail
+        key="imageURI">
+      <value>https://raw.githubusercontent.com/github-archive/media/master/octocats/blacktocat-32.png</value>
+    </detail>
+    <detail
+        key="siteURI">
+      <value>https://github.com/</value>
+    </detail>
+  </annotation>
   <setupTask
       xsi:type="setup:WorkspaceTask"
       id="workspace"/>
@@ -159,5 +170,6 @@
     </setupTask>
   </setupTask>
   <project href="klibio_bootstrap.setup#/"/>
+  <project href="klibio_bootstrap2.setup#/"/>
   <description>klibio projects provides cool projects.</description>
 </setup:ProjectCatalog>
