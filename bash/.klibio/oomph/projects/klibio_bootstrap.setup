@@ -88,6 +88,13 @@
           rootFolder="${git.clone.bootstrap.git.location}"
           locateNestedProjects="true"/>
     </setupTask>
+    <setupTask
+        xsi:type="setup:EclipseIniTask"
+        option="-Doomph.redirection.bootstrap.git"
+        value="=https://raw.githubusercontent.com/klibio/bootstrap.git/master//klibio_bootstrap.setup->${git.clone.bootstrap.git.location|uri}//klibio_bootstrap.setup"
+        vm="true">
+      <description>Set an Oomph redirection system property to redirect the logical location of this setup to its physical location in the Git clone.</description>
+    </setupTask>
   </stream>
   <logicalProjectContainer
       xsi:type="setup:ProjectCatalog"

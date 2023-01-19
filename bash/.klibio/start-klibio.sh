@@ -22,6 +22,8 @@ for i in "$@"; do
     # tool parameter
     -o|--oomph)
       oomph=1
+      oomph_config="${i#*=}"
+      shift # past argument=value
       ;;
     # tool parameter
     --dev)
@@ -45,7 +47,7 @@ done
 # Command line argument for specifying a Configuration https://www.eclipse.org/forums/index.php/t/1086000/
 
 if (($oomph)); then
-  echo "# launching in a separate window oomph eclipse installer"
+  echo "# launching in separate window oomph with config ${oomph_config}"
   #config_url=http://git.eclipse.org/c/emf/org.eclipse.emf.git/plain/releng/org.eclipse.emf.releng/EMFDevelopmentEnvironmentConfiguration.setup
   #config_url=file:/X:/git/github.com/klibio/bootstrap/bash/.klibio/oomph/config/KlibioBoostrapConfiguration.setup
   config_url=https://raw.githubusercontent.com/klibio/bootstrap/feature/oomph-configs/bash/.klibio/oomph/config/KlibioBoostrapConfiguration.setup
