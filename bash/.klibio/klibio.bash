@@ -12,10 +12,9 @@ export PATH=$PATH:$KLIBIO
 
 # general 
 export          date=$(date +'%Y.%m.%d-%H.%M.%S')
-
-export        branch=$(git rev-parse --abbrev-ref HEAD 2> >/dev/null )
-export       vcs_ref=$(git rev-list -1 HEAD            2> >/dev/null )
-export vcs_ref_short=$(git describe --dirty --always   2> >/dev/null )
+export        branch=$(git rev-parse --abbrev-ref HEAD )
+export       vcs_ref=$(git rev-list -1 HEAD )
+export vcs_ref_short=$(git describe --dirty --always )
 
 # export variable into build agents e.g. github runner, azure runner
 declare -a build_agent_vars=(
