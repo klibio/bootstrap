@@ -48,7 +48,8 @@
   <setupTask
       xsi:type="git:GitCloneTask"
       id="git.clone.bootstrap.git"
-      remoteURI="klibio/bootstrap">
+      remoteURI="https://github.com/klibio/bootstrap.git"
+      pushURI="https://github.com/klibio/bootstrap.git">
     <annotation
         source="http://www.eclipse.org/oomph/setup/InducedChoices">
       <detail
