@@ -54,7 +54,7 @@ if (($oomph)); then
     -vm ${jvm} \
     ${config_url} \
     -vmargs \
-      ${dev_vm_arg} &
+      ${dev_vm_arg:-""} &
 fi
 
 set +o nounset  # exit with error on unset variables
