@@ -27,9 +27,9 @@ EOM
     echo "# DEBUG env end"
 fi
 
+branch=$(git rev-parse --abbrev-ref HEAD) && branch=${branch:-main}
 lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash
 echo "# sourcing klibio lib - ${lib_url}"
-branch=$(git rev-parse --abbrev-ref HEAD) && branch=${branch:-main}
 . /dev/stdin <<< "$(curl -fsSL ${lib_url})"
 
 headline "proof-of-performance execution - started"
