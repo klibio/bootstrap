@@ -88,7 +88,7 @@ if [[ -z $(grep "# klibio bash extension" ~/.bashrc) ]]; then
   cat << EOT >> ~/.bashrc
 
 # klibio bash extension
-if [ -f ~/.bash_klibio ]; then
+if [[ -f ~/.bash_klibio ]]; then
   . ~/.bash_klibio
 fi
 EOT
