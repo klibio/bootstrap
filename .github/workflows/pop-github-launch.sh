@@ -3,19 +3,21 @@
 # proof-of-performance execution
 #
 
-# activate debug
-if [[ -z ${DEBUG+x} ]]; then set -o xtrace; export activate_debug=-x; fi
-
 # activate bash checks
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-echo "# DEBUG start"
-echo "uname=$(uname -a)"
-echo "arch=$(arch)"
-env | sort
-echo "# DEBUG end"
+# activate debug
+if [[ -z ${DEBUG+x} ]]; then 
+    set -o xtrace
+    export activate_debug=-x
+    echo "# DEBUG start"
+    echo "uname=$(uname -a)"
+    echo "arch=$(arch)"
+    env | sort
+    echo "# DEBUG end"
+fi
 
 echo "# load klibio library"
 branch=$(git rev-parse --abbrev-ref HEAD) && branch=${branch:-main}
