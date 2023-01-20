@@ -25,9 +25,12 @@ jobs:
           - windows-latest
         arch:
           - X64
-          - ARM64
+# commented cause the Github is not supporting it
+#          - ARM64
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - shell: bash
+        env: 
+          DEBUG: true
         run: .github/workflows/pop-github-launch.sh

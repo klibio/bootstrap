@@ -49,7 +49,7 @@ if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
   echo -e "\n#\n# LOCAL DEVELOPMENT active\n#\n"
   echo "###########################################################"
   echo "sourcing ${script_dir}/bash/.klibio/klibio.bash"
-  . /dev/stdin <<< "$(cat ${script_dir}/bash/.klibio/klibio.bash)"
+  . /dev/stdin <<< $( cat ${script_dir}/bash/.klibio/klibio.bash )
 else
   lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash
   echo "sourcing ${lib_url}"
@@ -88,7 +88,7 @@ if [[ -z $(grep "# klibio bash extension" ~/.bashrc) ]]; then
   cat << EOT >> ~/.bashrc
 
 # klibio bash extension
-if [ -f ~/.bash_klibio ]; then
+if [[ -f ~/.bash_klibio ]]; then
   . ~/.bash_klibio
 fi
 EOT

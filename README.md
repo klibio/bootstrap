@@ -16,6 +16,7 @@ underlying principles are
 
 # direct installation
 execute the following script for installation
+
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/main/install-klibio.sh)" bash -j -o
 ```

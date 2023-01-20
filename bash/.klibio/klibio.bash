@@ -1,20 +1,23 @@
 #!/bin/bash
+#
+# library with util functions
+#
 
-# activate debugging
-#set -o xtrace   # activate debug
+echo -e "\n#\n# klibio lib loaded\n#\n"
 
 ###########################################################
-# shell variables
+# exported shell variables
 ###########################################################
-
-export KLIBIO=${KLIBIO:=$(echo ~/.klibio)}
-export PATH=$PATH:$KLIBIO
 
 # general 
-export          date=$(date +'%Y.%m.%d-%H.%M.%S')
-export        branch=$(git rev-parse --abbrev-ref HEAD)
-export       vcs_ref=$(git rev-list -1 HEAD)
-export vcs_ref_short=$(git describe --dirty --always)
+export KLIBIO=${KLIBIO:=$(echo ~/.klibio)}
+export PATH=$PATH:$KLIBIO
+export date=$(date +'%Y.%m.%d-%H.%M.%S')
+
+# git variables (if inside git repo)
+branch=$(git rev-parse --abbrev-ref HEAD ) && export branch=${branch:-main}
+export       vcs_ref=$(git rev-list -1 HEAD )
+export vcs_ref_short=$(git describe --dirty --always )
 
 # export variable into build agents e.g. github runner, azure runner
 declare -a build_agent_vars=(
