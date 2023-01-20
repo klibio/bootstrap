@@ -33,7 +33,6 @@ for i in "$@"; do
       ;;
     # tool parameter
     --dev)
-      set -o xtrace
       dev_vm_arg="$(cat <<-EOM
 -Duser.home=x:/oomph_delme \
 -Doomph.setup.user.home.redirect=true
