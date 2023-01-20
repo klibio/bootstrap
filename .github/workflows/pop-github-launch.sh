@@ -32,8 +32,7 @@ bash ${activate_debug} ./install-klibio.sh -b=${branch} -f -j
 rm install-klibio.sh
 
 padout "# launch a new bash with the actual test (sourcing the installed .bashrc) "
-ls -la $HOME/.klibio
-ls -la $HOME/.klibio/*
+ls -la ${KLIBIO}/
 bash ${activate_debug} $HOME/.klibio/pop.sh
 
 headline "proof-of-performance execution - finished"
