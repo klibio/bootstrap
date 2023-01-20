@@ -10,13 +10,21 @@ set -o pipefail # exit if any pipe command is failing
 
 # activate debug
 if [[ -z ${DEBUG+x} ]]; then 
+    echo "$(cat <<-EOM
+###########################################################
+#
+# DEBUG
+#
+###########################################################
+EOM
+)"
     set -o xtrace
     export activate_debug=-x
-    echo "# DEBUG start"
     echo "uname=$(uname -a)"
     echo "arch=$(arch)"
+    echo "# DEBUG env start"
     env | sort
-    echo "# DEBUG end"
+    echo "# DEBUG env end"
 fi
 
 echo "# load klibio library"
