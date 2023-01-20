@@ -81,17 +81,28 @@ EOM
 
 headline "provision github sources and configure ~/.bashrc"
 github_provision .klibio.tar.gz
-github_provision .bash_klibio
-github_provision .bash_aliases
+github_provision .klibio.bash
+github_provision .profile
 
-if [[ -z $(grep "# klibio bash extension" ~/.bashrc) ]]; then
-  cat << EOT >> ~/.bashrc
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  if [[ -z $(grep "# klibio zsh extension" ~/.zshrc) ]]; then
+    cat << EOT >> ~/.zshrc
 
-# klibio bash extension
-if [[ -f ~/.bash_klibio ]]; then
-  . ~/.bash_klibio
+# klibio zsh extension
+if [[ -f ~/.klibio.bash ]]; then
+  . ~/.klibio.bash
 fi
 EOT
+  else
+    if [[ -z $(grep "# klibio bash extension" ~/.bashrc) ]]; then
+      cat << EOT >> ~/.bashrc
+
+# klibio bash extension
+if [[ -f ~/.klibio.bash ]]; then
+  . ~/.klibio.bash
+fi
+EOT
+  fi
 fi
 
 provide_tool () {
