@@ -27,14 +27,16 @@ EOM
     echo "# DEBUG env end"
 fi
 
-echo "# load klibio library"
+lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash
+echo "# sourcing klibio lib - ${lib_url}"
 branch=$(git rev-parse --abbrev-ref HEAD) && branch=${branch:-main}
-. /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash)"
+. /dev/stdin <<< "$(curl -fsSL ${lib_url})"
 
 headline "proof-of-performance execution - started"
 
-headline "# execute users command - install-klibio.sh"
-curl -fsSLO https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
+installer_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
+headline "# execute users command - ${installer_url}"
+curl -fsSLO ${installer_url}
 bash ${activate_debug:-} ./install-klibio.sh -b=${branch} -f -j -o
 rm install-klibio.sh
 
