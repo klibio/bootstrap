@@ -1,18 +1,14 @@
-# bootstrap your bndtools, eclipse, java developer machine
+# bootstrap developer machine (bndtools, eclipse, java)
 
 ![proof-of-performance build](https://github.com/klibio/bootstrap/actions/workflows/pop.yml/badge.svg)
 
-quick and easy setup of 
+quick and easy setup and configuration of 
 
 * bash (aliases, prompt)
-* java LTS [8, 11, 17] e.g. `set-java 11`
+* java LTS releases [8, 11, 17] e.g. `set-java.sh 11`
 * eclipse/oomph installer 
 
-on supported os[windows,mac,linux] and arch[arm64,x64]
-
-underlying principles are
-* minimal host changes (only additions in `.bashrc` scripts and `PATH` variable)
-* idempotent execution (can be consecutively executed give same result)
+on supported os [windows,mac,linux] and arch [arm64,x64]
 
 # direct installation
 execute the following script for installation
@@ -36,6 +32,10 @@ with optional parameters
 -o                  install eclipse installer / oomph
 -f                  force overwrite existing files
 ```
+
+# principles applied on 
+* minimal host changes (only additions in `.bashrc` scripts and `PATH` variable)
+* idempotent execution (can be consecutively executed give same result)
 
 # glossary
 
