@@ -23,6 +23,9 @@ oomph=0
 for i in "$@"; do
   case $i in
     # tool parameter
+    -o|--oomph)
+      oomph=1
+      ;;
     -o=*|--oomph=*)
       oomph_config="${i#*=}"
       oomph=1
