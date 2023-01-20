@@ -116,6 +116,7 @@ is_debug() {
 download_file_from_github() {
     file=$(basename -- "$1")
     target_folder=${2:-~}
+    branch=$(git rev-parse --abbrev-ref HEAD ) && branch=${branch:-main}
     url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/${os}/${file}
     pushd ${target_folder} >/dev/null 2>&1
     echo "downloading and save into ${target_folder}/${file}"
