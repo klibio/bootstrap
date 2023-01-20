@@ -3,8 +3,10 @@
 # proof-of-performance execution
 #
 
+# activate debug
+if [[ -z ${DEBUG} ]]; then set -o xtrace; fi
+
 # activate bash checks
-#set -o xtrace   # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
@@ -28,6 +30,6 @@ bash ./install-klibio.sh -b=${branch} -f -j
 rm install-klibio.sh
 
 padout "# launch a new bash with the actual test (sourcing the installed .bashrc) "
-bash -x ~/.klibio/pop.sh
+bash ~/.klibio/pop.sh
 
 headline "proof-of-performance execution - finished"

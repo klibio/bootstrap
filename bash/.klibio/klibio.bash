@@ -13,8 +13,7 @@ export PATH=$PATH:$KLIBIO
 # general 
 export          date=$(date +'%Y.%m.%d-%H.%M.%S')
 
-branch=$(git rev-parse --abbrev-ref HEAD )
-export        branch=${branch:-main}
+branch=$(git rev-parse --abbrev-ref HEAD ) && export branch=${branch:-main}
 export       vcs_ref=$(git rev-list -1 HEAD )
 export vcs_ref_short=$(git describe --dirty --always )
 
