@@ -48,7 +48,7 @@
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
-      label="git tools">
+      label="oomph git tools">
     <description>Install the tools needed in the IDE to work with the source code for ${scope.project.label}</description>
   </setupTask>
   <setupTask
@@ -84,6 +84,13 @@
       </predicate>
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>
+  </setupTask>
+  <setupTask
+      xsi:type="setup.p2:P2Task">
+    <requirement
+        name="de.jcup.basheditor.feature.group"/>
+    <repository
+        url="https://de-jcup.github.io/update-site-eclipse-bash-editor/update-site"/>
   </setupTask>
   <stream name="main"
       label="main">
