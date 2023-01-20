@@ -31,5 +31,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - shell: bash
-        env: DEBUG=true
+        env: 
+          DEBUG: true
         run: .github/workflows/pop-github-launch.sh
