@@ -51,10 +51,10 @@ done
 
 # Command line argument for specifying a Configuration https://www.eclipse.org/forums/index.php/t/1086000/
 
-if [[ -z $oomph ]]; then
+if [[ -z ${oomph} ]]; then
   # minimal oomph version
   jvm=$(echo ${KLIBIO}/java/ee/JAVA11/bin)
-  if [[ -z ${oomph_config} ]];; then
+  if [[ -z ${oomph_config} ]]; then
     echo "# launching oomph in separate window"
     ${KLIBIO}/tool/eclipse-installer/eclipse-inst.exe \
       -vm ${jvm} \
