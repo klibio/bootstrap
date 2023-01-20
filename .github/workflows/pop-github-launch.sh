@@ -4,7 +4,7 @@
 #
 
 # activate debug
-if [[ -z ${DEBUG} ]]; then set -o xtrace; fi
+if [[ -z ${DEBUG+x} ]]; then set -o xtrace; fi
 
 # activate bash checks
 set -o nounset  # exit with error on unset variables
