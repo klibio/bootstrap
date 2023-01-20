@@ -9,7 +9,7 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 # activate debug
-if [[ -z ${DEBUG+x} ]]; then 
+if [[ ! -z ${DEBUG+x} ]]; then 
     echo "$(cat <<-EOM
 ###########################################################
 #
@@ -37,9 +37,8 @@ headline "# execute users command - install-klibio.sh"
 curl -fsSLO https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
 bash ${activate_debug} ./install-klibio.sh -b=${branch} -f -j -o
 rm install-klibio.sh
-ls -la ${KLIBIO}/
 
-padout "# launch a new bash with the actual test (sourcing the installed .bashrc) "
+headline "# launch a new bash with the actual test (sourcing the installed .bashrc) "
 bash ${activate_debug} ${KLIBIO}/pop.sh
 
 headline "proof-of-performance execution - finished"
