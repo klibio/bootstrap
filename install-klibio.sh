@@ -55,7 +55,7 @@ else
   echo "sourcing ${lib_url}"
   . /dev/stdin <<< "$(curl -fsSL ${lib_url})"
 fi
-env| sort && exit 0
+
 headline "$(cat <<-EOM
 ###########################################################
 

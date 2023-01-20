@@ -42,6 +42,7 @@ rm install-klibio.sh
 
 headline "# launch pop inside new bash (containing installed .bashrc) "
 ls -la ${HOME}
+cat ${HOME}/.bashrc
 bash ${activate_debug:-} ${KLIBIO}/pop.sh
 
 headline "proof-of-performance execution - finished"
