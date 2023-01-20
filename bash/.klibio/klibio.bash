@@ -13,7 +13,7 @@ export PATH=$PATH:$KLIBIO
 export date=$(date +'%Y.%m.%d-%H.%M.%S')
 
 # git variables (if inside git repo)
-branch=$(git rev-parse --abbrev-ref HEAD ) && export branch=${branch:-main}
+branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
 export       vcs_ref=$(git rev-list -1 HEAD )
 export vcs_ref_short=$(git describe --dirty --always )
 
@@ -116,7 +116,7 @@ is_debug() {
 download_file_from_github() {
     file=$(basename -- "$1")
     target_folder=${2:-~}
-    branch=$(git rev-parse --abbrev-ref HEAD ) && branch=${branch:-main}
+    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
     url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/${os}/${file}
     pushd ${target_folder} >/dev/null 2>&1
     echo "downloading and save into ${target_folder}/${file}"
@@ -128,7 +128,7 @@ download_file_from_github() {
 
 download_and_extract_file_from_github() {
     target_folder=${2:-~}
-    branch=$(git rev-parse --abbrev-ref HEAD ) && branch=${branch:-main}
+    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
     url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/$1
     echo "downloading and extract into ${target_folder}"
     curl -sSL \
