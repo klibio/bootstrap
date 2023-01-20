@@ -38,7 +38,7 @@ curl -fsSLO https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install
 bash ${activate_debug:-} ./install-klibio.sh -b=${branch} -f -j -o
 rm install-klibio.sh
 
-headline "# launch a new bash with the actual test (sourcing the installed .bashrc) "
+headline "# launch pop inside new bash (containing installed .bashrc) "
 bash ${activate_debug:-} ${KLIBIO}/pop.sh
 
 headline "proof-of-performance execution - finished"

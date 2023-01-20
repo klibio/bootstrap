@@ -3,6 +3,8 @@
 # library with util functions
 #
 
+echo -e "\n#\n# loading klibio library\n#\n"
+
 ###########################################################
 # exported shell variables
 ###########################################################
