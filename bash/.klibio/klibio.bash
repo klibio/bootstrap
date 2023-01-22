@@ -14,8 +14,8 @@ export date=$(date +'%Y.%m.%d-%H.%M.%S')
 
 # git variables (if inside git repo)
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
-export       vcs_ref=$(git rev-list -1 HEAD )
-export vcs_ref_short=$(git describe --dirty --always )
+export       vcs_ref=$(git rev-list -1 HEAD 2>/dev/null )
+export vcs_ref_short=$(git describe --dirty --always 2>/dev/null )
 
 # export variable into build agents e.g. github runner, azure runner
 declare -a build_agent_vars=(
