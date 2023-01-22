@@ -34,7 +34,7 @@ for i in "$@"; do
     # tool parameter
     --dev)
       dev_vm_arg="$(cat <<-EOM
--Duser.home=x:/oomph_delme \
+-Duser.home=${HOME}/oomph_delme \
 -Doomph.setup.user.home.redirect=true
 EOM
 )"
