@@ -36,6 +36,7 @@ fi
 if [[ "$OSTYPE" == "msys" ]]; then
   export os=windows
   export jq=jq-win64.exe
+  export oomph_exec_suffix=eclipse-inst.exe
   export oomph_suffix=win64.zip
 fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -46,6 +47,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   else
     export oomph_suffix=mac64.tar.gz
   fi
+  export oomph_exec_suffix="Eclipse Installer.app/Contents/MacOS/eclipse-inst"
   export java_home_suffix=/Contents/Home
 fi
 if [[ "$OSTYPE" == "linux"* ]]; then
@@ -56,6 +58,7 @@ if [[ "$OSTYPE" == "linux"* ]]; then
   else
     export oomph_suffix=linux64.tar.gz
   fi
+  export oomph_exec_suffix=eclipse-inst.exe
 fi
 
 
