@@ -35,7 +35,7 @@ provisionJava() {
   declare java_release_name=$( cat resp.json  | $jq -r '.[0].release_name' )
   rm resp.json
  
-  if [[ ${DEBUG} == "true" ]]; then
+  if [[ ${DEBUG:-false} == "true" ]]; then
     echo -e "parsed following values from $url\n  java_archive_link=${java_archive_link}\n  java_archive_name=${java_archive_name}\n  java_release_name=${java_release_name}\n"
   fi
 
