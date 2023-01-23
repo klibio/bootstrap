@@ -88,8 +88,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
   brew --version >/dev/null 2>&1; brew_installed=$?
   if [[ 0 != ${brew_installed}} ]]; then
-    echo "homebrew is not installed but required! - go to https://docs.brew.sh/Installation"
-    exit 1
+    echo "homebrew is not installed, hence installing it - see https://docs.brew.sh/Installation"
+    /bin/bash -c " NONINTERACTIVE=1; $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   fi
 
   if [[ -z $(grep "# klibio zsh extension" ~/.zshrc) ]]; then
