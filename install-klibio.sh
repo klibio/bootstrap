@@ -87,7 +87,7 @@ github_provision .profile
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
   brew --version >/dev/null 2>&1; brew_installed=$?
-  if [[ 0 != ${brew_installed}} ]]; then
+  if [[ 0 != ${brew_installed} ]]; then
     echo "homebrew is not installed, hence installing it - see https://docs.brew.sh/Installation"
     /bin/bash -c " NONINTERACTIVE=1; $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   fi
