@@ -137,7 +137,7 @@ download_and_extract_file_from_github() {
     echo "downloading and extract into ${target_folder}"
     curl -sSL \
         ${url} \
-        | tar xvz --overwrite -C ${target_folder} > /dev/null
+        | tar xvz -C ${target_folder} > /dev/null
 }
 
 github_provision() {
