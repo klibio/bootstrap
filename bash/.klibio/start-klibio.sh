@@ -11,8 +11,9 @@ set -o pipefail # exit if any pipe command is failing
 
 if [[ "$#" == 0 ]]; then
   echo "$(cat <<-EOM
-# please provide one or more of the following applications are available
+# please provide one or more options of the following applications are available
 -o|--ommph  oomph eclipse installer
+-o=<github-org/repo>|--ommph=<github-org/repo>  oomph eclipse installer with oomph config
 EOM
 )"
 fi
@@ -63,14 +64,19 @@ if [[ ${oomph} -eq 1 ]]; then
       -Doomph.setup.installer.mode=advanced \
         ${dev_vm_arg:-""} &
    else
-    config_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/oomph/config/${oomph_config/\//_}.setup
-    echo "# launching oomph in separate window with config ${config_url}"
-   "${oomph_exec}" \
-      -vm "${jvm}" \
-      ${config_url} \
-      -vmargs \
-      -Doomph.setup.installer.mode=advanced \
-        ${dev_vm_arg:-""} &
+     config_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/oomph/config/${oomph_config/\//_}.setup
+     if curl --output /dev/null --silent --head --fail "$url"; then
+       echo "# launching oomph in separate window with config ${config_url}"
+       "${oomph_exec}" \
+         -vm "${jvm}" \
+         ${config_url} \
+         -vmargs \
+         -Doomph.setup.installer.mode=advanced \
+           ${dev_vm_arg:-""} &
+    else
+      echo "no oomph config for provided repo existing: oomph/config/${oomph_config/\//_}.setup"
+    fi
+
    fi
 fi
 
