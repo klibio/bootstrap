@@ -85,6 +85,13 @@ github_provision .klibio.bash
 github_provision .profile
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
+
+  brew --version >/dev/null 2>&1; brew_installed=$?
+  if [[ 0 != ${brew_installed}} ]]; then
+    echo "homebrew is not installed but required! - go to https://docs.brew.sh/Installation"
+    exit 1
+  fi
+
   if [[ -z $(grep "# klibio zsh extension" ~/.zshrc) ]]; then
     cat << EOT >> ~/.zshrc
 
