@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # activate bash checks
-set -o xtrace   # activate debug
+#set -o xtrace   # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
@@ -54,7 +54,7 @@ done
 
 if [[ ${oomph} -eq 1 ]]; then
   # minimal oomph version
-  jvm=$(echo ${KLIBIO}/java/ee/JAVA11${java_home_suffix}/bin)
+  jvm=$(echo ${KLIBIO}/java/ee/JAVA11${java_home_suffix:-}/bin)
   oomph_exec=$(echo "${KLIBIO}/tool/eclipse-installer/${oomph_exec_suffix}")
   if [[ -z ${oomph_config+x} ]]; then
     echo "# launching oomph in separate window"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ ${DEBUG} == "true" ]]; then
+if [[ ${DEBUG:-false} == "true" ]]; then
   set -o xtrace   # activate debug
 fi
 # activate bash checks
