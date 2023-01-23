@@ -119,6 +119,7 @@ is_debug() {
 download_file_from_github() {
     file=$(basename -- "$1")
     target_folder=${2:-~}
+    if [[ ${overwrite:-false} == true ]]; then rm -rf ${target_folder}/${file} >/dev/null 2>&1; fi
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
     url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/${os}/${file}
     pushd ${target_folder} >/dev/null 2>&1
@@ -131,6 +132,7 @@ download_file_from_github() {
 
 download_and_extract_file_from_github() {
     target_folder=${2:-~}
+    if [[ ${overwrite:-false} == true ]]; then rm -rf ${target_folder} >/dev/null 2>&1; fi
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
     url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/$1
     echo "downloading and extract into ${target_folder}"
