@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ ${DEBUG} == true ]]; then
+if [[ ${DEBUG} == "true" ]]; then
   set -o xtrace   # activate debug
 fi
 # activate bash checks
@@ -35,7 +35,7 @@ provisionJava() {
   declare java_release_name=$( cat resp.json  | $jq -r '.[0].release_name' )
   rm resp.json
  
-  if [[ ${DEBUG} == true ]]; then
+  if [[ ${DEBUG} == "true" ]]; then
     echo -e "parsed following values from $url\n  java_archive_link=${java_archive_link}\n  java_archive_name=${java_archive_name}\n  java_release_name=${java_release_name}\n"
   fi
 
