@@ -60,9 +60,9 @@ else
   lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.sh
   echo "# sourcing klibio library - ${lib_url}"
   install_dir=~/.klibio
-  pushd ${install_dir}; $(curl -fsSLO ${lib_url})
-  . ${install_dir}/klibio.sh
-  popd
+  $(curl -fsSLO ${lib_url})
+  . klibio.sh
+  rm klibio.sh
 fi
 export install_dir=${install_dir}
 
