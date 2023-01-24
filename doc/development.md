@@ -8,10 +8,10 @@ describes the development of this project
 cd <repo_root>
 
 # launch for local development
-./install-klibio.sh --dev -j -o
+export KLIBIO=; ./install-klibio.sh --dev -j -o
 
 # launch local development with bash debugging active
-export debug=true; ./install-klibio.sh --dev -j -o
+export KLIBIO=; export debug=true; ./install-klibio.sh --dev -j -o
 ```
 
 Installation will take place inside `HOME` folder in the repo.
