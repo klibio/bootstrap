@@ -140,7 +140,7 @@ is_debug() {
 download_file_from_github() {
     file=$(basename -- "$1")
     target_folder=$2
-    if  [[ ${overwrite} ]]; then rm -rf ${target_folder}/${file} >/dev/null 2>&1; fi
+    if  [[ ${overwrite} == "true" ]]; then rm -rf ${target_folder}/${file} >/dev/null 2>&1; fi
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
     url=${gh_url}/bash/${os}/${file}
     pushd ${target_folder} >/dev/null 2>&1
@@ -168,7 +168,7 @@ github_provision() {
     target_folder=$2
     if [[ $file == *.tar.gz ]]; then
         dirname="${file%.*.*}"
-        if [[ -d "${target_folder}/${dirname}" && !${overwrite} ]]; then
+        if [[ -d "${target_folder}/${dirname}" && ${overwrite} != "true" ]]; then
             while true; do
                 read -p "Do you wish to overwrite ${target_folder}/${dirname}? " yn
                 case $yn in
@@ -182,7 +182,7 @@ github_provision() {
         fi
     else
         file=${target_folder}/${file}
-        if [[ -f ${file}  && !${overwrite} ]]; then 
+        if [[ -f ${file}  && ${overwrite} != "true" ]]; then 
             while true; do
                 read -p "Do you wish to overwrite $file? " yn
                 case $yn in

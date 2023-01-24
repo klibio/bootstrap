@@ -15,7 +15,7 @@ set -o pipefail # exit if any pipe command is failing
 # tool variables
 java=0
 oomph=0
-overwrite=0
+overwrite=false
 
 for i in "$@"; do
   case $i in
@@ -28,7 +28,7 @@ for i in "$@"; do
       ;;
     # for develoment purposes
     -f|--force)
-      overwrite=1
+      overwrite=true
       ;;
     -b=*|--branch=*)
       branch="${i#*=}"
