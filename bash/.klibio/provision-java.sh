@@ -2,12 +2,11 @@
 #
 # download and extract the lts java versions for this os and platform
 #
-
-if [[ ${debug:-false} == "true" ]]; then
+script_dir=$(dirname $(readlink -e $BASH_SOURCE))
+# activate bash checks
+if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
 fi
-script_dir=$(cd "$(dirname "$0")" && pwd)
-
 # activate bash checks
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
@@ -15,18 +14,17 @@ set -o pipefail # exit if any pipe command is failing
 
 if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
   echo "###########################################################"
-  echo -e "\n#\n# LOCAL DEV ACTIVE # provision-java.sh\n#\n"
+  echo "# LOCAL DEV ACTIVE # provision-java.sh"
   echo "###########################################################"
 fi
 
 # load library
-. /dev/stdin <<< "$(cat ${script_dir}/klibio.sh)"
+. ${script_dir}/klibio.sh
+. ${script_dir}/provision-tools.sh
 
 java_rest_api=https://api.adoptium.net
 java_dir=$(echo "${KLIBIO}/java")
 
-. /dev/stdin <<< "$(cat ${script_dir}/klibio.sh)"
-. /dev/stdin <<< "$(cat ${script_dir}/provision-tools.sh)"
 
 provisionJava() {
   java_version=${1:-17}

@@ -1,11 +1,15 @@
 #!/bin/bash
-#set -o xtrace   # activate debug
-set -o nounset  # exit with error on unset variables
-set -o errexit  # exit if any statement returns a non-true return value
-set -o pipefail # exit if any pipe command is failing
+#
+# switch the java versions
+#
+script_dir=$(dirname $(readlink -e $BASH_SOURCE))
+# activate bash checks
+if [[ ${debug:-false} == true ]]; then
+  set -o xtrace   # activate bash debug
+fi
 
 # load library
-. /dev/stdin <<< "$(cat ~/.klibio/klibio.sh)"
+. ${script_dir}/klibio.sh
 java_home_suffix=${java_home_suffix:=}
 
 removeFromPath () {

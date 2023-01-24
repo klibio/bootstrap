@@ -1,15 +1,5 @@
 # bash-coding conventions
 
-## import library functions 
-
-Load the desired library on you Bash scripts as follows:
-
-```bash
-...
-. /dev/stdin <<< "$(curl -s https://raw.githubusercontent.com/juan131/bash-libraries/master/lib/liblog.bash)"
-...
-```
-
 ## Bash best practices
 
 Here you can find a series of tips when developing a Bash script:

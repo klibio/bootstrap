@@ -2,12 +2,11 @@
 #
 # klibio library functions
 #
-
-if [[ ${debug:-false} == "true" ]]; then
+script_dir_klibio=$(dirname $(readlink -e $BASH_SOURCE))
+# activate bash checks
+if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
 fi
-script_dir=$(cd "$(dirname "$0")" && pwd)
-
 ###########################################################
 # exporting shell variables
 ###########################################################
@@ -21,11 +20,11 @@ export        gh_url="https://raw.githubusercontent.com/klibio/bootstrap/${branc
 # general 
 if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
   echo "###########################################################"
-  echo -e "\n#\n# LOCAL DEV ACTIVE # klibio.sh\n#\n"
+  echo "# LOCAL DEV ACTIVE # klibio.sh"
   echo "###########################################################"
-  export KLIBIO=$(echo ${script_dir}/HOME/.klibio)
+  export KLIBIO=${KLIBIO:-$(echo ${script_dir}/HOME/.klibio)}
 else
-  export KLIBIO=${KLIBIO:=$(echo ~/.klibio)}
+  export KLIBIO=${KLIBIO:-$(echo ~/.klibio)}
 fi
 export PATH=$PATH:$KLIBIO
 export date=$(date +'%Y.%m.%d-%H.%M.%S')

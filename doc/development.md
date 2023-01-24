@@ -23,3 +23,9 @@ Please mind the [`bash-conventions.md`](bash-conventions.md) for modifying `*.sh
 ## oomph models
 
 Eclipse Modeling with oomph tooling
+
+## evaluation inside devel
+
+```bash
+pushd bash/devel; ./eval-sourcing.sh arg1 arg2 arg3; popd
+```

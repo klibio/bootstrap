@@ -29,8 +29,10 @@ fi
 
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
 lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.sh
-echo "# sourcing klibio lib - ${lib_url}"
-. /dev/stdin <<< "$(curl -fsSL ${lib_url})"
+echo "# sourcing klibio library - ${lib_url}"
+pushd $TEMP; $(curl -fsSLO ${lib_url})
+. ${TEMP}/klibio.sh
+popd
 
 headline "proof-of-performance execution - started"
 

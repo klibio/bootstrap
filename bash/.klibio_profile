@@ -1,6 +1,7 @@
 #!/bin/bash
 
-export KLIBIO=$(echo ~/.klibio)
+script_dir=$(dirname $(readlink -e $BASH_SOURCE))
+export KLIBIO=$(echo ${script_dir}/.klibio)
 
 # java settings
 if [ -f ${KLIBIO}/set-java.sh ]
@@ -18,7 +19,7 @@ then
 fi
 
 # load aliases
-if [ -f ~/.profile ]
+if [ -f ${script_dir}/.profile ]
 then
-  . ~/.profile
+  . ${script_dir}/.profile
 fi
