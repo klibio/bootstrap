@@ -59,7 +59,7 @@ if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
 else
   lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.sh
   echo "# sourcing klibio library - ${lib_url}"
-  install_dir=~/.klibio
+  install_dir=~
   $(curl -fsSLO ${lib_url})
   . klibio.sh
   rm klibio.sh
