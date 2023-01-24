@@ -38,7 +38,7 @@ if [ ! -f ${tools_archives}/${output_file} ]; then
       > ${tools_archives}/${output_file}
 fi
 
-if [ -d "${installer_dir}" ]; then
+if [[ -d "${installer_dir}" ]]; then
   echo -e "#\n# using existing installer from ${installer_dir}\n#\n"
 else 
   echo -e "#\n# extracting ${output_file} to ${installer_dir}\n#\n"
@@ -54,7 +54,7 @@ else
       tar -xvf "${tools_archives}/${output_file}" -C "${installer_dir}"
       ;;
     *)
-      echo -e "#\n# OS is none of the supported linux|windows|mac. Aborting... \n#\n" && exit 1
-      exit 1
+    echo -e "#\n# OS is none of the supported linux|windows|mac. Aborting... \n#\n" && exit 1
+    ;;
   esac
 fi

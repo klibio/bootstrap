@@ -25,7 +25,6 @@ fi
 java_rest_api=https://api.adoptium.net
 java_dir=$(echo "${KLIBIO}/java")
 
-
 provisionJava() {
   java_version=${1:-17}
   java_image_type=${2:-jdk}
