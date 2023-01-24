@@ -114,7 +114,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     cat << EOT >> ~/.zshrc
 
 # klibio zsh extension
-if [[ -f ${install_dir} ]]; then
+if [[ -f ${install_dir}/.klibio_profile ]]; then
   . ${install_dir}/.klibio_profile
 fi
 EOT
@@ -127,7 +127,7 @@ else
       cat << EOT >> ~/.bashrc
 
 # klibio bash extension
-if [[ -f ${install_dir} ]]; then
+if [[ -f ${install_dir}/.klibio_profile ]]; then
   . ${install_dir}/.klibio_profile
 fi
 EOT
