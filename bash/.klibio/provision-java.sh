@@ -79,6 +79,8 @@ echo -e "\n##############################\n# Java setup on $os\n################
 
 if [[ "aarch64" != "${java_arch}" ]]; then
   provisionJava 8 jdk ${java_arch}
+else
+  echo "skip java 8 cause not available on architecture aarch64"
 fi
 provisionJava 11 jdk ${java_arch}
 provisionJava 17 jdk ${java_arch}
