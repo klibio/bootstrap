@@ -39,3 +39,4 @@ if [ ! -f ${tools_dir}/${jq} ]; then
   jq=${tools_dir}/${jq}
 fi
 echo "using jq version: $(${jq} --version)"
+
