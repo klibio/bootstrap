@@ -2,7 +2,7 @@
 #
 # install klibio bootstrap libraries and tools
 #
-script_dir=$(dirname $(readlink -e $BASH_SOURCE))
+script_dir=$(dirname $(readlink -e ${BASH_SOURCE:-$(pwd)}))
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug

@@ -2,7 +2,7 @@
 #
 # klibio library functions
 #
-script_dir_klibio=$(dirname $(readlink -e $BASH_SOURCE))
+script_dir_klibio=$(dirname $(readlink -e ${BASH_SOURCE:-$(pwd)}))
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
