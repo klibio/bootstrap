@@ -142,7 +142,7 @@ download_file_from_github() {
     target_folder=$2
     if  [[ ${overwrite} == "true" ]]; then rm -rf ${target_folder}/${file} >/dev/null 2>&1; fi
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
-    url=${gh_url}/bash/${os}/${file}
+    url=${gh_url}/bash/${file}
     pushd ${target_folder} >/dev/null 2>&1
     echo "downloading and save into ${target_folder}/${file}"
     curl -sSL \
