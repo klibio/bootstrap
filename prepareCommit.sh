@@ -15,8 +15,17 @@ curl \
     -H "Authorization: Bearer ${github_token}" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
     ${url} > resp.json
-for row in $(cat resp.json | jq ".[] | .name"); do
-    echo ${row}
+
+for row in $(cat resp.json | jq -r '.[] | .name'); do
+    echo -e "#\n# creating project file for ${row} \n#\n"
     # here create setup files for each github repo FROM TEMPLATE
+    repo=$(echo ${row} | sed 's/\\n/\n/g')
+    file=./oomph/projects/klibio_${repo}.setup
+    while read -r line; do
+    echo $(echo "${line//__REPO__/${repo}}") >> ${file}
+    if [ -f ${file} ]; then
+        sed -i "s/__ORG__/${org}/g" $file
+    fi
+    done < ./oomph/projects/klibio_template.setup
 done
 rm resp.json
