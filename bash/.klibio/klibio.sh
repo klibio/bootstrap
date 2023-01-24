@@ -157,6 +157,7 @@ download_and_extract_file_from_github() {
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
     url=${gh_url}/${file}
     echo "downloading and extract ${file} into ${target_folder}"
+    mkdir -p ${target_folder}
     curl -sSL \
         ${url} \
         | tar xvz -C ${target_folder} > /dev/null
