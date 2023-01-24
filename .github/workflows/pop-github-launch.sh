@@ -9,7 +9,7 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 # activate debug
-if [[ ! -z ${DEBUG+x} ]]; then 
+if [[ ! -z ${debug+x} ]]; then 
     echo "$(cat <<-EOM
 ###########################################################
 #
@@ -28,7 +28,7 @@ EOM
 fi
 
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
-lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.bash
+lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.sh
 echo "# sourcing klibio lib - ${lib_url}"
 . /dev/stdin <<< "$(curl -fsSL ${lib_url})"
 

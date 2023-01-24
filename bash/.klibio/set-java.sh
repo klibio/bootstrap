@@ -5,7 +5,7 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 # load library
-. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.sh)"
 java_home_suffix=${java_home_suffix:=}
 
 removeFromPath () {

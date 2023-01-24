@@ -3,8 +3,8 @@
 # download and extract the lts java versions for this os and platform
 #
 
-if [[ ${DEBUG:-false} == "true" ]]; then
-  set -o xtrace   # activate debug
+if [[ ${debug:-false} == "true" ]]; then
+  set -o xtrace   # activate bash debug
 fi
 script_dir=$(cd "$(dirname "$0")" && pwd)
 
@@ -13,13 +13,19 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
+if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
+  echo "###########################################################"
+  echo -e "\n#\n# LOCAL DEV ACTIVE # provision-java.sh\n#\n"
+  echo "###########################################################"
+fi
+
 # load library
-. /dev/stdin <<< "$(cat ${script_dir}/klibio.bash)"
+. /dev/stdin <<< "$(cat ${script_dir}/klibio.sh)"
 
 java_rest_api=https://api.adoptium.net
 java_dir=$(echo "${KLIBIO}/java")
 
-. /dev/stdin <<< "$(cat ${script_dir}/klibio.bash)"
+. /dev/stdin <<< "$(cat ${script_dir}/klibio.sh)"
 . /dev/stdin <<< "$(cat ${script_dir}/provision-tools.sh)"
 
 provisionJava() {
@@ -40,7 +46,7 @@ provisionJava() {
   declare java_release_name=$( cat resp.json  | $jq -r '.[0].release_name' )
   rm resp.json
  
-  if [[ ${DEBUG:-false} == "true" ]]; then
+  if [[ ${debug:-false} == "true" ]]; then
     echo -e "parsed following values from $url\n  java_archive_link=${java_archive_link}\n  java_archive_name=${java_archive_name}\n  java_release_name=${java_release_name}\n"
   fi
 

@@ -3,14 +3,24 @@
 # download and extract the os/arch specific latest eclipse installer version (including JRE)
 # archive is extracted into ${KLIBIO}/tool/eclipse-installer
 
+if [[ ${debug:-false} == "true" ]]; then
+  set -o xtrace   # activate bash debug
+fi
+script_dir=$(cd "$(dirname "$0")" && pwd)
+
 # activate bash checks
-#set -o xtrace   # activate debug
 set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
+if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
+  echo "###########################################################"
+  echo -e "\n#\n# LOCAL DEV ACTIVE # provision-oomph.sh\n#\n"
+  echo "###########################################################"
+fi
+
 # load library
-. /dev/stdin <<< "$(cat ~/.klibio/klibio.bash)"
+. /dev/stdin <<< "$(cat ~/.klibio/klibio.sh)"
 
 tools_dir=$(echo "${KLIBIO}/tool")
 tools_archives="${tools_dir}/archives"

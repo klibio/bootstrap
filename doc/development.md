@@ -1,12 +1,20 @@
 # development
 
-Describes the development of this project
+describes the development of this project
 
 ## Trigger installation locally without any scripts from github repo
 
 ```bash
-export DEBUG=true; export LOCAL_DEV=true; ./install-klibio.sh
+cd <repo_root>
+
+# launch for local development
+./install-klibio.sh --dev -j -o
+
+# launch local development with bash debugging active
+export debug=true; ./install-klibio.sh --dev -j -o
 ```
+
+Installation will take place inside `HOME` folder in the repo.
 
 ## bash
 

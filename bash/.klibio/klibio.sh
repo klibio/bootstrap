@@ -1,21 +1,34 @@
 #!/bin/bash
 #
-# library with util functions
+# klibio library functions
 #
+
+if [[ ${debug:-false} == "true" ]]; then
+  set -o xtrace   # activate bash debug
+fi
+script_dir=$(cd "$(dirname "$0")" && pwd)
 
 ###########################################################
 # exporting shell variables
 ###########################################################
 
-# general 
-export KLIBIO=${KLIBIO:=$(echo ~/.klibio)}
-export PATH=$PATH:$KLIBIO
-export date=$(date +'%Y.%m.%d-%H.%M.%S')
-
 # git variables (if inside git repo)
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
 export       vcs_ref=$(git rev-list -1 HEAD 2>/dev/null )
 export vcs_ref_short=$(git describe --dirty --always 2>/dev/null )
+export        gh_url="https://raw.githubusercontent.com/klibio/bootstrap/${branch}"
+
+# general 
+if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
+  echo "###########################################################"
+  echo -e "\n#\n# LOCAL DEV ACTIVE # klibio.sh\n#\n"
+  echo "###########################################################"
+  export KLIBIO=$(echo ${script_dir}/HOME/.klibio)
+else
+  export KLIBIO=${KLIBIO:=$(echo ~/.klibio)}
+fi
+export PATH=$PATH:$KLIBIO
+export date=$(date +'%Y.%m.%d-%H.%M.%S')
 
 # export variable into build agents e.g. github runner, azure runner
 declare -a build_agent_vars=(
@@ -31,7 +44,9 @@ if [[ ! -z ${AGENT_ID+x} ]]; then
   done
 fi
 
+###########################################################
 # OS specific environment variables
+###########################################################
 
 if [[ "$OSTYPE" == "msys" ]]; then
   export os=windows
@@ -40,6 +55,7 @@ if [[ "$OSTYPE" == "msys" ]]; then
   export oomph_suffix=win64.zip
   export java_arch=x64
 fi
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
   export os=mac
   export jq=jq-osx-amd64
@@ -53,6 +69,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   export oomph_exec_suffix="Eclipse Installer.app/Contents/MacOS/eclipse-inst"
   export java_home_suffix=/Contents/Home
 fi
+
 if [[ "$OSTYPE" == "linux"* ]]; then
   export os=linux
   export jq=jq-linux64
@@ -110,7 +127,7 @@ succ() {
 }
 
 is_debug() {
-    if ${DEBUG:-false}; then
+    if ${debug:-false}; then
         "$@"
     else
         "$@" >/dev/null 2>&1
@@ -123,10 +140,10 @@ is_debug() {
 
 download_file_from_github() {
     file=$(basename -- "$1")
-    target_folder=${2:-~}
-    if [[ ${overwrite:-false} == true ]]; then rm -rf ${target_folder}/${file} >/dev/null 2>&1; fi
+    target_folder=$2
+    if  [[ ${overwrite} ]]; then rm -rf ${target_folder}/${file} >/dev/null 2>&1; fi
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
-    url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/${os}/${file}
+    url=${gh_url}/bash/${os}/${file}
     pushd ${target_folder} >/dev/null 2>&1
     echo "downloading and save into ${target_folder}/${file}"
     curl -sSL \
@@ -136,10 +153,11 @@ download_file_from_github() {
 }
 
 download_and_extract_file_from_github() {
-    target_folder=${2:-~}
+    file=$1
+    target_folder=$2
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
-    url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/$1
-    echo "downloading and extract into ${target_folder}"
+    url=${gh_url}/${file}
+    echo "downloading and extract ${file} into ${target_folder}"
     curl -sSL \
         ${url} \
         | tar xvz -C ${target_folder} > /dev/null
@@ -147,34 +165,34 @@ download_and_extract_file_from_github() {
 
 github_provision() {
     file=$1
-    target_folder=${2:-~}
+    target_folder=$2
     if [[ $file == *.tar.gz ]]; then
         dirname="${file%.*.*}"
-        if [ -d "$target_folder/$dirname" ] && [ ! ${overwrite:-false} == true ]; then
+        if [[ -d "${target_folder}/${dirname}" && !${overwrite} ]]; then
             while true; do
                 read -p "Do you wish to overwrite ${target_folder}/${dirname}? " yn
                 case $yn in
-                    [Yy]* ) download_and_extract_file_from_github ${file}; break;;
+                    [Yy]* ) download_and_extract_file_from_github ${file} ${target_folder}; break;;
                     [Nn]* ) break;;
                     * ) echo "Please answer yes or no.";;
                 esac
             done
         else
-            download_and_extract_file_from_github $file
+            download_and_extract_file_from_github ${file} ${target_folder}
         fi
     else
         file=${target_folder}/${file}
-        if [[ -f ${file} ]] && [[ ! ${overwrite:-false} == true ]]; then 
+        if [[ -f ${file}  && !${overwrite} ]]; then 
             while true; do
                 read -p "Do you wish to overwrite $file? " yn
                 case $yn in
-                    [Yy]* ) download_file_from_github $file; break;;
+                    [Yy]* ) download_file_from_github ${file} ${target_folder}; break;;
                     [Nn]* ) break;;
                     * ) echo "Please answer [y]es or [n]o.";;
                 esac
             done
         else 
-            download_file_from_github $file
+            download_file_from_github ${file} ${target_folder}
         fi
     fi
 }
