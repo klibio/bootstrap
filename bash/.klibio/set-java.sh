@@ -2,14 +2,14 @@
 #
 # switch the java versions
 #
-script_dir_klibio=$(dirname $(readlink -e ${BASH_SOURCE:-$(pwd)}))
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
 fi
 
 # load library
-. ${script_dir_klibio}/klibio.sh
+. ${script_dir}/klibio.sh
 java_home_suffix=${java_home_suffix:=}
 
 removeFromPath () {

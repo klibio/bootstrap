@@ -12,10 +12,10 @@ then
 fi
 
 # define bash prompt
-if [[ "$(echo $SHELL)" == *"/bin/bash"* ]]
-then
-  PS1="\D{%Y%m%d-%H%M%S} \u@\H:\w jobs=\j\n$ "
-fi
+#if [[ "$(echo $SHELL)" == *"/bin/bash"* ]]
+#then
+#  PS1="\D{%Y%m%d-%H%M%S} \u@\H:\w jobs=\j\n$ "
+#fi
 
 # load aliases
 if [ -f ${script_dir}/.klibio_alias ]

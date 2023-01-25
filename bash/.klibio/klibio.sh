@@ -2,7 +2,8 @@
 #
 # klibio library functions
 #
-script_dir_klibio=$(dirname $(readlink -e ${BASH_SOURCE:-$(pwd)}))
+script_dir_klibio=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
@@ -22,6 +23,7 @@ if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
   echo "###########################################################"
   echo "# LOCAL DEV ACTIVE # klibio.sh"
   echo "###########################################################"
+  mkdir -p ${script_dir}/HOME
   export KLIBIO=${KLIBIO:-$(echo ${script_dir}/HOME/.klibio)}
 else
   export KLIBIO=${KLIBIO:-$(echo ~/.klibio)}

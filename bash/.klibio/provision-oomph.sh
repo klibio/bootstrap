@@ -3,7 +3,7 @@
 # download and extract the os/arch specific latest eclipse installer version (including JRE)
 # archive is extracted into ${KLIBIO}/tool/eclipse-installer
 #
-cript_dir=$(dirname $(readlink -e $BASH_SOURCE))
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
