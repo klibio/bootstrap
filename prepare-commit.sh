@@ -12,11 +12,23 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
+if [[ "$#" == 0 ]]; then
+  echo "$(cat <<-EOM
+# please provide one or more options of the following options
+-b|--bash   update the archive for the USERHOME <.klibio.tar.gz>
+-o|--ommph  create oomph projects and configs for klibio projects
+-f|--force  overwrite existing files
+EOM
+)"
+exit 0
+fi
+
 echo "# create derived objects"
 
-# tool variables
-exec_bash_archive=true
+# process step variables (all MUST be false and only activated by user option)
+exec_bash_archive=false
 exec_oomph_setups=false
+overwrite=false
 
 for i in "$@"; do
   case $i in
@@ -26,6 +38,10 @@ for i in "$@"; do
       ;;
     -o|--oomph)
       exec_oomph_setups=true
+      ;;
+    # for develoment purposes
+    -f|--force)
+      overwrite=true
       ;;
     # default for unknown parameter
     -*|--*)
@@ -39,6 +55,7 @@ done
 
 if [[ ${exec_bash_archive} == "true"  ]]; then
     file=.klibio.tar.gz
+    echo -e "#\n#  updating archive ${file} \n#\n"
     pushd $script_dir/bash >/dev/null 2>&1
     rm $file >/dev/null 2>&1
     tar -zvcf $script_dir/$file .klibio
@@ -46,25 +63,50 @@ if [[ ${exec_bash_archive} == "true"  ]]; then
 fi
 
 if [[ ${exec_oomph_setups} == "true"  ]]; then
-  # get all projects for a given github organisation
+  # retrieve projects for a given github organisation
+  org=klibio
+  if [[ ! -v github_token ]]; then
+    echo "mandatory environment variable 'github_token' for GITHUB $org is missing"
+    exit 1
+  fi
+
   url=https://api.github.com/orgs/${org}/repos
+  file_response=gh_repos_response.json
   curl \
       -H "Accept: application/vnd.github+json" \
       -H "Authorization: Bearer ${github_token}" \
       -H "X-GitHub-Api-Version: 2022-11-28" \
-      ${url} > resp.json
+      ${url} > ${file_response}
   
-  for row in $(cat resp.json | jq -r '.[] | .name'); do
-      echo -e "#\n# creating project file for ${row} \n#\n"
-      # here create setup files for each github repo FROM TEMPLATE
+  for row in $(cat ${file_response} | jq -r '.[] | .name' | sort); do
       repo=$(echo ${row} | sed 's/\\n/\n/g')
-      file=./oomph/projects/klibio_${repo}.setup
-      while read -r line; do
-      echo $(echo "${line//__REPO__/${repo}}") >> ${file}
-      if [ -f ${file} ]; then
-          sed -i "s/__ORG__/${org}/g" $file
+      echo -e "#\n# processing repo ${repo} \n#\n"
+
+      file=${script_dir}/oomph/projects/klibio_${repo}.setup
+      if  [[ -e ${file} && ${overwrite} != "true" ]]; then
+          echo "## skip existing project setup file klibio_${repo}.setup"
+      else
+          echo "## create project setup file klibio_${repo}.setup"
+          while read -r line; do
+          echo $(echo "${line//__REPO__/${repo}}") >> ${file}
+          if [ -f ${file} ]; then
+              sed -i "s/__ORG__/${org}/g" $file
+          fi
+          done < ./oomph/template/klibio_project_template.setup
       fi
-      done < ./oomph/projects/klibio_template.setup
+
+      file=${script_dir}/oomph/config/klibio_${repo}.setup
+      if  [[ -e ${file} && ${overwrite} != "true" ]]; then
+          echo "## skip existing project config file klibio_${repo}.setup"
+      else
+          echo "## create project config file klibio_${repo}.setup"
+          while read -r line; do
+          echo $(echo "${line//__REPO__/${repo}}") >> ${file}
+          if [ -f ${file} ]; then
+              sed -i "s/__ORG__/${org}/g" $file
+          fi
+          done < ./oomph/template/klibio_config_template.setup
+      fi
   done
-  rm resp.json
+  rm ${file_response}
 fi

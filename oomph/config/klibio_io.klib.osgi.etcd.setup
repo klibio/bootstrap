@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup:Configuration
+xmi:version="2.0"
+xmlns:xmi="http://www.omg.org/XMI"
+xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+label="klibio/io.klib.osgi.etcd">
+<installation
+name="klibio.io.klib.osgi.etcd.installation"
+label="klibio/io.klib.osgi.etcd Installation">
+<productVersion
+href="../products/klibio.products.setup#//@products[name='klibio.osgi.dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+<description>The klibio/io.klib.osgi.etcd installation provides cool stuff.</description>
+</installation>
+<workspace
+name="klibio.io.klib.osgi.etcd.workspace"
+label="klibio/io.klib.osgi.etcd Workspace">
+<stream
+href="../projects/klibio_io.klib.osgi.etcd.setup#//@streams[name='main']"/>
+<description>The klibio/io.klib.osgi.etcd workspace provides cool stuff.</description>
+</workspace>
+<description>The boostrap configuration provides cool stuff.</description>
+</setup:Configuration>
