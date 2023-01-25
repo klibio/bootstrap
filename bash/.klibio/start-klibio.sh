@@ -2,7 +2,6 @@
 #
 # start klibio applications/tools  
 #
-
 script_dir=$(dirname $(readlink -e $BASH_SOURCE))
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
