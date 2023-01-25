@@ -1,5 +1,5 @@
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-export KLIBIO=$(echo ${script_dir}/.klibio)
+export KLIBIO=$(echo ${script_dir})
 
 # java settings
 if [ -f ${KLIBIO}/set-java.sh ]
