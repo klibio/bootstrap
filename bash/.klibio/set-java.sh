@@ -9,7 +9,7 @@ if [[ ${debug:-false} == true ]]; then
 fi
 
 # load library
-. ${script_dir_klibio}/klibio.sh
+. ${script_dir}/klibio.sh
 java_home_suffix=${java_home_suffix:=}
 
 removeFromPath () {
