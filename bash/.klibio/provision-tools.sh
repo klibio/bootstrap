@@ -37,7 +37,7 @@ if [ ! -f ${jq} ]; then
   mkdir -p ${tools_dir}  && pushd ${tools_dir} >/dev/null 2>&1
   curl -s -C - -O -L ${jq_download_link}/${jq_exec}
   chmod u+x ${jq}
-   popd >/dev/null 2>&1
+  popd >/dev/null 2>&1
 fi
 echo "using jq version: $(${jq} --version)"
 
