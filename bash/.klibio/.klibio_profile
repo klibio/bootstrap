@@ -8,7 +8,7 @@ export PATH=${KLIBIO}:${PATH}
 if [ -f ${KLIBIO}/set-java.sh ]
 then
   # configure default java to version 17
-  set-java.sh 17
+  . set-java.sh 17
 fi
 
 # define bash prompt
