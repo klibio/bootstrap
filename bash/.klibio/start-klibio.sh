@@ -72,7 +72,7 @@ if [[ ${oomph} -eq 1 ]]; then
         ${dev_vm_arg:-""} &
    else
      config_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/oomph/config/${oomph_config/\//_}.setup
-     if curl --output /dev/null --silent --head --fail "$url"; then
+     if curl --output /dev/null --silent --head --fail "$config_url"; then
        echo "# launching oomph in separate window with config ${config_url}"
        "${oomph_exec}" \
          -vm "${jvm}" \
