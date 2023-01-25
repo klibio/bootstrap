@@ -34,9 +34,10 @@ fi
 
 export jq=${tools_dir}/${jq_exec}
 if [ ! -f ${jq} ]; then
-  mkdir -p ${tools_dir}
-  curl -s -C - --output ${tools_dir}/${jq} -L ${jq_download_link}/${jq}
-  chmod u+x ${tools_dir}/${jq}
+  mkdir -p ${tools_dir}  && pushd ${tools_dir} >/dev/null 2>&1
+  curl -s -C - -O -L ${jq_download_link}/${jq_exec}
+  chmod u+x ${jq}
+   popd >/dev/null 2>&1
 fi
 echo "using jq version: $(${jq} --version)"
 
