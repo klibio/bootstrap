@@ -1,11 +1,12 @@
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 export KLIBIO=$(echo ${script_dir})
 
+# append klibio tools folder to path
+export PATH=${KLIBIO}:${PATH}
+
 # java settings
 if [ -f ${KLIBIO}/set-java.sh ]
 then
-  # append klibio tools folder to path
-  export PATH=${PATH}:${KLIBIO}
   # configure default java to version 17
   set-java.sh 17
 fi
