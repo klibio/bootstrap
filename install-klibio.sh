@@ -93,12 +93,8 @@ EOM
 headline "provision sources into ${install_dir}"
 if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
   tar xvzf ${script_dir}/.klibio.tar.gz -C ${install_dir}
-  cp -v ${script_dir}/bash/.klibio_profile ${install_dir}
-  cp -v ${script_dir}/bash/.klibio_alias ${install_dir}
 else
   github_provision .klibio.tar.gz   ${install_dir}
-  github_provision .klibio_profile  ${install_dir}
-  github_provision .klibio_alias    ${install_dir}
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -116,21 +112,21 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     cat << EOT >> ~/.zshrc
 
 # klibio zsh extension
-if [[ -f ${install_dir}/.klibio_profile ]]; then
-  . ${install_dir}/.klibio_profile
+if [[ -f ${install_dir}/.klibio/.klibio_profile ]]; then
+  . ${install_dir}/.klibio/.klibio_profile
 fi
 EOT
   else
     headline "klibio extension already inside ${install_dir}/.zshrc"
   fi
 else
-    if [[ -z $(grep "# klibio bash extension" ${install_dir}/.bashrc 2>/dev/null) ]]; then
+    if [[ -z $(grep "# klibio bash extension" ${install_dir}/.klibio/.bashrc 2>/dev/null) ]]; then
       headline "configure klibio extension inside ${install_dir}/.bashrc"
       cat << EOT >> ~/.bashrc
 
 # klibio bash extension
-if [[ -f ${install_dir}/.klibio_profile ]]; then
-  . ${install_dir}/.klibio_profile
+if [[ -f ${install_dir}/.klibio/.klibio_profile ]]; then
+  . ${install_dir}/.klibio/.klibio_profile
 fi
 EOT
   else

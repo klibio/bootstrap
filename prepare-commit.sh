@@ -56,8 +56,8 @@ done
 if [[ ${exec_bash_archive} == "true"  ]]; then
     file=.klibio.tar.gz
     echo -e "#\n#  updating archive ${file} \n#\n"
+    rm $script_dir/$file >/dev/null 2>&1
     pushd $script_dir/bash >/dev/null 2>&1
-    rm $file >/dev/null 2>&1
     tar -zvcf $script_dir/$file .klibio
     popd >/dev/null 2>&1
 fi

@@ -1,6 +1,4 @@
-#!/bin/bash
-
-script_dir=$(dirname $(readlink -e $BASH_SOURCE))
+script_dir=$(dirname $(readlink -e${BASH_SOURCE:-~}))
 export KLIBIO=$(echo ${script_dir}/.klibio)
 
 # java settings
@@ -13,7 +11,7 @@ then
 fi
 
 # define bash prompt
-if [[ $SHELL == "/bin/bash" ]]
+if [[ "$SHELL" == *"/bin/bash"* ]]
 then 
   PS1="\D{%Y%m%d-%H%M%S} \u@\H:\w jobs=\j\n$ "
 fi
