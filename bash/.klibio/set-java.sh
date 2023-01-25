@@ -31,15 +31,15 @@ case ${1:-"x"} in
     ;;
     8)
         removeFromPath $JAVA_HOME
-        export JAVA_HOME=${KLIBIO}/java/ee/JAVA8${java_home_suffix}
+        JAVA_HOME=${KLIBIO}/java/ee/JAVA8${java_home_suffix}
     ;;
     11)
         removeFromPath $JAVA_HOME
-        export JAVA_HOME=${KLIBIO}/java/ee/JAVA11${java_home_suffix}
+        JAVA_HOME=${KLIBIO}/java/ee/JAVA11${java_home_suffix}
     ;;
     17)
         removeFromPath $JAVA_HOME
-        export JAVA_HOME=${KLIBIO}/java/ee/JAVA17${java_home_suffix}
+        JAVA_HOME=${KLIBIO}/java/ee/JAVA17${java_home_suffix}
     ;;
     *)
         echo -e "usage error: set-java <version>\n version can be one of <unset, 8, 11, 17>"
@@ -47,7 +47,8 @@ case ${1:-"x"} in
     ;;
 esac
 
-echo JAVA_HOME=${JAVA_HOME}
+echo "configure JAVA_HOME=${JAVA_HOME}"
+export JAVA_HOME=${JAVA_HOME}
 export PATH=${JAVA_HOME}/bin:$PATH
 
 java -version
