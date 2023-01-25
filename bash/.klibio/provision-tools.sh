@@ -20,7 +20,7 @@ fi
 # load library
 . ${script_dir}/klibio.sh
 
-tools_dir=$(echo "${KLIBIO}/tool")
+tools_dir=$(echo "${script_dir}/tool")
 
 jq_download_link=https://github.com/stedolan/jq/releases/download/jq-1.6
 
