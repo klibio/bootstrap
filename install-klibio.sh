@@ -125,8 +125,8 @@ else
       cat << EOT >> ~/.bashrc
 
 # klibio bash extension
-if [[ -f ${install_dir}/.klibio_profile ]]; then
-  . ${install_dir}/.klibio_profile
+if [[ -f ${install_dir}/.klibio/.klibio_profile ]]; then
+  . ${install_dir}/.klibio/.klibio_profile
 fi
 EOT
   else
