@@ -66,7 +66,7 @@ fi
 if [[ ${exec_oomph_setups} == "true"  ]]; then
   # retrieve projects for a given github organisation
   org=klibio
-  if [[ ! -v github_token ]]; then
+  if [[ ! -n "$github_token" ]]; then
     echo "mandatory environment variable 'github_token' for GITHUB $org is missing"
     exit 1
   fi

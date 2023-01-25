@@ -4,7 +4,7 @@
 # * variables
 # * functions
 #
-script_path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo script_path=${script_path}
 
 main() {
