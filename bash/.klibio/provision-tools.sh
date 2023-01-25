@@ -32,7 +32,7 @@ if which curl > /dev/null; then
     exit 1;
 fi
 
-jq=${tools_dir}/${jq_exec}
+export jq=${tools_dir}/${jq_exec}
 if [ ! -f ${jq} ]; then
   mkdir -p ${tools_dir}
   curl -s -C - --output ${tools_dir}/${jq} -L ${jq_download_link}/${jq}
