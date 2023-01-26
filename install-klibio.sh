@@ -2,7 +2,6 @@
 #
 # install klibio bootstrap libraries and tools
 #
-script_dir=$( dirname $(readlink -f ${BASH_SOURCE[0]} ) &> /dev/null && pwd )
 
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
@@ -54,6 +53,7 @@ done
 # load library
 branch=${branch:-main}
 if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
+  script_dir=$(dirname $(readlink -f $BASH_SOURCE))
   echo "sourcing ${script_dir}/bash/.klibio/klibio.sh"
   . ${script_dir}/bash/.klibio/klibio.sh
   install_dir=${script_dir}/HOME
@@ -93,7 +93,7 @@ EOM
 
 headline "provision sources into ${install_dir}"
 if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
-  tar xvzf ${script_dir}/.klibio.tar.gz -C ${install_dir}
+  tar xvzf .klibio.tar.gz -C ${install_dir}
 else
   github_provision .klibio.tar.gz   ${install_dir}
 fi
