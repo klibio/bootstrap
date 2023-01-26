@@ -106,7 +106,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   elif [[ 0 != $( brew list | grep coreutil >/dev/null 2>&1 ) ]]; then
       echo "coreutils in homebrew is not installed, hence installing it"
       /bin/bash -c "NONINTERACTIVE=1; brew install coreutils"
-    fi
   fi
 
   if [[ -z $(grep "# klibio zsh extension" ${install_dir}/.zshrc 2>/dev/null) ]]; then
