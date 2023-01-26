@@ -100,12 +100,16 @@ fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
-  if [[ 0 != $( brew --version >/dev/null 2>&1 ) ]]; then
+  brew --version >/dev/null 2>&1; brew_installed=$?
+  if [[ 0 != ${brew_installed} ]]; then
     echo "homebrew is not installed, hence installing it - see https://docs.brew.sh/Installation"
     /bin/bash -c "NONINTERACTIVE=1; $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-  elif [[ 0 != $( brew list | grep coreutil >/dev/null 2>&1 ) ]]; then
+  else
+    brew list | grep coreutil >/dev/null 2>&1; coreutils_installed=$?
+    if [[ 0 != ${coreutils_installed} ]]; then
       echo "coreutils in homebrew is not installed, hence installing it"
       /bin/bash -c "NONINTERACTIVE=1; brew install coreutils"
+    fi
   fi
 
   if [[ -z $(grep "# klibio zsh extension" ${install_dir}/.zshrc 2>/dev/null) ]]; then
