@@ -50,14 +50,15 @@ for i in "$@"; do
   esac
 done
 
-# load library
+# define and set KLIBIO root folder
 branch=${branch:-main}
 if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
   script_dir=$(dirname $(readlink -f $BASH_SOURCE))
-  echo "sourcing ${script_dir}/bash/.klibio/klibio.sh"
+  export KLIBIO=${script_dir}/HOME/.klibio
+  echo "sourcing klibio.sh"
   . ${script_dir}/bash/.klibio/klibio.sh
-  install_dir=${script_dir}/HOME
 else
+  export KLIBIO=$(echo ~/.klibio)
   lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.sh
   echo "# sourcing klibio library - ${lib_url}"
   install_dir=~
@@ -65,8 +66,6 @@ else
   . klibio.sh
   rm klibio.sh
 fi
-export install_dir=${install_dir}
-
 
 headline "$(cat <<-EOM
 ###########################################################
@@ -91,11 +90,11 @@ headline "$(cat <<-EOM
 EOM
 )"
 
-headline "provision sources into ${install_dir}"
+headline "provision sources into ${KLIBIO}"
 if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
-  tar xvzf .klibio.tar.gz -C ${install_dir}
+  tar xvzf .klibio.tar.gz -C $(dirname ${KLIBIO})
 else
-  github_provision .klibio.tar.gz   ${install_dir}
+  github_provision .klibio.tar.gz $(dirname ${KLIBIO})
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -112,36 +111,40 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
   fi
 
-  if [[ -z $(grep "# klibio zsh extension" ${install_dir}/.zshrc 2>/dev/null) ]]; then
-    headline "configure klibio extension inside ${install_dir}/.zshrc"
+  if [[ -z $(grep "# klibio zsh extension" $(dirname ${KLIBIO})/.zshrc 2>/dev/null) ]]; then
+    headline "configure klibio extension inside $(dirname ${KLIBIO})/.zshrc"
     cat << EOT >> ~/.zshrc
 
 # klibio zsh extension
-if [[ -f ${install_dir}/.klibio/.klibio_profile ]]; then
-  . ${install_dir}/.klibio/.klibio_profile
+export KLIBIO=${KLIBIO}
+export PATH=${KLIBIO}:${PATH}
+if [[ -f $(dirname ${KLIBIO})/.klibio/.klibio_profile ]]; then
+  . $(dirname ${KLIBIO})/.klibio/.klibio_profile
 fi
 EOT
   else
-    headline "klibio extension already inside ${install_dir}/.zshrc"
+    headline "klibio extension already inside $(dirname ${KLIBIO})/.zshrc"
   fi
 else
-    if [[ -z $(grep "# klibio bash extension" ${install_dir}/.bashrc 2>/dev/null) ]]; then
-      headline "configure klibio extension inside ${install_dir}/.bashrc"
+    if [[ -z $(grep "# klibio bash extension" $(dirname ${KLIBIO})/.bashrc 2>/dev/null) ]]; then
+      headline "configure klibio extension inside $(dirname ${KLIBIO})/.bashrc"
       cat << EOT >> ~/.bashrc
 
 # klibio bash extension
-if [[ -f ${install_dir}/.klibio/.klibio_profile ]]; then
-  . ${install_dir}/.klibio/.klibio_profile
+export KLIBIO=${KLIBIO}
+export PATH=${KLIBIO}:${PATH}
+if [[ -f $(dirname ${KLIBIO})/.klibio/.klibio_profile ]]; then
+  . $(dirname ${KLIBIO})/.klibio/.klibio_profile
 fi
 EOT
   else
-    headline "klibio extension already inside ${install_dir}/.bashrc"
+    headline "klibio extension already inside $(dirname ${KLIBIO})/.bashrc"
   fi
 fi
 
 provide_tool () {
   tool=$1
-  provision_tool=${install_dir}/.klibio/provision-${tool}.sh
+  provision_tool=$(dirname ${KLIBIO})/.klibio/provision-${tool}.sh
   headline "provision ${tool} start"
   . ${provision_tool}
   headline "provision ${tool} finished"
