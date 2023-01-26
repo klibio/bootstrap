@@ -1,15 +1,15 @@
 #!/bin/bash
 #
-# switch the java versions
+# switch the java version in PATH and JAVA_HOME
 #
-script_dir=$( dirname $(readlink -f ${BASH_SOURCE[0]}) )" &> /dev/null && pwd )
+
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
 fi
 
 # load library
-. ${script_dir}/klibio.sh
+. klibio.sh
 java_home_suffix=${java_home_suffix:=}
 
 removeFromPath () {
@@ -52,8 +52,3 @@ export JAVA_HOME=${JAVA_HOME}
 export PATH=${JAVA_HOME}/bin:$PATH
 
 java -version
-
-# reset the bash settings
-set +o nounset  # exit with error on unset variables
-set +o errexit  # exit if any statement returns a non-true return value
-set +o pipefail # exit if any pipe command is failing

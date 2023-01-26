@@ -2,7 +2,7 @@
 #
 # start klibio applications/tools  
 #
-script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+script_dir=$(dirname $(readlink -f $0))
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
@@ -13,7 +13,7 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 # load library
-. ${script_dir}/klibio.sh
+. klibio.sh
 
 if [[ "$#" == 0 ]]; then
   echo "$(cat <<-EOM

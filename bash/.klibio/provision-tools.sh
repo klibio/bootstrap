@@ -2,7 +2,7 @@
 #
 # provision tools
 #
-script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+script_dir=$(dirname $(readlink -f $0))
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
@@ -18,7 +18,7 @@ if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
 fi
 
 # load library
-. ${script_dir}/klibio.sh
+. klibio.sh
 
 tools_dir=$(echo "${script_dir}/tool")
 

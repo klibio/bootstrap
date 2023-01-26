@@ -2,7 +2,7 @@
 #
 # script for creating derived resources before a commit
 #
-script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+script_dir=$(dirname $(readlink -f $0))
 
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then

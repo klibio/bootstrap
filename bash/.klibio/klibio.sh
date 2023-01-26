@@ -2,7 +2,7 @@
 #
 # klibio library functions
 #
-script_dir_klibio=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+script_dir_klibio=$(dirname $(readlink -f $0) 2>/dev/null && $(dirname $(readlink -f $BASH_SOURCE)) 2>/dev/null)
 
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then

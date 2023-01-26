@@ -2,7 +2,7 @@
 #
 # download and extract the lts java versions for this os and platform
 #
-script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+script_dir=$(dirname $(readlink -f $0))
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
@@ -19,8 +19,8 @@ if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
 fi
 
 # load library
-. ${script_dir}/klibio.sh
-. ${script_dir}/provision-tools.sh
+. klibio.sh
+. provision-tools.sh
 
 java_rest_api=https://api.adoptium.net
 java_dir=$(echo "${KLIBIO}/java")

@@ -3,7 +3,7 @@
 # download and extract the os/arch specific latest eclipse installer version (including JRE)
 # archive is extracted into ${KLIBIO}/tool/eclipse-installer
 #
-script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+script_dir=$(dirname $(readlink -f $0))
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
@@ -20,7 +20,7 @@ if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
 fi
 
 # load library
-. ${script_dir}/klibio.sh
+. klibio.sh
 
 tools_dir=$(echo "${KLIBIO}/tool")
 tools_archives="${tools_dir}/archives"
