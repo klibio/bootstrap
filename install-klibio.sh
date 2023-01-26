@@ -117,9 +117,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
 # klibio zsh extension
 export KLIBIO=${KLIBIO}
-export PATH=${KLIBIO}:${PATH}
-if [[ -f $(dirname ${KLIBIO})/.klibio/.klibio_profile ]]; then
-  . $(dirname ${KLIBIO})/.klibio/.klibio_profile
+export PATH=\${KLIBIO}:\${PATH}
+if [[ -f \${KLIBIO}/.klibio_profile ]]; then
+  . \${KLIBIO}/.klibio_profile
 fi
 EOT
   else
@@ -132,9 +132,9 @@ else
 
 # klibio bash extension
 export KLIBIO=${KLIBIO}
-export PATH=${KLIBIO}:${PATH}
-if [[ -f $(dirname ${KLIBIO})/.klibio/.klibio_profile ]]; then
-  . $(dirname ${KLIBIO})/.klibio/.klibio_profile
+export PATH=\${KLIBIO}:\${PATH}
+if [[ -f \${KLIBIO}/.klibio_profile ]]; then
+  . \${KLIBIO}/.klibio_profile
 fi
 EOT
   else
