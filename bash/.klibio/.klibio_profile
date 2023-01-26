@@ -1,13 +1,16 @@
+# activate bash checks
+if [[ ${debug:-false} == true ]]; then
+  set -o xtrace   # activate bash debug
+fi
+
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 export KLIBIO=$(echo ${script_dir})
 
 # append klibio tools folder to path
 export PATH=${KLIBIO}:${PATH}
 
-# java settings
-if [ -f ${KLIBIO}/set-java.sh ]
-then
-  # configure default java to version 17
+# java default settings version 17
+if [ -f ${KLIBIO}/set-java.sh ]; then
   . set-java.sh 17
 fi
 
@@ -18,7 +21,6 @@ fi
 #fi
 
 # load aliases
-if [ -f ${script_dir}/.klibio_alias ]
-then
+if [ -f ${script_dir}/.klibio_alias ]; then
   . ${script_dir}/.klibio_alias
 fi
