@@ -53,8 +53,10 @@ done
 # define and set KLIBIO root folder
 branch=${branch:-main}
 if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
-  script_dir=$(dirname $(readlink -f $BASH_SOURCE))
+  script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-.}" )" &> /dev/null && pwd )
   export KLIBIO=${script_dir}/HOME/.klibio
+  mkdir -p $(dirname ${script_dir}/HOME/.ssh)
+  cp ~/.ssh/id_rsa ${script_dir}/HOME/.ssh
   echo "sourcing klibio.sh"
   . ${script_dir}/bash/.klibio/klibio.sh
 else
@@ -111,8 +113,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
   fi
 
-  if [[ -z $(grep "# klibio zsh extension" $(dirname ${KLIBIO})/.zshrc 2>/dev/null) ]]; then
-    headline "configure klibio extension inside $(dirname ${KLIBIO})/.zshrc"
+  if [[ -z $(grep "# klibio zsh extension" ~/.zshrc 2>/dev/null) ]]; then
+    headline "configure klibio extension inside ~/.zshrc/.zshrc"
     cat << EOT >> ~/.zshrc
 
 # klibio zsh extension
@@ -126,8 +128,8 @@ EOT
     headline "klibio extension already inside $(dirname ${KLIBIO})/.zshrc"
   fi
 else
-    if [[ -z $(grep "# klibio bash extension" $(dirname ${KLIBIO})/.bashrc 2>/dev/null) ]]; then
-      headline "configure klibio extension inside $(dirname ${KLIBIO})/.bashrc"
+    if [[ -z $(grep "# klibio bash extension" ~/.bashrc 2>/dev/null) ]]; then
+      headline "configure klibio extension inside ~/.bashrc"
       cat << EOT >> ~/.bashrc
 
 # klibio bash extension
