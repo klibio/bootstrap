@@ -13,7 +13,6 @@ export KLIBIO=; ./install-klibio.sh --dev -j -o
 # launch local development with bash debugging active
 export KLIBIO=; export debug=true; ./install-klibio.sh --dev -j -o
 
-
 /bin/bash -c "$(cat install-klibio.sh)" bash -j -o -f
 
 ```
