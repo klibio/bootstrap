@@ -2,7 +2,7 @@
 #
 # provision tools
 #
-script_dir=$(dirname $(readlink -f $0))
+
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
@@ -20,7 +20,7 @@ fi
 # load library
 . klibio.sh
 
-tools_dir=$(echo "${script_dir}/tool")
+tools_dir=$(echo "${KLIBIO}/tool")
 
 jq_download_link=https://github.com/stedolan/jq/releases/download/jq-1.6
 

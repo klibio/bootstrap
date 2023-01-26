@@ -2,7 +2,7 @@
 #
 # download and extract the lts java versions for this os and platform
 #
-script_dir=$(dirname $(readlink -f $0))
+
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
