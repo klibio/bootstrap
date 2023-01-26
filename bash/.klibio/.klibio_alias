@@ -1,7 +1,6 @@
 #
-# alias file for bash
+# klibio alias file
 #
-
 alias c='clear'
 
 alias ls='ls --color=auto'
@@ -9,12 +8,11 @@ alias l='ls -la --color=auto'
 alias ll='ls -la --color=auto'
 alias l.='ls -d .* --color=auto'
 
-alias ..='cd ../'
-
 # avoid misspelllings
+alias ..='cd ../'
 alias cd..='cd ..'
 
-## Colorize the grep command output for ease of use (good for log files)##
+## colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -29,8 +27,4 @@ alias j='jobs -l'
 # create a new set of commands
 alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T'
-alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
-
-# show open ports
-alias ports='netstat -tulanp'

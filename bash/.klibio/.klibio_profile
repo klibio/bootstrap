@@ -3,8 +3,8 @@ if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
 fi
 
-script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-export KLIBIO=$(echo ${script_dir})
+script_dir_klibio_profile="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+export KLIBIO=${KLIBIO:-$(echo ${script_dir_klibio_profile})}
 
 # append klibio tools folder to path
 export PATH=${KLIBIO}:${PATH}
