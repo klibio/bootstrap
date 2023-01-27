@@ -32,3 +32,9 @@ Eclipse Modeling with oomph tooling
 ```bash
 pushd bash/devel; ./eval-sourcing.sh arg1 arg2 arg3; popd
 ```
+
+## links
+
+ * [bash-libraries](https://github.com/juan131/bash-libraries)
+ * [ShellCheck](https://www.shellcheck.net/)
+ 

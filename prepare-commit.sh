@@ -79,8 +79,8 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
       -H "X-GitHub-Api-Version: 2022-11-28" \
       ${url} > ${file_response}
   
-  for row in $(cat ${file_response} | jq -r '.[] | .name' | sort); do
-      repo=$(echo ${row} | sed 's/\\n/\n/g')
+  for row in $(cat ${file_response} | jq -r '.[] | .name | gsub("[\\n\\t]"; "")' | sort); do
+      repo=$(echo ${row})
       echo -e "#\n# processing repo ${repo} \n#\n"
 
       file=${script_dir}/oomph/projects/klibio_${repo}.setup
