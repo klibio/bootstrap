@@ -37,4 +37,4 @@ pushd bash/devel; ./eval-sourcing.sh arg1 arg2 arg3; popd
 
  * [bash-libraries](https://github.com/juan131/bash-libraries)
  * [ShellCheck](https://www.shellcheck.net/)
- 
+ * [Remove escape sequence characters like newline, tab and carriage return from JSON file](https://stackoverflow.com/a/40322380)
