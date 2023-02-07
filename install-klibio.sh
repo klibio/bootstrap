@@ -69,6 +69,7 @@ else
   rm klibio.sh
 fi
 
+# https://manytools.org/hacker-tools/ascii-banner/
 headline "$(cat <<-EOM
 ###########################################################
 
