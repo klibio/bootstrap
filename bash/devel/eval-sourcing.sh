@@ -13,7 +13,7 @@ main() {
     echo "\$#=$#"
     echo "\$@=$@"
     echo "\$?=$?"
-0
+
     local absolute_script_path=$(readlink -f $0)
     echo absolute_script_path=${absolute_script_path}
 

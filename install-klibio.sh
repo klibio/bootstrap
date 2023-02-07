@@ -147,7 +147,7 @@ fi
 provide_tool () {
   tool=$1
   provision_tool=$(dirname ${KLIBIO})/.klibio/provision-${tool}.sh
-  headline "provision ${tool} start"
+  headline "provision -- ${tool} start"
   . ${provision_tool}
   headline "provision ${tool} finished"
 }
