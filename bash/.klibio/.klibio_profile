@@ -11,6 +11,10 @@ export PATH=${KLIBIO}:${PATH}
 # java default settings version 17
 if [ -f ${KLIBIO}/set-java.sh ]; then
   . set-java.sh 17
+
+  # following aliases are meant for user terminals NOT scripts
+  alias setJava='source ${KLIBIO}/set-java.sh'
+  alias set-java='source ${KLIBIO}/set-java.sh'
 fi
 
 # define bash prompt
