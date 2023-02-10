@@ -17,16 +17,8 @@ execute the following script for installation
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/main/install-klibio.sh)" bash -j -o
 ```
 
-# local execution with parameters
+# parameters
 ```bash
-
-curl -fsSLO https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
-chmod u+x ./install-klibio.sh
-bash ./install-klibio.sh -b=${branch} -f -o
-rm install-klibio.sh
-
-with optional parameters
-
 -b=<branch_name>    install from a specific branch
 -j                  install java LTS versions
 -o                  install eclipse installer / oomph

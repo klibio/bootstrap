@@ -73,6 +73,7 @@ p2.index     text eol=lf
 # fix eol with CRLF for following text based files
 *.bat       text eol=crlf
 *.cmd       text eol=crlf
+*.ps1       text eol=crlf
 
 # git supports only 1-byte encodings for texts like ANSI, UTF-8 and so on but not encodings like UTF-16 and UTF-32.
 # If a UTF-16 encoded text file is checked in, git handles it as e.g. UTF-8 and makes the file unusable.

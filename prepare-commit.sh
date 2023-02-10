@@ -57,14 +57,15 @@ done
 if [[ ${exec_bash_archive} == "true"  ]]; then
     file=.klibio.tar.gz
     echo -e "#\n#  updating archive ${file} \n#\n"
-    rm $script_dir/$file >/dev/null 2>&1
-    pushd $script_dir/bash >/dev/null 2>&1
-    tar -zvcf $script_dir/$file .klibio
-    popd >/dev/null 2>&1
+    if  [[ -f "$script_dir/$file" ]]; then 
+      rm $script_dir/$file >/dev/null 2>&1; 
+    fi
+    tar -zvcf $script_dir/$file .klibio/
 fi
 
 if [[ ${exec_oomph_setups} == "true"  ]]; then
-  # retrieve projects for a given github organisation
+  echo -e "#\n# retrieve projects for a given github organisation\n#\n"
+  
   org=klibio
   if [[ ! -n "$github_token" ]]; then
     echo "mandatory environment variable 'github_token' for GITHUB $org is missing"
@@ -77,15 +78,23 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
       -H "Accept: application/vnd.github+json" \
       -H "Authorization: Bearer ${github_token}" \
       -H "X-GitHub-Api-Version: 2022-11-28" \
-      ${url} > ${file_response}
-  
-  for row in $(cat ${file_response} | jq -r '.[] | .name | gsub("[\\n\\t]"; "")' | sort); do
+      ${url} \
+      | jq -r '.[] | .name | gsub("[\\n\\t]"; "")' | sort > ${file_response}
+
+cat >${file_response} <<-EOL
+bootstrap
+EOL
+
+  for row in $(cat ${file_response}); do
       repo=$(echo ${row})
       echo -e "#\n# processing repo ${repo} \n#\n"
 
-      file=${script_dir}/oomph/projects/klibio_${repo}.setup
-      if  [[ -e ${file} && ${overwrite} != "true" ]]; then
-          echo "## skip existing project setup file klibio_${repo}.setup"
+      project_dir=${script_dir}/oomph/projects
+      mkdir -p ${project_dir}
+      file=${project_dir}/klibio_${repo}.setup
+
+      if  [[ -e ${file} ]]; then
+            echo "## skip existing project setup file klibio_${repo}.setup"
       else
           echo "## create project setup file klibio_${repo}.setup"
           while read -r line; do
@@ -93,11 +102,13 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
           if [ -f ${file} ]; then
               sed -i "s/__ORG__/${org}/g" $file
           fi
-          done < ./oomph/template/klibio_project_template.setup
+          done < ./oomph/template/github_project_template.setup
       fi
 
-      file=${script_dir}/oomph/config/klibio_${repo}.setup
-      if  [[ -e ${file} && ${overwrite} != "true" ]]; then
+      config_dir=${script_dir}/oomph/config
+      mkdir -p ${config_dir}
+      file=${config_dir}/klibio_${repo}.setup
+      if  [[ -e ${file} ]]; then
           echo "## skip existing project config file klibio_${repo}.setup"
       else
           echo "## create project config file klibio_${repo}.setup"
@@ -106,7 +117,7 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
           if [ -f ${file} ]; then
               sed -i "s/__ORG__/${org}/g" $file
           fi
-          done < ./oomph/template/klibio_config_template.setup
+          done < ./oomph/template/github_config_template.setup
       fi
   done
   rm ${file_response}

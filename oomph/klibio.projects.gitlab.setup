@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup:ProjectCatalog
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+    name="klibio.projects.gitlab.setup"
+    label="klib.io projects on gitlab.klib.io">
+  <setupTask
+      xsi:type="setup:CompoundTask"
+      name="Global Variables">
+    <setupTask
+        xsi:type="setup:VariableTask"
+        name="gitlab.klibio.user.id"
+        defaultValue="anonymous"
+        label="gitlab.klib.io user ID">
+      <description>The user ID of the gitlab.klib.io account</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:VariableTask"
+        name="gitlab.klibio.author.name"
+        label="gitlab.klib.io author name">
+      <description>The author name used for gitlab.klib.io commits</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:VariableTask"
+        name="gitlab.klibio.author.email"
+        label="gitlab.klib.ioauthor email">
+      <description>The email address associated with gitlab.klib.iocommits</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:VariableTask"
+        type="PASSWORD"
+        name="gitlab.klibio.user.password"
+        label="gitlab.klib.io password for issues">
+      <annotation
+          source="http://www.eclipse.org/oomph/setup/PasswordVerificationDisabled">
+        <detail
+            key="type">
+          <value>form</value>
+        </detail>
+        <detail
+            key="form.url">
+          <value>https://github.com/session</value>
+        </detail>
+        <detail
+            key="form.cookie">
+          <value>PHPSESSID</value>
+        </detail>
+        <detail
+            key="form.parameters">
+          <value>login password authenticity_token utf8 commit</value>
+        </detail>
+        <detail
+            key="form.secure.parameters">
+          <value>password</value>
+        </detail>
+        <detail
+            key="form.filter">
+          <value>login=anonymous\&amp;.*</value>
+        </detail>
+        <detail
+            key="form.parameter.login">
+          <value>$${github.user.id}</value>
+        </detail>
+        <detail
+            key="form.parameter.password">
+          <value>$${value}</value>
+        </detail>
+        <detail
+            key="form.parameter.utf8">
+          <value>✓</value>
+        </detail>
+        <detail
+            key="form.parameter.commit">
+          <value>Sign in</value>
+        </detail>
+        <detail
+            key="form.ok">
+          <value>Valid password for $${form.parameter.login} at $${form.url}.</value>
+        </detail>
+        <detail
+            key="form.info">
+          <value>Validate the password for $${form.parameter.login} at $${form.url}.</value>
+        </detail>
+        <detail
+            key="form.warning">
+          <value>Unable to validate the password for $${form.parameter.login} because $${form.url} is unreachable.</value>
+        </detail>
+        <detail
+            key="form.error">
+          <value>Invalid password for $${form.parameter.login} at $${form.url}.</value>
+        </detail>
+      </annotation>
+      <annotation
+          source="http://www.eclipse.org/oomph/setup/PasswordVerification">
+        <detail
+            key="type">
+          <value>form-post</value>
+        </detail>
+        <detail
+            key="form.url">
+          <value>https://github.com/login</value>
+        </detail>
+        <detail
+            key="form.filter">
+          <value>anonymous</value>
+        </detail>
+        <detail
+            key="form.user">
+          <value>$${github.user.id}</value>
+        </detail>
+        <detail
+            key="form.password">
+          <value>$${value}</value>
+        </detail>
+        <detail
+            key="form.response.location.matches">
+          <value>https://github.com/</value>
+        </detail>
+        <detail
+            key="form.ok">
+          <value>Valid password for account $${github.user.id} at $${form.url}.</value>
+        </detail>
+        <detail
+            key="form.info">
+          <value>Validate the password for account $${github.user.id} at $${form.url}.</value>
+        </detail>
+        <detail
+            key="form.warning">
+          <value>Unable to validate the password for account $${github.user.id} because $${form.url} is unreachable.</value>
+        </detail>
+        <detail
+            key="form.error">
+          <value>Invalid password for account $${github.user.id} at $${form.url}.</value>
+        </detail>
+      </annotation>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:VariableTask"
+        name="gitlab.klibio.remoteURIs"
+        label="gitlab.klib.io repository">
+      <choice
+          value="git@gitlab.klib.io:@{remoteURI}.git"
+          label="Git (read-write)"/>
+      <choice
+          value="https://${github.user.id|username}@gitlab.klib.io/@{remoteURI}.git"
+          label="HTTPS (read-write)">
+        <annotation
+            source="http://www.eclipse.org/oomph/setup/MatchChoice"/>
+      </choice>
+      <choice
+          value="https://gitlab.klib.io/@{remoteURI}.git"
+          label="HTTPS (read-only, anonymous)"/>
+      <description>Choose from the available gitlab.klib.io URIs</description>
+    </setupTask>
+  </setupTask>
+  <setupTask
+      xsi:type="setup:WorkspaceTask"
+      id="workspace"/>
+  <setupTask
+      xsi:type="setup:ResourceCreationTask"
+      targetURL="configuration:/.settings/org.eclipse.ui.ide.prefs">
+    <content>
+      MAX_RECENT_WORKSPACES=5
+      RECENT_WORKSPACES=${workspace.location|property}
+      RECENT_WORKSPACES_PROTOCOL=3
+      SHOW_WORKSPACE_SELECTION_DIALOG=true
+      eclipse.preferences.version=1
+    </content>
+  </setupTask>
+  <project href="user:/io.klib.projects.setup?name='user.project',label='&lt;User>',description='A container project for local user projects that are virtual members of the io.klib.projects.setup project catalog'#/"/>
+  <description>klib.io provides cool projects.</description>
+</setup:ProjectCatalog>

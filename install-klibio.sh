@@ -16,6 +16,7 @@ set -o pipefail # exit if any pipe command is failing
 java=0
 oomph=0
 overwrite=false
+unsafe=""
 
 for i in "$@"; do
   case $i in
@@ -29,6 +30,9 @@ for i in "$@"; do
     # for develoment purposes
     -f|--force)
       overwrite=true
+      ;;
+    -u|--unsafe)
+      export unsafe=k
       ;;
     -b=*|--branch=*)
       branch="${i#*=}"
@@ -55,13 +59,13 @@ branch=${branch:-main}
 if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
   script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-.}" )" &> /dev/null && pwd )
   export KLIBIO=${script_dir}/HOME/.klibio
-  mkdir -p $(dirname ${script_dir}/HOME/.ssh)
-  cp ~/.ssh/id_rsa ${script_dir}/HOME/.ssh
+  mkdir -p ${script_dir}/HOME/.ssh
+  cp ~/.ssh/id_rsa ${script_dir}/HOME/.ssh/id_rsa
   echo "sourcing klibio.sh"
-  . ${script_dir}/bash/.klibio/klibio.sh
+  . ${script_dir}/.klibio/klibio.sh
 else
   export KLIBIO=$(echo ~/.klibio)
-  lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/bash/.klibio/klibio.sh
+  lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/.klibio/klibio.sh
   echo "# sourcing klibio library - ${lib_url}"
   install_dir=~
   $(curl -fsSLO ${lib_url})
@@ -73,21 +77,18 @@ fi
 headline "$(cat <<-EOM
 ###########################################################
 
-       ##    ## ##      #### ########  ####  ####### 
-       ##   ##  ##       ##  ##     ##  ##  ##     ##
-       ##  ##   ##       ##  ##     ##  ##  ##     ##
-       #####    ##       ##  ########   ##  ##     ##
-       ##  ##   ##       ##  ##     ##  ##  ##     ##
-       ##   ##  ##       ##  ##     ##  ##  ##     ##
-       ##    ## ####### #### ########  ####  ####### 
-
-        ######  ######## ######## ##     ## ######## 
-       ##    ## ##          ##    ##     ## ##     ##
-       ##       ##          ##    ##     ## ##     ##
-        ######  ######      ##    ##     ## ######## 
-             ## ##          ##    ##     ## ##       
-       ##    ## ##          ##    ##     ## ##       
-        ######  ########    ##     #######  ##       
+██╗  ██╗██╗     ██╗██████╗ ██╗ ██████╗    
+██║ ██╔╝██║     ██║██╔══██╗██║██╔═══██╗   
+█████╔╝ ██║     ██║██████╔╝██║██║   ██║   
+██╔═██╗ ██║     ██║██╔══██╗██║██║   ██║   
+██║  ██╗███████╗██║██████╔╝██║╚██████╔╝   
+╚═╝  ╚═╝╚══════╝╚═╝╚═════╝ ╚═╝ ╚═════╝    
+███████╗███████╗████████╗██╗   ██╗██████╗ 
+██╔════╝██╔════╝╚══██╔══╝██║   ██║██╔══██╗
+███████╗█████╗     ██║   ██║   ██║██████╔╝
+╚════██║██╔══╝     ██║   ██║   ██║██╔═══╝ 
+███████║███████╗   ██║   ╚██████╔╝██║     
+╚══════╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝     
 
 ###########################################################
 EOM
@@ -102,10 +103,11 @@ fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
+  set +o errexit
   brew --version >/dev/null 2>&1; brew_installed=$?
+  set -o errexit
   if [[ 0 != ${brew_installed} ]]; then
-    echo "homebrew is not installed, hence installing it - see https://docs.brew.sh/Installation"
-    /bin/bash -c "NONINTERACTIVE=1; $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    echo "homebrew is not installed, but required - see https://docs.brew.sh/Installation"
   else
     brew list | grep coreutil >/dev/null 2>&1; coreutils_installed=$?
     if [[ 0 != ${coreutils_installed} ]]; then
@@ -155,5 +157,7 @@ provide_tool () {
 
 ((${java}))  && provide_tool java  || echo "skip java provisioning"
 ((${oomph})) && provide_tool oomph || echo "skip oomph provisioning"
+
+. ${KLIBIO}/.klibio_profile
 
 headline "klibio setup script completed"
