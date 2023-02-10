@@ -287,14 +287,6 @@
       eclipse.preferences.version=1
     </content>
   </setupTask>
-  <setupTask
-      xsi:type="setup:TextModifyTask"
-      url="configuration:/config.ini">
-    <modification
-        pattern="osgi\.instance\.area\.default=(@user\.home/workspace)">
-      <substitution>${workspace.location|path}</substitution>
-    </modification>
-  </setupTask>
   <project href="projects/klibio_bootstrap.setup#/"/>
   <description>All the projects at Github.com that provide automated setup support along with additional user-added projects</description>
 </setup:ProjectCatalog>

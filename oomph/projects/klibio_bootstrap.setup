@@ -94,6 +94,7 @@ url="https://de-jcup.github.io/update-site-eclipse-bash-editor/update-site"/>
 </setupTask>
 <stream name="main"
 label="main">
+<!--
 <setupTask
 xsi:type="setup:EclipseIniTask"
 option="-Doomph.redirection.bootstrap"
@@ -101,6 +102,7 @@ value="=https://raw.githubusercontent.com/klibio/bootstrap/master//klibio_bootst
 vm="true">
 <description>Set an Oomph redirection system property to redirect the logical location of this setup to its physical location in the Git clone.</description>
 </setupTask>
+-->
 <setupTask
 xsi:type="projects:ProjectsImportTask">
 <sourceLocator
