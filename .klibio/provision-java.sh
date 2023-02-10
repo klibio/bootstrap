@@ -28,7 +28,7 @@ java_dir=$(echo "${KLIBIO}/java")
 add_certificates_to_cacerts() {
   local java_keytool=${1}/bin/keytool
   local certificate=${2}
-  local certificate_dir=$(dirname ${CECDEV})/.cecdev/certificates
+  local certificate_dir=$(dirname ${KLIBIO})/certificates
   if [[ "$1" == *"8" ]]; then
     set +o errexit  # exit if any statement returns a non-true return value
     ${java_keytool} \
@@ -80,7 +80,7 @@ add_certificates_to_cacerts() {
 
 add_certificates() {
   local java_dir=$1
-  local certificate_dir=$(dirname ${CECDEV})/.cecdev/certificates
+  local certificate_dir=$(dirname ${KLIBIO})/certificates
   local certificate_files=${certificate_dir}/*.crt
   if ( $($certificate_files | wc -l) -gt 0 ); then
     for cert_file in ${certificate_files}; do

@@ -74,8 +74,8 @@ if [[ ${oomph} -eq 1 ]]; then
       -Doomph.setup.installer.mode=advanced \
         ${dev_vm_arg:-""} \
       -Doomph.redirection.setups=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/-\>${setup_url} \
-      2> ${CECDEV}/tool/${date}_oomph_err.log \
-      1> ${CECDEV}/tool/${date}_oomph_out.log \
+      2> ${KLIBIO}/tool/${date}_oomph_err.log \
+      1> ${KLIBIO}/tool/${date}_oomph_out.log \
       &
    else
      config_url=${setup_url}/config/${oomph_config/\//_}.setup
@@ -88,8 +88,8 @@ if [[ ${oomph} -eq 1 ]]; then
          -Doomph.setup.installer.mode=advanced \
            ${dev_vm_arg:-""} \
          -Doomph.redirection.setups=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/-\>${setup_url} \
-         2> ${CECDEV}/tool/${date}_oomph_err.log \
-         1> ${CECDEV}/tool/${date}_oomph_out.log \
+         2> ${KLIBIO}/tool/${date}_oomph_err.log \
+         1> ${KLIBIO}/tool/${date}_oomph_out.log \
          &
     else
       echo "no oomph config for provided repo existing: ${config_url}"
