@@ -2,14 +2,11 @@
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
 fi
-script_dir=$(dirname $(readlink -f $0))
+script_dir=$(dirname $(readlink -f ${0:-${0:a}}))
 export KLIBIO=${KLIBIO:=$(echo ${script_dir})}
 
 # append klibio tools folder to path
 export PATH=${KLIBIO}:${PATH}
-
-# check and launch one shared ssh agent
-launch_ssh_agent
 
 # java default settings version 17
 if [ -f ${KLIBIO}/set-java.sh ]; then
