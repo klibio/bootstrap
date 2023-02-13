@@ -32,4 +32,6 @@ jobs:
       - shell: bash
         env: 
           debug: true
-        run: .github/workflows/pop-github-launch.sh
+        run: |
+          ls -la; \
+          .github/workflows/pop-github-launch.sh
