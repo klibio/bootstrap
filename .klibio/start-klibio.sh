@@ -63,7 +63,7 @@ done
 
 if [[ ${oomph} -eq 1 ]]; then
   # minimal oomph version
-  jvm=$(echo ${KLIBIO}/java/ee/JAVA11${java_home_suffix:-}/bin)
+  jvm=$(echo ${KLIBIO}/java/ee/JAVA${java_home_suffix:-}/bin)
   oomph_exec=$(echo "${KLIBIO}/tool/eclipse-installer/${oomph_exec_suffix}")
   setup_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch:-main}/oomph
   if [[ -z ${oomph_config+x} ]]; then
@@ -73,7 +73,7 @@ if [[ ${oomph} -eq 1 ]]; then
       -vmargs \
       -Doomph.setup.installer.mode=advanced \
         ${dev_vm_arg:-""} \
-      -Doomph.redirection.setups=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/-\>${setup_url}/ \
+      -Doomph.redirection.setups=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/-\>${setup_url} \
       2> ${KLIBIO}/tool/${date}_oomph_err.log \
       1> ${KLIBIO}/tool/${date}_oomph_out.log \
       &
