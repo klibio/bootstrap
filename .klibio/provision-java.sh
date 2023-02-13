@@ -2,6 +2,7 @@
 #
 # download and extract the lts java versions for this os and platform
 #
+prov_java_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
@@ -19,8 +20,8 @@ if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
 fi
 
 # load library
-. klibio.sh
-. provision-tools.sh
+. ${prov_java_dir}/klibio.sh
+. ${prov_java_dir}/provision-tools.sh
 
 java_rest_api=https://api.adoptium.net
 java_dir=$(echo "${KLIBIO}/java")
@@ -39,6 +40,7 @@ add_certificates_to_cacerts() {
       -alias ${certificate} >/dev/null 2>&1
 
     if [[ "$?" == "1" ]]; then
+      echo "adding ${certificate} into ${1}/jre/lib/security/cacerts"
       ${java_keytool} \
         -import \
         -trustcacerts \
@@ -46,7 +48,7 @@ add_certificates_to_cacerts() {
         -storepass changeit \
         -noprompt \
         -alias ${certificate} \
-        -file ${certificate_dir}/${certificate}.crt
+        -file ${certificate_dir}/${certificate}.crt >/dev/null 2>&1
     else
       echo "alias ${certificate} is already contained inside ${1}/jre/lib/security/cacerts"
     fi
@@ -62,6 +64,7 @@ add_certificates_to_cacerts() {
       -alias ${certificate} >/dev/null 2>&1
 
     if [[ "$?" == "1" ]]; then
+      echo "adding ${certificate} into ${1}/jre/lib/security/cacerts"
       ${java_keytool} \
       -import \
       -cacerts \
@@ -69,7 +72,7 @@ add_certificates_to_cacerts() {
       -storepass changeit \
       -noprompt \
       -alias ${certificate} \
-      -file ${certificate_dir}/${certificate}.crt
+      -file ${certificate_dir}/${certificate}.crt >/dev/null 2>&1
     else
       echo "alias ${certificate} is already contained inside ${1}/lib/security/cacerts"
     fi
@@ -81,14 +84,14 @@ add_certificates_to_cacerts() {
 add_certificates() {
   local java_dir=$1
   local certificate_dir=${KLIBIO}/certificates
-  local certificate_files=$(${certificate_dir}/*.crt >/dev/null 2>&1)
-  if ( $($certificate_files | wc -l) -gt 0 ); then
+  local certificate_files=$(ls .1 ${certificate_dir}/*.crt 2>/dev/null)
+  if [[ "${certificate_files}" == "" ]]; then
+    echo -e "   no certificate files found\n"
+  else
     for cert_file in ${certificate_files}; do
       local certificate="$(echo $(basename $cert_file) | sed -n 's/\.crt$//p')"
       add_certificates_to_cacerts "$java_dir" "$certificate"
     done
-  else
-    echo "no certificate files found"
   fi
 }
 

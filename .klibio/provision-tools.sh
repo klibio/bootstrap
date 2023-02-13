@@ -2,6 +2,7 @@
 #
 # provision tools
 #
+prov_tool_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
@@ -18,7 +19,7 @@ if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
 fi
 
 # load library
-. klibio.sh
+. ${prov_tool_dir}/klibio.sh
 
 tools_dir=$(echo "${KLIBIO}/tool")
 
