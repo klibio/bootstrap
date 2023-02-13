@@ -7,13 +7,6 @@
     name="klibio.projects.github"
     label="klib.io projects on Github">
   <annotation
-      source="http://www.eclipse.org/oomph/setup/StatsSending">
-    <detail
-        key="uri">
-      <value>https://download.eclipse.org/stats/oomph</value>
-    </detail>
-  </annotation>
-  <annotation
       source="http://www.eclipse.org/oomph/setup/BrandingInfo">
     <detail
         key="imageURI">
@@ -172,6 +165,7 @@
           label="HTTPS (read-only, anonymous)"/>
       <description>Choose from the available Github URIs</description>
     </setupTask>
+<!--
     <setupTask
         xsi:type="setup:VariableTask"
         name="eclipse.target.platform"
@@ -272,6 +266,7 @@
           label="None"/>
       <description>Choose the compatibility level of the target platform</description>
     </setupTask>
+-->
   </setupTask>
   <setupTask
       xsi:type="setup:WorkspaceTask"

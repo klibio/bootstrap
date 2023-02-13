@@ -73,7 +73,7 @@ if [[ ${oomph} -eq 1 ]]; then
       -vmargs \
       -Doomph.setup.installer.mode=advanced \
         ${dev_vm_arg:-""} \
-      -Doomph.redirection.setups=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/-\>${setup_url} \
+      -Doomph.redirection.setups=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/-\>${setup_url}/ \
       2> ${KLIBIO}/tool/${date}_oomph_err.log \
       1> ${KLIBIO}/tool/${date}_oomph_out.log \
       &
