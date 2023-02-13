@@ -81,7 +81,7 @@ add_certificates_to_cacerts() {
 add_certificates() {
   local java_dir=$1
   local certificate_dir=${KLIBIO}/certificates
-  local certificate_files=${certificate_dir}/*.crt
+  local certificate_files=$(${certificate_dir}/*.crt >/dev/null 2>&1)
   if ( $($certificate_files | wc -l) -gt 0 ); then
     for cert_file in ${certificate_files}; do
       local certificate="$(echo $(basename $cert_file) | sed -n 's/\.crt$//p')"
