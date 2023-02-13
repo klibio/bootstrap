@@ -130,21 +130,6 @@
             url="https://bndtools.jfrog.io/bndtools/update-latest"/>
       </setupTask>
     </setupTask>
-    <setupTask
-        xsi:type="setup.p2:P2Task"
-        label="bndtools">
-      <requirement
-          name="bndtools.main.feature.feature.group"
-          versionRange="[6.4.0.REL-202211291949-g25e4898,6.4.0.REL-202211291949-g25e4898]"/>
-      <requirement
-          name="bndtools.m2e.feature.feature.group"
-          versionRange="[6.4.0.REL-202211291949-g25e4898,6.4.0.REL-202211291949-g25e4898]"/>
-      <requirement
-          name="bndtools.pde.feature.feature.group"
-          versionRange="[6.4.0.REL-202211291949-g25e4898,6.4.0.REL-202211291949-g25e4898]"/>
-      <repository
-          url="https://bndtools.jfrog.io/bndtools/update-latest"/>
-    </setupTask>
   </version>
   <description>OSGi development tooling with java and bndtools</description>
 </setup:Product>

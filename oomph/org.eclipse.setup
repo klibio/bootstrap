@@ -13,6 +13,7 @@
     <reference
         href="index:/keys/trusted-keys.asc#/"/>
   </annotation>
+<!--
   <discoverablePackage
       href="http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore#/"/>
   <discoverablePackage
@@ -43,6 +44,7 @@
       href="http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Workbench.ecore#/"/>
   <discoverablePackage
       href="http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/WorkingSets.ecore#/"/>
+-->
   <productCatalog
       href="catalog:/self-product-catalog.setup#/"/>
   <productCatalog
