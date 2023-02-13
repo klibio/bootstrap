@@ -28,7 +28,7 @@ java_dir=$(echo "${KLIBIO}/java")
 add_certificates_to_cacerts() {
   local java_keytool=${1}/bin/keytool
   local certificate=${2}
-  local certificate_dir=$(dirname ${KLIBIO})/certificates
+  local certificate_dir=${KLIBIO}/certificates
   if [[ "$1" == *"8" ]]; then
     set +o errexit  # exit if any statement returns a non-true return value
     ${java_keytool} \
