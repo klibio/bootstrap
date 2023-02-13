@@ -63,7 +63,7 @@ done
 
 if [[ ${oomph} -eq 1 ]]; then
   # minimal oomph version
-  jvm=$(echo ${KLIBIO}/java/ee/JAVA${java_home_suffix:-}/bin)
+  jvm=$(echo ${KLIBIO}/java/ee/JAVA17${java_home_suffix:-}/bin)
   oomph_exec=$(echo "${KLIBIO}/tool/eclipse-installer/${oomph_exec_suffix}")
   setup_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch:-main}/oomph
   if [[ -z ${oomph_config+x} ]]; then

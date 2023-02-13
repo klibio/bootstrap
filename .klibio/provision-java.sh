@@ -140,10 +140,6 @@ provision_java() {
     if [ -f ${link_dir}/${java_ee} ]; then rm ${link_dir}/${java_ee}; fi
     ln -s "${install_dir}/${java_release_name}" ${link_dir}/${java_ee}
 
-    echo -e "#\n# create symbolink link ${link_dir}/JAVA\n#\n"
-    if [ -f ${link_dir}/JAVA ]; then rm ${link_dir}/JAVA; fi
-    ln -s "${install_dir}/${java_release_name}" ${link_dir}/JAVA
-
     echo -e "#\n# add certificates to cacerts inside ${link_dir}/${java_ee}/lib/security/cacerts\n#\n"
     add_certificates "${link_dir}/${java_ee}"
   fi
