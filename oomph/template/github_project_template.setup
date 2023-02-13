@@ -94,6 +94,7 @@
   </setupTask>
   <stream name="main"
       label="main">
+<!--
     <setupTask
         xsi:type="setup:EclipseIniTask"
         option="-Doomph.redirection.__REPO__"
@@ -101,6 +102,7 @@
         vm="true">
       <description>Set an Oomph redirection system property to redirect the logical location of this setup to its physical location in the Git clone.</description>
     </setupTask>
+-->
     <setupTask
         xsi:type="projects:ProjectsImportTask">
       <sourceLocator
