@@ -13,24 +13,18 @@ if [[ ${debug:-false} == true ]]; then
   env | sort
   echo "# DEBUG env end"
 fi
-# activate bash checks
-set -o nounset  # exit with error on unset variables
-set -o errexit  # exit if any statement returns a non-true return value
-set -o pipefail # exit if any pipe command is failing
 
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
 lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/.klibio/klibio.sh
 $(curl -fsSLO ${lib_url})
 . klibio.sh
 
-headline "proof-of-performance execution - started"
-
+headline "start # install klibio extension from ${installer_url}"
 installer_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
-headline "# execute users command - ${installer_url}"
 /bin/bash -c "$(curl -fsSLO ${installer_url})" bash -j -o -f
+headline "finished # install klibio extension"
 
-headline "# launch pop inside new bash (containing installed .bashrc) "
+headline "start # launching proof-of-performance"
 ls -la ${HOME}
 ${KLIBIO}/pop.sh
-
-headline "proof-of-performance execution - finished"
+headline "finished # proof-of-performance execution"
