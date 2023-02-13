@@ -20,7 +20,7 @@
   <setupTask
       xsi:type="setup:EclipseIniTask"
       option="-Doomph.redirection.setups"
-      value="=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/-\>https://raw.githubusercontent.com/klibio/bootstrap/main/oomph/"
+      value="=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/->https://raw.githubusercontent.com/klibio/bootstrap/main/oomph/"
       vm="true">
     <description>Set an Oomph redirection system property to redirect the logical location of this setup to its physical location in the Git clone.</description>
   </setupTask>
