@@ -161,7 +161,7 @@ download_and_extract_file_from_github() {
     mkdir -p ${target_folder}
     curl -s${unsafe:-}SL \
         ${url} \
-        | tar xvz -C ${target_folder} > /dev/null
+        | tar xvzp -C ${target_folder} > /dev/null
 }
 
 github_provision() {
