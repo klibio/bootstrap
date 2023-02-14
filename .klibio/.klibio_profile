@@ -2,7 +2,7 @@
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
 fi
-script_dir=$(dirname $(readlink -f ${0:-${0:a}}))
+script_dir=$(cd -P -- "$(dirname -- "$0")" && printf '%s\n' "$(pwd -P)/$(basename -- "$0")")
 export KLIBIO=${KLIBIO:=$(echo ${script_dir})}
 
 # append klibio tools folder to path
