@@ -194,6 +194,10 @@
           xsi:type="setup:PreferenceTask"
           key="/instance/org.eclipse.egit.core/core_ssh_default_agent"
           value="\\.\pipe\openssh-ssh-agent"/>
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          key="/instance/org.eclipse.egit.core/core_http_client"
+          value="jdk"/>
     </setupTask>
   </setupTask>
   <project href="projects/klibio_bootstrap.setup#/"/>
