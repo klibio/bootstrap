@@ -2,12 +2,19 @@
 script_path="$(dirname $(readlink -f $0))"
 echo script_path=${script_path}
 
+canonical=$(cd -P -- "$(dirname -- "$0")" && printf '%s\n' "$(pwd -P)/$(basename -- "$0")")
+echo canonical=$canonical
+
+
 main2() {
     echo -e "\n#\n# path evaluation start # $BASH_SOURCE\n#\n"
     echo "\$0=$0"
     echo "\$#=$#"
     echo "\$@=$@"
     echo "\$?=$?"
+
+canonical=$(cd -P -- "$(dirname -- "$0")" && printf '%s\n' "$(pwd -P)/$(basename -- "$0")")
+echo canonical=$canonical
 
     local absolute_script_path=$(readlink -f $0)
     echo absolute_script_path=${absolute_script_path}
