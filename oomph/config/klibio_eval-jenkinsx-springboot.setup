@@ -15,7 +15,7 @@ href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products
 name="klibio.eval-jenkinsx-springboot.workspace"
 label="klibio/eval-jenkinsx-springboot Workspace">
 <stream
-href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_eval-jenkinsx-springboot.setup#/@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_eval-jenkinsx-springboot']/@streams[name='main']"/>
 <description>The klibio/eval-jenkinsx-springboot workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>

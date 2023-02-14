@@ -15,7 +15,7 @@ href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products
 name="klibio.osgi.enroute.bundles.workspace"
 label="klibio/osgi.enroute.bundles Workspace">
 <stream
-href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_osgi.enroute.bundles.setup#/@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_osgi.enroute.bundles']/@streams[name='main']"/>
 <description>The klibio/osgi.enroute.bundles workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>

@@ -15,7 +15,7 @@ href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products
 name="klibio.oidc-workshop-spring-io-2019.workspace"
 label="klibio/oidc-workshop-spring-io-2019 Workspace">
 <stream
-href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_oidc-workshop-spring-io-2019.setup#/@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_oidc-workshop-spring-io-2019']/@streams[name='main']"/>
 <description>The klibio/oidc-workshop-spring-io-2019 workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>
