@@ -15,7 +15,7 @@
       name="__ORG__.__REPO__.workspace"
       label="__ORG__/__REPO__ Workspace">
     <stream
-        href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='__ORG_____REPO__']/@streams[name='main']"/>
+        href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='__ORG__.__REPO__']/@streams[name='main']"/>
     <description>The __ORG__/__REPO__ workspace provides cool stuff.</description>
   </workspace>
   <description>The boostrap configuration provides cool stuff.</description>

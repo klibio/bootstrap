@@ -15,7 +15,7 @@ href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products
 name="klibio.io.klib.tools.workspace"
 label="klibio/io.klib.tools Workspace">
 <stream
-href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_io.klib.tools']/@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio.io.klib.tools']/@streams[name='main']"/>
 <description>The klibio/io.klib.tools workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>
