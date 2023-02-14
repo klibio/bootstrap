@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup:Configuration
+xmi:version="2.0"
+xmlns:xmi="http://www.omg.org/XMI"
+xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+label="klibio/osgi.enroute.bundles">
+<installation
+name="klibio.osgi.enroute.bundles.installation"
+label="klibio/osgi.enroute.bundles Installation">
+<productVersion
+href="../klibio.products.setup#//@products[name='klibio.osgi.dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+<description>The klibio/osgi.enroute.bundles installation provides cool stuff.</description>
+</installation>
+<workspace
+name="klibio.osgi.enroute.bundles.workspace"
+label="klibio/osgi.enroute.bundles Workspace">
+<stream
+href="../projects/klibio_osgi.enroute.bundles.setup#//@streams[name='main']"/>
+<description>The klibio/osgi.enroute.bundles workspace provides cool stuff.</description>
+</workspace>
+<description>The boostrap configuration provides cool stuff.</description>
+</setup:Configuration>

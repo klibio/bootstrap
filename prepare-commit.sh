@@ -81,9 +81,10 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
       ${url} \
       | jq -r '.[] | .name | gsub("[\\n\\t]"; "")' | sort > ${file_response}
 
-cat >${file_response} <<-EOL
-bootstrap
-EOL
+# shortcut for processing only specific projects
+#cat >${file_response} <<-EOL
+#bootstrap
+#EOL
 
   for row in $(cat ${file_response}); do
       repo=$(echo ${row})
@@ -96,13 +97,13 @@ EOL
       if  [[ -e ${file} ]]; then
             echo "## skip existing project setup file klibio_${repo}.setup"
       else
-          echo "## create project setup file klibio_${repo}.setup"
-          while read -r line; do
+        echo "## create project setup file klibio_${repo}.setup"
+        while read -r line; do
           echo $(echo "${line//__REPO__/${repo}}") >> ${file}
           if [ -f ${file} ]; then
               sed -i "s/__ORG__/${org}/g" $file
           fi
-          done < ./oomph/template/github_project_template.setup
+        done < ./oomph/template/github_project_template.setup
       fi
 
       config_dir=${script_dir}/oomph/config
@@ -111,13 +112,13 @@ EOL
       if  [[ -e ${file} ]]; then
           echo "## skip existing project config file klibio_${repo}.setup"
       else
-          echo "## create project config file klibio_${repo}.setup"
-          while read -r line; do
+        echo "## create project config file klibio_${repo}.setup"
+        while read -r line; do
           echo $(echo "${line//__REPO__/${repo}}") >> ${file}
           if [ -f ${file} ]; then
               sed -i "s/__ORG__/${org}/g" $file
           fi
-          done < ./oomph/template/github_config_template.setup
+        done < ./oomph/template/github_config_template.setup
       fi
   done
   rm ${file_response}
