@@ -201,5 +201,35 @@
     </setupTask>
   </setupTask>
   <project href="projects/klibio_bootstrap.setup#/"/>
+  <project href="projects/klibio_AsciidocFX.setup#/"/>
+  <project href="projects/klibio_azure-voting-app-redis.setup#/"/>
+  <project href="projects/klibio_docker-eclipse.setup#/"/>
+  <project href="projects/klibio_drawio.setup#/"/>
+  <project href="projects/klibio_eclipse.utils.setup#/"/>
+  <project href="projects/klibio_ee.j2se-version-11.setup#/"/>
+  <project href="projects/klibio_eval-jenkinsx-springboot.setup#/"/>
+  <project href="projects/klibio_example.bnd.rcp.setup#/"/>
+  <project href="projects/klibio_io.klib.aries.example.setup#/"/>
+  <project href="projects/klibio_io.klib.docker.builder.setup#/"/>
+  <project href="projects/klibio_io.klib.docker.java.setup#/"/>
+  <project href="projects/klibio_io.klib.docker.osgi.tut.setup#/"/>
+  <project href="projects/klibio_io.klib.flux.setup#/"/>
+  <project href="projects/klibio_io.klib.forwarding-ssl-proxy.setup#/"/>
+  <project href="projects/klibio_io.klib.helm.setup#/"/>
+  <project href="projects/klibio_io.klib.istio.setup#/"/>
+  <project href="projects/klibio_io.klib.netconnect.setup#/"/>
+  <project href="projects/klibio_io.klib.osgi.etcd.setup#/"/>
+  <project href="projects/klibio_io.klib.terraform.setup#/"/>
+  <project href="projects/klibio_io.klib.tinyproxy.setup#/"/>
+  <project href="projects/klibio_io.klib.tools.setup#/"/>
+  <project href="projects/klibio_io.klib.util.setup#/"/>
+  <project href="projects/klibio_klib.cluster.setup#/"/>
+  <project href="projects/klibio_klib.trackr.setup#/"/>
+  <project href="projects/klibio_oidc-workshop-spring-io-2019.setup#/"/>
+  <project href="projects/klibio_oomph-task-unzip.setup#/"/>
+  <project href="projects/klibio_org.klib.io.bnd.example.setup#/"/>
+  <project href="projects/klibio_osgi.enroute.bundles.setup#/"/>
+  <project href="projects/klibio_pipelines-java.setup#/"/>
+  <project href="projects/klibio_tycho-demo.setup#/"/>
   <description>All the projects at Github.com that provide automated setup support along with additional user-added projects</description>
 </setup:ProjectCatalog>
