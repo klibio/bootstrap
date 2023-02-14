@@ -8,14 +8,14 @@ label="klibio/drawio">
 name="klibio.drawio.installation"
 label="klibio/drawio Installation">
 <productVersion
-href="../klibio.products.setup#//@products[name='klibio.osgi.dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='io.klib.product.osgi-dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
 <description>The klibio/drawio installation provides cool stuff.</description>
 </installation>
 <workspace
 name="klibio.drawio.workspace"
 label="klibio/drawio Workspace">
 <stream
-href="../projects/klibio_drawio.setup#//@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_drawio.setup#/@streams[name='main']"/>
 <description>The klibio/drawio workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>

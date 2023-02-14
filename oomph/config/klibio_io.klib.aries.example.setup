@@ -8,14 +8,14 @@ label="klibio/io.klib.aries.example">
 name="klibio.io.klib.aries.example.installation"
 label="klibio/io.klib.aries.example Installation">
 <productVersion
-href="../klibio.products.setup#//@products[name='klibio.osgi.dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='io.klib.product.osgi-dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
 <description>The klibio/io.klib.aries.example installation provides cool stuff.</description>
 </installation>
 <workspace
 name="klibio.io.klib.aries.example.workspace"
 label="klibio/io.klib.aries.example Workspace">
 <stream
-href="../projects/klibio_io.klib.aries.example.setup#//@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_io.klib.aries.example.setup#/@streams[name='main']"/>
 <description>The klibio/io.klib.aries.example workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>

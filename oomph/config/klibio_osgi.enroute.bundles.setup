@@ -8,14 +8,14 @@ label="klibio/osgi.enroute.bundles">
 name="klibio.osgi.enroute.bundles.installation"
 label="klibio/osgi.enroute.bundles Installation">
 <productVersion
-href="../klibio.products.setup#//@products[name='klibio.osgi.dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='io.klib.product.osgi-dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
 <description>The klibio/osgi.enroute.bundles installation provides cool stuff.</description>
 </installation>
 <workspace
 name="klibio.osgi.enroute.bundles.workspace"
 label="klibio/osgi.enroute.bundles Workspace">
 <stream
-href="../projects/klibio_osgi.enroute.bundles.setup#//@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_osgi.enroute.bundles.setup#/@streams[name='main']"/>
 <description>The klibio/osgi.enroute.bundles workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>

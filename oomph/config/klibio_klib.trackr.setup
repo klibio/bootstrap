@@ -8,14 +8,14 @@ label="klibio/klib.trackr">
 name="klibio.klib.trackr.installation"
 label="klibio/klib.trackr Installation">
 <productVersion
-href="../klibio.products.setup#//@products[name='klibio.osgi.dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='io.klib.product.osgi-dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
 <description>The klibio/klib.trackr installation provides cool stuff.</description>
 </installation>
 <workspace
 name="klibio.klib.trackr.workspace"
 label="klibio/klib.trackr Workspace">
 <stream
-href="../projects/klibio_klib.trackr.setup#//@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_klib.trackr.setup#/@streams[name='main']"/>
 <description>The klibio/klib.trackr workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>

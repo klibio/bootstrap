@@ -8,14 +8,14 @@ label="klibio/tycho-demo">
 name="klibio.tycho-demo.installation"
 label="klibio/tycho-demo Installation">
 <productVersion
-href="../klibio.products.setup#//@products[name='klibio.osgi.dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='io.klib.product.osgi-dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
 <description>The klibio/tycho-demo installation provides cool stuff.</description>
 </installation>
 <workspace
 name="klibio.tycho-demo.workspace"
 label="klibio/tycho-demo Workspace">
 <stream
-href="../projects/klibio_tycho-demo.setup#//@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio_tycho-demo.setup#/@streams[name='main']"/>
 <description>The klibio/tycho-demo workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>
