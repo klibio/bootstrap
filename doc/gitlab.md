@@ -7,8 +7,10 @@ export gitlab_server=gitlab.klib.io
 # Gitlab group `dev` with id=11
 export gitlab_groupid=11
 
-# list all projects inside a provided group id
+# ToDo
+# curl command to get ID based on group name e.g. dev -> id=11
 
+# list all projects inside a provided group id
 curl --header "PRIVATE-TOKEN: ${git_pat_token}" \
     "https://${gitlab_server}/api/v4/groups/${gitlab_groupid}/projects" \
     | jq -r '.[] | .name | gsub("[\\n\\t]"; "")' | sort >  gitlab_response.json
