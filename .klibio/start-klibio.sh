@@ -49,6 +49,15 @@ for i in "$@"; do
 EOM
 )"
       ;;
+    --dev=*)
+      dev_suffix="${i#*=}"
+      shift # past argument=value
+      dev_vm_arg="$(cat <<-EOM
+-Duser.home=${HOME}/oomph_devel_${dev_suffix} \
+-Doomph.setup.user.home.redirect=true
+EOM
+)"
+      ;;
     # default for unknown parameter
     -*|--*)
       echo "unknow option $i provided"
@@ -78,7 +87,7 @@ if [[ ${oomph} -eq 1 ]]; then
       1> ${KLIBIO}/tool/${date}_oomph_out.log \
       &
    else
-     config_url=${setup_url}/config/${oomph_config/\//_}.setup
+     config_url=${setup_url}/config/cfg_${oomph_config/\//_}.setup
      if curl -s${unsafe:-} --output /dev/null --head --fail "${config_url}"; then
        echo "# launching oomph in separate window with config ${config_url}"
        "${oomph_exec}" \

@@ -38,7 +38,7 @@ for i in "$@"; do
     -b|--bash)
       exec_bash_archive=true
       ;;
-    -o|--oomph)
+    -o=*|--oomph=*)
       exec_oomph_setups=true
       git_org="${i#*=}"
       shift # past argument=value      
@@ -67,7 +67,7 @@ if [[ ${exec_bash_archive} == "true"  ]]; then
 fi
 
 if [[ ${exec_oomph_setups} == "true"  ]]; then
-  echo -e "#\n# retrieve projects for a given github organisation\n#\n"
+  echo -e "#\n# retrieve projects for a given github organisation $git_org\n#\n"
   
   if [[ ! -n "$git_pat_token" ]]; then
     echo "mandatory environment variable 'git_pat_token' for git $git_org is missing"
@@ -110,11 +110,11 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
 
       config_dir=${script_dir}/oomph/config
       mkdir -p ${config_dir}
-      file=${config_dir}/klibio_${repo}.setup
+      file=${config_dir}/cfg_klibio_${repo}.setup
       if  [[ -e ${file} ]]; then
-          echo "## skip existing project config file klibio_${repo}.setup"
+          echo "## skip existing project config file cfg_klibio_${repo}.setup"
       else
-        echo "## create project config file klibio_${repo}.setup"
+        echo "## create project config file cfg_klibio_${repo}.setup"
         while read -r line; do
           echo $(echo "${line//__REPO__/${repo}}") >> ${file}
           if [ -f ${file} ]; then
