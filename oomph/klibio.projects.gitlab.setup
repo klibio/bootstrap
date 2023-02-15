@@ -141,7 +141,7 @@
         name="gitlab.klibio.remoteURIs"
         label="gitlab.klib.io repository">
       <choice
-          value="git@gitlab.klib.io:@{remoteURI}.git"
+          value="ssh://git@gitlab.klib.io:2222/@{remoteURI}.git"
           label="Git (read-write)"/>
       <choice
           value="https://${gitlab.user.id|username}@gitlab.klib.io/@{remoteURI}.git"
