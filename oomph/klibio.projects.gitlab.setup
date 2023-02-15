@@ -41,7 +41,7 @@
         </detail>
         <detail
             key="form.url">
-          <value>https://github.com/session</value>
+          <value>https://gitlab.klib.io/session</value>
         </detail>
         <detail
             key="form.cookie">
@@ -61,7 +61,7 @@
         </detail>
         <detail
             key="form.parameter.login">
-          <value>$${github.user.id}</value>
+          <value>$${gitlab.user.id}</value>
         </detail>
         <detail
             key="form.parameter.password">
@@ -100,7 +100,7 @@
         </detail>
         <detail
             key="form.url">
-          <value>https://github.com/login</value>
+          <value>https://gitlab.klib.io/login</value>
         </detail>
         <detail
             key="form.filter">
@@ -108,7 +108,7 @@
         </detail>
         <detail
             key="form.user">
-          <value>$${github.user.id}</value>
+          <value>$${gitlab.user.id}</value>
         </detail>
         <detail
             key="form.password">
@@ -116,23 +116,23 @@
         </detail>
         <detail
             key="form.response.location.matches">
-          <value>https://github.com/</value>
+          <value>https://gitlab.klib.io/</value>
         </detail>
         <detail
             key="form.ok">
-          <value>Valid password for account $${github.user.id} at $${form.url}.</value>
+          <value>Valid password for account $${gitlab.user.id} at $${form.url}.</value>
         </detail>
         <detail
             key="form.info">
-          <value>Validate the password for account $${github.user.id} at $${form.url}.</value>
+          <value>Validate the password for account $${gitlab.user.id} at $${form.url}.</value>
         </detail>
         <detail
             key="form.warning">
-          <value>Unable to validate the password for account $${github.user.id} because $${form.url} is unreachable.</value>
+          <value>Unable to validate the password for account $${gitlab.user.id} because $${form.url} is unreachable.</value>
         </detail>
         <detail
             key="form.error">
-          <value>Invalid password for account $${github.user.id} at $${form.url}.</value>
+          <value>Invalid password for account $${gitlab.user.id} at $${form.url}.</value>
         </detail>
       </annotation>
     </setupTask>
@@ -144,7 +144,7 @@
           value="git@gitlab.klib.io:@{remoteURI}.git"
           label="Git (read-write)"/>
       <choice
-          value="https://${github.user.id|username}@gitlab.klib.io/@{remoteURI}.git"
+          value="https://${gitlab.user.id|username}@gitlab.klib.io/@{remoteURI}.git"
           label="HTTPS (read-write)">
         <annotation
             source="http://www.eclipse.org/oomph/setup/MatchChoice"/>

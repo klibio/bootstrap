@@ -17,7 +17,7 @@ if [[ "$#" == 0 ]]; then
   echo "$(cat <<-EOM
 # please provide one or more options of the following options
 -b|--bash   update the archive for the USERHOME <.klibio.tar.gz>
--o|--ommph  create oomph projects and configs for klibio projects
+-o=<git-server>/<org>|--ommph=<git-server>/<org>  create oomph projects and configs for git-server and org projects
 -f|--force  overwrite existing files
 EOM
 )"
@@ -29,6 +29,7 @@ echo "# create derived objects"
 # process step variables (all MUST be false and only activated by user option)
 exec_bash_archive=false
 exec_oomph_setups=false
+git_org=klibio
 overwrite=false
 
 for i in "$@"; do
@@ -39,6 +40,8 @@ for i in "$@"; do
       ;;
     -o|--oomph)
       exec_oomph_setups=true
+      git_org="${i#*=}"
+      shift # past argument=value      
       ;;
     # for develoment purposes
     -f|--force)
@@ -66,17 +69,16 @@ fi
 if [[ ${exec_oomph_setups} == "true"  ]]; then
   echo -e "#\n# retrieve projects for a given github organisation\n#\n"
   
-  org=klibio
-  if [[ ! -n "$github_token" ]]; then
-    echo "mandatory environment variable 'github_token' for GITHUB $org is missing"
+  if [[ ! -n "$git_pat_token" ]]; then
+    echo "mandatory environment variable 'git_pat_token' for git $git_org is missing"
     exit 1
   fi
 
-  url=https://api.github.com/orgs/${org}/repos
+  url=https://api.github.com/orgs/${git_org}/repos
   file_response=gh_repos_response.json
   curl \
       -H "Accept: application/vnd.github+json" \
-      -H "Authorization: Bearer ${github_token}" \
+      -H "Authorization: Bearer ${git_pat_token}" \
       -H "X-GitHub-Api-Version: 2022-11-28" \
       ${url} \
       | jq -r '.[] | .name | gsub("[\\n\\t]"; "")' | sort > ${file_response}
@@ -101,7 +103,7 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
         while read -r line; do
           echo $(echo "${line//__REPO__/${repo}}") >> ${file}
           if [ -f ${file} ]; then
-              sed -i "s/__ORG__/${org}/g" $file
+              sed -i "s/__ORG__/${git_org}/g" $file
           fi
         done < ./oomph/template/github_project_template.setup
       fi
@@ -116,7 +118,7 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
         while read -r line; do
           echo $(echo "${line//__REPO__/${repo}}") >> ${file}
           if [ -f ${file} ]; then
-              sed -i "s/__ORG__/${org}/g" $file
+              sed -i "s/__ORG__/${git_org}/g" $file
           fi
         done < ./oomph/template/github_config_template.setup
       fi
