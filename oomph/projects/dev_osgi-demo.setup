@@ -53,13 +53,13 @@
   </setupTask>
   <setupTask
       xsi:type="git:GitCloneTask"
-      id="git.clone.bootstrap"
-      remoteURI="klibio/bootstrap">
+      id="git.clone.osgi-demo"
+      remoteURI="dev/osgi-demo">
     <annotation
         source="http://www.eclipse.org/oomph/setup/InducedChoices">
       <detail
           key="inherit">
-        <value>gitlab.remoteURIs</value>
+        <value>gitlab.klibio.remoteURIs</value>
       </detail>
       <detail
           key="label">
@@ -80,24 +80,17 @@
           xsi:type="predicates:AndPredicate">
         <operand
             xsi:type="predicates:RepositoryPredicate"
-            project="bootstrap"/>
+            project="osgi-demo"/>
       </predicate>
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>
-  </setupTask>
-  <setupTask
-      xsi:type="setup.p2:P2Task">
-    <requirement
-        name="de.jcup.basheditor.feature.group"/>
-    <repository
-        url="https://de-jcup.github.io/update-site-eclipse-bash-editor/update-site"/>
   </setupTask>
   <stream name="main"
       label="main">
     <setupTask
         xsi:type="projects:ProjectsImportTask">
       <sourceLocator
-          rootFolder="${git.clone.bootstrap.location}"
+          rootFolder="${git.clone.osgi-demo.location}"
           locateNestedProjects="true"/>
     </setupTask>
   </stream>
