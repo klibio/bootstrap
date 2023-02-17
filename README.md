@@ -36,16 +36,24 @@ OpenJDK 64-Bit Server VM Temurin-11.0.18+10 (build 11.0.18+10, mixed mode)
 ```
 ### oomph / eclipse-installer
 
-launch oomph with `start-klib.io -o`
+#### **option 1** - launch oomph / eclipse installer
 
-launch oomph with a specific repo configuration `start-klib.io -o=<org>/<repo>`
+```bash
+$ start-klibio.sh -o
+# launching oomph in separate window
+```
+
+#### **option 2** - launch oomph with a specific config
+
+launch oomph with a specific config `start-klib.io -o=<org>/<repo>`
 ```bash
 $ start-klibio.sh -o=klibio/bootstrap
 # launching oomph in separate window with config https://raw.githubusercontent.com/klibio/bootstrap/feature/x/oomph/config/cfg_klibio_bootstrap.setup
 ```
-Opens a oomph gui installer pre-selecting the product and the project.
-Provide the Installation folder name and press `Next >` and then `Finish` to get the Eclipse IDE installed with the repository checked out and imported. 
-Your are ready to code ...
+1. Checks if there is an existing configuration file available.
+2. Opens a oomph gui installer pre-selecting the product and the github project from klibio organisation.
+3. Provide the Installation folder name and press `Next >` and then `Finish` to get the Eclipse IDE installed with the repository checked out and imported. 
+4. Your are ready to code ...
 
 ## implementation 
 * minimal host changes
