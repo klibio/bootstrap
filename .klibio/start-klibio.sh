@@ -68,8 +68,15 @@ EOM
   esac
 done
 
-# Command line argument for specifying a Configuration https://www.eclipse.org/forums/index.php/t/1086000/
+# testing internet connectivity
+if curl --head -sI www.google.com | grep "HTTP/1.1 200 OK" > /dev/null; then 
+  echo "internet connection working"; 
+else 
+  echo "no internet connection - check your proxy settings - exiting"; 
+  exit 1
+fi
 
+# Command line argument for specifying a Configuration https://www.eclipse.org/forums/index.php/t/1086000/
 if [[ ${oomph} -eq 1 ]]; then
   # minimal oomph version
   jvm=$(echo ${KLIBIO}/java/ee/JAVA17${java_home_suffix:-}/bin)
