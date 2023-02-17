@@ -15,7 +15,14 @@ execute the following script for installation
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/klibio/bootstrap/main/install-klibio.sh)" bash -j -o
 ```
-
+### installation parameters
+```bash
+-b=<branch_name>    install from a specific branch
+-j                  install java LTS versions
+-o                  install eclipse installer / oomph
+-u                  unsecure curl - allow self-signed certificates
+-f                  force overwrite existing files
+```
 ## usage
 ### using specific Java LTS release
 
@@ -46,18 +53,8 @@ Your are ready to code ...
     * local folder `~/.klibio`
 * idempotent execution
 
-## glossary
-
-pop - proof-of-performance is used as term instead of test - we want to assure spec'd functionality
-
-### installation parameters
-```bash
--b=<branch_name>    install from a specific branch
--j                  install java LTS versions
--o                  install eclipse installer / oomph
--u                  unsecure - allow self-signed certificates
--f                  force overwrite existing files
-```
+# links
 
 * [FAQ](doc/FAQ.md)
+* [Glossary](doc/glossary.md)
 * [LICENSE](LICENSE)
