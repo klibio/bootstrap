@@ -30,6 +30,7 @@ echo "# create derived objects"
 exec_bash_archive=false
 exec_oomph_setups=false
 git_org=klibio
+git_host="https://github.com"
 overwrite=false
 
 for i in "$@"; do
@@ -40,7 +41,12 @@ for i in "$@"; do
       ;;
     -o=*|--oomph=*)
       exec_oomph_setups=true
-      git_org="${i#*=}"
+
+      # use everything after the last slash as org
+      git_org=$(echo ${i#*=} | sed 's|.*/||')
+
+      # use everything before the last slash as host
+      git_host=$(echo ${i#*=} | sed 's|\(.*\)/.*|\1|')
       shift # past argument=value      
       ;;
     # for develoment purposes
@@ -74,14 +80,36 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
     exit 1
   fi
 
+  # default url points to github api
   url=https://api.github.com/orgs/${git_org}/repos
   file_response=gh_repos_response.json
-  curl \
+  
+  echo "accessing ${git_host} for organization ${git_org}"
+  if [[ $git_host == *"github"* ]]; then
+    url=https://api.github.com/orgs/${git_org}/repos
+    curl \
       -H "Accept: application/vnd.github+json" \
       -H "Authorization: Bearer ${git_pat_token}" \
       -H "X-GitHub-Api-Version: 2022-11-28" \
       ${url} \
       | jq -r '.[] | .name | gsub("[\\n\\t]"; "")' | sort > ${file_response}
+  fi
+
+  # destinguishing between github and gitlab is necessary because of different api url structure
+  if [[ $git_host == *"gitlab"* ]]; then
+    group_url=${git_host}/api/v4/groups?search=${git_org}
+
+    gitlab_groupid=$(
+      curl -H "PRIVATE-TOKEN: ${git_pat_token}"\
+      ${group_url} \
+      | jq -r '.[] | .id')
+
+    url=${git_host}/api/v4/groups/${gitlab_groupid}/projects
+
+    curl -H "PRIVATE-TOKEN: ${git_pat_token}" \
+      ${url} \
+      | jq -r '.[] | .name | gsub("[\\n\\t]"; "")' | sort >  ${file_response}
+  fi
 
 # shortcut for processing only specific projects
 #cat >${file_response} <<-EOL
