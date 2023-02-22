@@ -61,7 +61,7 @@
         </detail>
         <detail
             key="form.parameter.login">
-          <value>$${gitlab.user.id}</value>
+          <value>$${gitlab.klibio.user.id}</value>
         </detail>
         <detail
             key="form.parameter.password">
@@ -108,7 +108,7 @@
         </detail>
         <detail
             key="form.user">
-          <value>$${gitlab.user.id}</value>
+          <value>$${gitlab.klibio.user.id}</value>
         </detail>
         <detail
             key="form.password">
@@ -116,19 +116,19 @@
         </detail>
         <detail
             key="form.response.location.matches">
-          <value>https://gitlab.klib.io/</value>
+          <value>https://gitlab.klibio.user.id/</value>
         </detail>
         <detail
             key="form.ok">
-          <value>Valid password for account $${gitlab.user.id} at $${form.url}.</value>
+          <value>Valid password for account $${gitlab.klibio.user.id} at $${form.url}.</value>
         </detail>
         <detail
             key="form.info">
-          <value>Validate the password for account $${gitlab.user.id} at $${form.url}.</value>
+          <value>Validate the password for account $${gitlab.klibio.user.id} at $${form.url}.</value>
         </detail>
         <detail
             key="form.warning">
-          <value>Unable to validate the password for account $${gitlab.user.id} because $${form.url} is unreachable.</value>
+          <value>Unable to validate the password for account $${gitlab.klibio.user.id} because $${form.url} is unreachable.</value>
         </detail>
         <detail
             key="form.error">
