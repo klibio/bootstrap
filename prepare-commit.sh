@@ -81,13 +81,12 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
     exit 1
   fi
 
-  # default url points to github api
-  url=https://api.github.com/orgs/${git_org}/repos
+  url=https://api.${git_host}/orgs/${git_org}/repos
   file_response=gh_repos_response.json
   
   echo "accessing ${git_host} for organization ${git_org}"
   if [[ ${git_host} == *"github"* ]]; then
-    url=https://api.github.com/orgs/${git_org}/repos
+    url=https://api.${git_host}/orgs/${git_org}/repos
     curl \
       -H "Accept: application/vnd.github+json" \
       -H "Authorization: Bearer ${git_pat_token}" \
@@ -98,14 +97,14 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
 
   # destinguishing between github and gitlab because of different api url structure
   if [[ ${git_host} == *"gitlab"* ]]; then
-    group_url=${git_host}/api/v4/groups?search=${git_org}
+    group_url=https://${git_host}/api/v4/groups?search=${git_org}
     host_platform=gitlab
     gitlab_groupid=$(
       curl -H "PRIVATE-TOKEN: ${git_pat_token}"\
       ${group_url} \
       | jq -r '.[] | .id')
 
-    url=${git_host}/api/v4/groups/${gitlab_groupid}/projects
+    url=https://${git_host}/api/v4/groups/${gitlab_groupid}/projects
 
     curl -H "PRIVATE-TOKEN: ${git_pat_token}" \
       ${url} \
