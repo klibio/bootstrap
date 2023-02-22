@@ -47,7 +47,7 @@ for i in "$@"; do
       git_org=$(echo ${i#*=} | sed 's|.*/||')
 
       # use everything before the last slash as host
-      git_host=$(echo ${i#*=} | sed 's|\(.*\)/.*|\1|')
+      git_host=$(echo ${i#*=} | sed -e 's|^[^/]*//||' -e 's|/.*$||')
       shift # past argument=value      
       ;;
     # for develoment purposes
@@ -123,7 +123,7 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
 
       project_dir=${script_dir}/oomph/projects
       mkdir -p ${project_dir}
-      file=${project_dir}/klibio_${repo}.setup
+      file=${project_dir}/prj_${git_host}_${git_org}_${repo}.setup
 
       if  [[ -e ${file} ]]; then
             echo "## skip existing project setup file klibio_${repo}.setup"
@@ -134,12 +134,12 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
           if [ -f ${file} ]; then
               sed -i "s/__ORG__/${git_org}/g" $file
           fi
-        done < ./oomph/template/${host_platform}_project_template.setup
+        done < ./oomph/template/template_${git_host}_prj.setup
       fi
 
       config_dir=${script_dir}/oomph/config
       mkdir -p ${config_dir}
-      file=${config_dir}/cfg_klibio_${repo}.setup
+      file=${config_dir}/cfg_${git_host}_${git_org}_${repo}.setup
       if  [[ -e ${file} ]]; then
           echo "## skip existing project config file cfg_klibio_${repo}.setup"
       else
@@ -149,7 +149,7 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
           if [ -f ${file} ]; then
               sed -i "s/__ORG__/${git_org}/g" $file
           fi
-        done < ./oomph/template/${host_platform}_config_template.setup
+        done < ./oomph/template/template_${git_host}_cfg.setup
       fi
   done
   rm ${file_response}
