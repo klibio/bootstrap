@@ -13,7 +13,7 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
+if [[ HOME_devel* == ${LOCAL_DEV:-false} ]]; then
   echo "###########################################################"
   echo "# LOCAL DEV ACTIVE # provision-java.sh"
   echo "###########################################################"
@@ -102,8 +102,8 @@ provision_java() {
   java_ee=JAVA${java_version}
   declare $java_ee=java${java_version}
 
-  echo -e "#\n# prepare ${java_image_type} ${java_ee} for ${os} and arch ${java_architecture}\n#\n"
-  declare "url=${java_rest_api}/v3/assets/latest/${java_version}/hotspot?architecture=${java_architecture}&image_type=${java_image_type}&os=${os}&vendor=eclipse"
+  echo -e "#\n# prepare ${java_image_type} ${java_ee} for ${java_os} and arch ${java_architecture}\n#\n"
+  declare "url=${java_rest_api}/v3/assets/latest/${java_version}/hotspot?architecture=${java_architecture}&image_type=${java_image_type}&os=${java_os}&vendor=eclipse"
   if [ ! -d "${java_dir}" ]; then mkdir -p ${java_dir} 2>/dev/null; fi
   pushd ${java_dir} >/dev/null 2>&1
   curl -s${unsafe:-}SX 'GET' "$url" > resp.json
@@ -150,7 +150,7 @@ provision_java() {
   popd >/dev/null 2>&1
 }
 
-echo -e "\n##############################\n# Java setup on $os\n##############################\n"
+echo -e "\n##############################\n# Java setup on ${java_os}\n##############################\n"
 
 if [[ "aarch64" != "${java_arch}" ]]; then
   provision_java 8 jdk ${java_arch}

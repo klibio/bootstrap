@@ -50,3 +50,5 @@ git config --list --show-origin
 
 [Generating a new SSH key and adding it to the ssh-agent](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
+
+https://gist.github.com/jherax/979d052ad5759845028e6742d4e2343b
