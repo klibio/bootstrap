@@ -15,6 +15,10 @@ set -o pipefail # exit if any pipe command is failing
 if [[ "$#" == 0 ]]; then
   echo "$(cat <<-EOM
 # please provide one or more options of the following applications are available
+-e|--eclipse
+    # launch eclipse sdk
+-e=<workspace_dir>|--eclipse=<workspace_dir>
+    # launch eclipse with provided workspace location
 -o|--ommph
     # launch oomph eclipse installer
 -o=<github-org/repo>|--ommph=<github-org/repo>
@@ -32,7 +36,7 @@ for i in "$@"; do
     -e|--eclipse)
       eclipse=1
       ;;
-    -o=*|--oomph=*)
+    -e=*|--eclipse=*)
       eclipse_wrkspc="${i#*=}"
       eclipse=1
       shift # past argument=value
@@ -142,12 +146,23 @@ fi
 
 if [[ ${eclipse} -eq 1 ]]; then
   if [[ -f ${eclipse_sdk}/${eclipse_exec} ]]; then
+    if [[ -z ${eclipse_wrkspc+x} ]]; then
+      echo "# launching eclipse in separate window"
+      "${eclipse_sdk}/${eclipse_exec}" \
+        -data "${eclipse_wrkspc}" \
+        -vm "${java_bin}" \
+        2> ${KLIBIO}/tool/${date}_eclipse_err.log \
+        1> ${KLIBIO}/tool/${date}_eclipse_out.log \
+        &
+
+    else
       echo "# launching eclipse in separate window"
       "${eclipse_sdk}/${eclipse_exec}" \
         -vm "${java_bin}" \
         2> ${KLIBIO}/tool/${date}_eclipse_err.log \
         1> ${KLIBIO}/tool/${date}_eclipse_out.log \
         &
+    fi
   else  
     echo "no eclipse installation found inside ${eclipse_sdk}/${eclipse_exec} - re-install with -e/--eclipse"
   fi
