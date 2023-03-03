@@ -100,14 +100,14 @@ if [[ "$OSTYPE" == "linux"* ]]; then
   export jq_exec=jq-linux64                   # others
 fi
 
-# more variables - mind order
-export tools_dir=$(echo "${KLIBIO}/tool")                                   # others
-export tools_archives="${tools_dir}/archives"                               # others
-export eclipse_platform_version=4.26                                        # eclipse
-export eclipse_sdk=${tools_dir}/eclipse_${eclipse_platform_version}/eclipse # eclipse
-export oomph_dir="${tools_dir}/eclipse-installer"                           # oomph
-export oomph_exec="${oomph_dir}/${oomph_exec_suffix}"                       # oomph
-export java_bin="${KLIBIO}/java/ee/JAVA17${java_home_suffix:-}/bin"         # java
+# more variables - mind order, due to re-use
+export tools_dir="${KLIBIO}/tool"                                        # others
+export tools_archives="${tools_dir}/archives"                            # others
+export eclipse_platform_version=4.26                                     # eclipse
+export eclipse_sdk=${KLIBIO}/eclipse_${eclipse_platform_version}/eclipse # eclipse
+export oomph_dir="${tools_dir}/eclipse-installer"                        # oomph
+export oomph_exec="${oomph_dir}/${oomph_exec_suffix}"                    # oomph
+export java_bin="${KLIBIO}/java/ee/JAVA17${java_home_suffix:-}/bin"      # java
 
 
 ###########################################################

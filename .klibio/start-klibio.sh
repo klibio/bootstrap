@@ -147,16 +147,15 @@ fi
 if [[ ${eclipse} -eq 1 ]]; then
   if [[ -f ${eclipse_sdk}/${eclipse_exec} ]]; then
     if [[ -z ${eclipse_wrkspc+x} ]]; then
-      echo "# launching eclipse in separate window"
+      echo "# launching eclipse with workspace ${eclipse_wrkspc}"
       "${eclipse_sdk}/${eclipse_exec}" \
         -data "${eclipse_wrkspc}" \
         -vm "${java_bin}" \
         2> ${KLIBIO}/tool/${date}_eclipse_err.log \
         1> ${KLIBIO}/tool/${date}_eclipse_out.log \
         &
-
     else
-      echo "# launching eclipse in separate window"
+      echo "# launching eclipse"
       "${eclipse_sdk}/${eclipse_exec}" \
         -vm "${java_bin}" \
         2> ${KLIBIO}/tool/${date}_eclipse_err.log \
