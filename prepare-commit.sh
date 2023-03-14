@@ -30,7 +30,7 @@ echo "# create derived objects"
 exec_bash_archive=false
 exec_oomph_setups=false
 git_org=klibio
-git_host="https://github.com"
+git_host="github.com"
 host_platform=github
 overwrite=false
 
@@ -42,12 +42,12 @@ for i in "$@"; do
       ;;
     -o=*|--oomph=*)
       exec_oomph_setups=true
-
+      # input form example: https://github.com/klibio/
       # use everything after the last slash as org
-      git_org=$(echo ${i#*=} | sed 's|.*/||')
+      git_org=$(echo ${i#*=} | cut -d '/' -f 4)
 
       # use everything before the last slash as host
-      git_host=$(echo ${i#*=} | sed -e 's|^[^/]*//||' -e 's|/.*$||')
+      git_host=$(echo ${i#*=} | cut -d '/' -f 3)
       shift # past argument=value      
       ;;
     # for develoment purposes
