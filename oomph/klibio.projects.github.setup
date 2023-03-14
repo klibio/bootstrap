@@ -3,7 +3,14 @@
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:git="http://www.eclipse.org/oomph/setup/git/1.0"
+    xmlns:jdt="http://www.eclipse.org/oomph/setup/jdt/1.0"
+    xmlns:predicates="http://www.eclipse.org/oomph/predicates/1.0"
+    xmlns:projects="http://www.eclipse.org/oomph/setup/projects/1.0"
     xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+    xmlns:setup.p2="http://www.eclipse.org/oomph/setup/p2/1.0"
+    xmlns:setup.workingsets="http://www.eclipse.org/oomph/setup/workingsets/1.0"
+    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/projects/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Projects.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
     name="klibio.projects.github"
     label="klib.io projects on Github">
   <annotation
@@ -200,15 +207,21 @@
           value="\\.\pipe\openssh-ssh-agent"/>
     </setupTask>
   </setupTask>
-  <project href="projects/prj_github.com_klibio_bootstrap.setup#/"/>
   <project href="projects/prj_github.com_klibio_AsciidocFX.setup#/"/>
   <project href="projects/prj_github.com_klibio_azure-voting-app-redis.setup#/"/>
+  <project href="projects/prj_github.com_klibio_bnd.setup#/"/>
+  <project href="projects/prj_github.com_klibio_bootstrap.setup#/"/>
   <project href="projects/prj_github.com_klibio_docker-eclipse.setup#/"/>
+  <project href="projects/prj_github.com_klibio_docker-github-runner.setup#/"/>
+  <project href="projects/prj_github.com_klibio_docker-nonstop.setup#/"/>
+  <project href="projects/prj_github.com_klibio_docker-osgi-starterkit.setup#/"/>
+  <project href="projects/prj_github.com_klibio_docker-ubuntu-vnc-desktop.setup#/"/>
   <project href="projects/prj_github.com_klibio_drawio.setup#/"/>
   <project href="projects/prj_github.com_klibio_eclipse.utils.setup#/"/>
   <project href="projects/prj_github.com_klibio_ee.j2se-version-11.setup#/"/>
   <project href="projects/prj_github.com_klibio_eval-jenkinsx-springboot.setup#/"/>
   <project href="projects/prj_github.com_klibio_example.bnd.rcp.setup#/"/>
+  <project href="projects/prj_github.com_klibio_github-actions-eval.setup#/"/>
   <project href="projects/prj_github.com_klibio_io.klib.aries.example.setup#/"/>
   <project href="projects/prj_github.com_klibio_io.klib.docker.builder.setup#/"/>
   <project href="projects/prj_github.com_klibio_io.klib.docker.java.setup#/"/>
@@ -219,17 +232,121 @@
   <project href="projects/prj_github.com_klibio_io.klib.istio.setup#/"/>
   <project href="projects/prj_github.com_klibio_io.klib.netconnect.setup#/"/>
   <project href="projects/prj_github.com_klibio_io.klib.osgi.etcd.setup#/"/>
+  <project href="projects/prj_github.com_klibio_io.klib.process.log.tooling.setup#/"/>
   <project href="projects/prj_github.com_klibio_io.klib.terraform.setup#/"/>
   <project href="projects/prj_github.com_klibio_io.klib.tinyproxy.setup#/"/>
   <project href="projects/prj_github.com_klibio_io.klib.tools.setup#/"/>
   <project href="projects/prj_github.com_klibio_io.klib.util.setup#/"/>
+  <project href="projects/prj_github.com_klibio_jpmcli.setup#/"/>
+  <project href="projects/prj_github.com_klibio_k8s.eclipse.setup#/"/>
   <project href="projects/prj_github.com_klibio_klib.cluster.setup#/"/>
-  <project href="projects/prj_github.com_klibio_klib.trackr.setup#/"/>
+  <project name="klibio.klib.trackr"
+      label="klibio/klib.trackr">
+    <setupTask
+        xsi:type="jdt:JRETask"
+        version="JavaSE-11"
+        location="${jre.location-11}">
+      <description>Define the JRE needed to compile and run the Java projects of ${scope.project.label}</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:EclipseIniTask"
+        option="-Xmx"
+        value="1024m"
+        vm="true">
+      <description>Set the heap space needed to work with the projects of ${scope.project.label}</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:ResourceCreationTask"
+        excludedTriggers="STARTUP MANUAL"
+        targetURL="${workspace.location|uri}/.metadata/.plugins/org.eclipse.jdt.ui/dialog_settings.xml"
+        encoding="UTF-8">
+      <description>Initialize JDT's package explorer to show working sets as its root objects</description>
+      <content>
+        &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>
+        &lt;section name=&quot;Workbench&quot;>
+        &lt;section name=&quot;org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart&quot;>
+        &lt;item value=&quot;true&quot; key=&quot;group_libraries&quot;/>
+        &lt;item value=&quot;false&quot; key=&quot;linkWithEditor&quot;/>
+        &lt;item value=&quot;2&quot; key=&quot;layout&quot;/>
+        &lt;item value=&quot;2&quot; key=&quot;rootMode&quot;/>
+        &lt;item value=&quot;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;packageExplorer configured=&amp;quot;true&amp;quot; group_libraries=&amp;quot;1&amp;quot; layout=&amp;quot;2&amp;quot; linkWithEditor=&amp;quot;0&amp;quot; rootMode=&amp;quot;2&amp;quot; sortWorkingSets=&amp;quot;false&amp;quot; workingSetName=&amp;quot;&amp;quot;&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;localWorkingSetManager&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;workingSet editPageId=&amp;quot;org.eclipse.jdt.internal.ui.OthersWorkingSet&amp;quot; factoryID=&amp;quot;org.eclipse.ui.internal.WorkingSetFactory&amp;quot; id=&amp;quot;1382792884467_1&amp;quot; label=&amp;quot;Other Projects&amp;quot; name=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;/localWorkingSetManager&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;activeWorkingSet workingSetName=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;allWorkingSets workingSetName=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;/packageExplorer&amp;gt;&quot; key=&quot;memento&quot;/>
+        &lt;/section>
+        &lt;/section>
+
+      </content>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        label="oomph git tools">
+      <description>Install the tools needed in the IDE to work with the source code for ${scope.project.label}</description>
+    </setupTask>
+    <setupTask
+        xsi:type="git:GitCloneTask"
+        id="git.clone.klib.trackr"
+        remoteURI="klibio/klib.trackr">
+      <annotation
+          source="http://www.eclipse.org/oomph/setup/InducedChoices">
+        <detail
+            key="inherit">
+          <value>github.remoteURIs</value>
+        </detail>
+        <detail
+            key="label">
+          <value>${scope.project.label} Github repository</value>
+        </detail>
+        <detail
+            key="target">
+          <value>remoteURI</value>
+        </detail>
+      </annotation>
+      <description>${scope.project.label}</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.workingsets:WorkingSetTask">
+      <workingSet
+          name="${scope.project.name}">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="klib.trackr"/>
+        </predicate>
+      </workingSet>
+      <description>The dynamic working sets for ${scope.project.label}</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.p2:P2Task">
+      <requirement
+          name="de.jcup.basheditor.feature.group"/>
+      <repository
+          url="https://de-jcup.github.io/update-site-eclipse-bash-editor/update-site"/>
+    </setupTask>
+    <stream
+        name="main"
+        label="main">
+      <setupTask
+          xsi:type="projects:ProjectsImportTask">
+        <sourceLocator
+            rootFolder="${git.clone.klib.trackr.location}"
+            locateNestedProjects="true"/>
+      </setupTask>
+    </stream>
+    <logicalProjectContainer
+        xsi:type="setup:ProjectCatalog"
+        href="#/"/>
+    <description>klibio/klib.trackr provides cool stuff.</description>
+  </project>
+  <project href="projects/prj_github.com_klibio_klibio.github.io.setup#/"/>
+  <project href="projects/prj_github.com_klibio_LogViewer.setup#/"/>
+  <project href="projects/prj_github.com_klibio_microk8s.setup#/"/>
   <project href="projects/prj_github.com_klibio_oidc-workshop-spring-io-2019.setup#/"/>
   <project href="projects/prj_github.com_klibio_oomph-task-unzip.setup#/"/>
   <project href="projects/prj_github.com_klibio_org.klib.io.bnd.example.setup#/"/>
   <project href="projects/prj_github.com_klibio_osgi.enroute.bundles.setup#/"/>
   <project href="projects/prj_github.com_klibio_pipelines-java.setup#/"/>
   <project href="projects/prj_github.com_klibio_tycho-demo.setup#/"/>
+  <project href="projects/prj_github.com_klibio_vaultwarden.setup#/"/>
+  <project href="projects/prj_github.com_klibio_xmind.setup#/"/>
+  <project href="projects/prj_github.com_klibio_zip4j.setup#/"/>
   <description>All the projects at Github.com that provide automated setup support along with additional user-added projects</description>
 </setup:ProjectCatalog>
