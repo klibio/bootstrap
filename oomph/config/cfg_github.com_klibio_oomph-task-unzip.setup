@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup:Configuration
+xmi:version="2.0"
+xmlns:xmi="http://www.omg.org/XMI"
+xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+label="klibio/oomph-task-unzip">
+<installation
+name="klibio.oomph-task-unzip.installation"
+label="klibio/oomph-task-unzip Installation">
+<productVersion
+href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='oomph-task-unzip']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+<description>The klibio/oomph-task-unzip installation provides cool stuff.</description>
+</installation>
+<workspace
+name="klibio.oomph-task-unzip.workspace"
+label="klibio/oomph-task-unzip Workspace">
+<stream
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='prj_github.com_klibio_oomph-task-unzip']/@streams[name='main']"/>
+<description>The klibio/oomph-task-unzip workspace provides cool stuff.</description>
+</workspace>
+<description>The boostrap configuration provides cool stuff.</description>
+</setup:Configuration>
