@@ -8,14 +8,14 @@ label="klibio/io.klib.forwarding-ssl-proxy">
 name="klibio.io.klib.forwarding-ssl-proxy.installation"
 label="klibio/io.klib.forwarding-ssl-proxy Installation">
 <productVersion
-href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='io.klib.product.osgi-dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='io.klib.forwarding-ssl-proxy']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
 <description>The klibio/io.klib.forwarding-ssl-proxy installation provides cool stuff.</description>
 </installation>
 <workspace
 name="klibio.io.klib.forwarding-ssl-proxy.workspace"
 label="klibio/io.klib.forwarding-ssl-proxy Workspace">
 <stream
-href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio.io.klib.forwarding-ssl-proxy']/@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='prj_github.com_klibio_io.klib.forwarding-ssl-proxy']/@streams[name='main']"/>
 <description>The klibio/io.klib.forwarding-ssl-proxy workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>

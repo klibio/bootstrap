@@ -8,14 +8,14 @@ label="klibio/ee.j2se-version-11">
 name="klibio.ee.j2se-version-11.installation"
 label="klibio/ee.j2se-version-11 Installation">
 <productVersion
-href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='io.klib.product.osgi-dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='ee.j2se-version-11']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
 <description>The klibio/ee.j2se-version-11 installation provides cool stuff.</description>
 </installation>
 <workspace
 name="klibio.ee.j2se-version-11.workspace"
 label="klibio/ee.j2se-version-11 Workspace">
 <stream
-href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio.ee.j2se-version-11']/@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='prj_github.com_klibio_ee.j2se-version-11']/@streams[name='main']"/>
 <description>The klibio/ee.j2se-version-11 workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>

@@ -8,14 +8,14 @@ label="klibio/AsciidocFX">
 name="klibio.AsciidocFX.installation"
 label="klibio/AsciidocFX Installation">
 <productVersion
-href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='io.klib.product.osgi-dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='AsciidocFX']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
 <description>The klibio/AsciidocFX installation provides cool stuff.</description>
 </installation>
 <workspace
 name="klibio.AsciidocFX.workspace"
 label="klibio/AsciidocFX Workspace">
 <stream
-href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio.AsciidocFX']/@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='prj_github.com_klibio_AsciidocFX']/@streams[name='main']"/>
 <description>The klibio/AsciidocFX workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>

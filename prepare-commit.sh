@@ -86,7 +86,7 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
   
   echo "accessing ${git_host} for organization ${git_org}"
   if [[ ${git_host} == *"github"* ]]; then
-    url=https://api.${git_host}/orgs/${git_org}/repos
+    url=https://api.${git_host}/orgs/${git_org}/repos?per_page=100
     curl \
       -H "Accept: application/vnd.github+json" \
       -H "Authorization: Bearer ${git_pat_token}" \
@@ -147,6 +147,7 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
           echo $(echo "${line//__REPO__/${repo}}") >> ${file}
           if [ -f ${file} ]; then
               sed -i "s/__ORG__/${git_org}/g" $file
+              sed -i "s/__HOST__/${git_host}/g" $file
           fi
         done < ./oomph/template/template_${git_host}_cfg.setup
       fi

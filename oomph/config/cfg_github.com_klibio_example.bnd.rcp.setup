@@ -8,14 +8,14 @@ label="klibio/example.bnd.rcp">
 name="klibio.example.bnd.rcp.installation"
 label="klibio/example.bnd.rcp Installation">
 <productVersion
-href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='io.klib.product.osgi-dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='example.bnd.rcp']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
 <description>The klibio/example.bnd.rcp installation provides cool stuff.</description>
 </installation>
 <workspace
 name="klibio.example.bnd.rcp.workspace"
 label="klibio/example.bnd.rcp Workspace">
 <stream
-href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio.example.bnd.rcp']/@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='prj_github.com_klibio_example.bnd.rcp']/@streams[name='main']"/>
 <description>The klibio/example.bnd.rcp workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>

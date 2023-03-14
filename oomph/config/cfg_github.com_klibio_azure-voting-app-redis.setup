@@ -8,14 +8,14 @@ label="klibio/azure-voting-app-redis">
 name="klibio.azure-voting-app-redis.installation"
 label="klibio/azure-voting-app-redis Installation">
 <productVersion
-href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='io.klib.product.osgi-dev']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
+href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='azure-voting-app-redis']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
 <description>The klibio/azure-voting-app-redis installation provides cool stuff.</description>
 </installation>
 <workspace
 name="klibio.azure-voting-app-redis.workspace"
 label="klibio/azure-voting-app-redis Workspace">
 <stream
-href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='klibio.azure-voting-app-redis']/@streams[name='main']"/>
+href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='prj_github.com_klibio_azure-voting-app-redis']/@streams[name='main']"/>
 <description>The klibio/azure-voting-app-redis workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>
