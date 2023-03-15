@@ -30,7 +30,7 @@ echo "# create derived objects"
 exec_bash_archive=false
 exec_oomph_setups=false
 git_org=klibio
-git_host="https://github.com"
+git_host="github.com"
 host_platform=github
 overwrite=false
 
@@ -42,12 +42,12 @@ for i in "$@"; do
       ;;
     -o=*|--oomph=*)
       exec_oomph_setups=true
+      # input form example: https://github.com/klibio/
+      # use fourth field with / as separator as orga
+      git_org=$(echo ${i#*=} | cut -d '/' -f 4)
 
-      # use everything after the last slash as org
-      git_org=$(echo ${i#*=} | sed 's|.*/||')
-
-      # use everything before the last slash as host
-      git_host=$(echo ${i#*=} | sed 's|\(.*\)/.*|\1|')
+      # use third field with / as separator as host
+      git_host=$(echo ${i#*=} | cut -d '/' -f 3)
       shift # past argument=value      
       ;;
     # for develoment purposes
@@ -81,31 +81,29 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
     exit 1
   fi
 
-  # default url points to github api
-  url=https://api.github.com/orgs/${git_org}/repos
+  url=https://api.${git_host}/orgs/${git_org}/repos
   file_response=gh_repos_response.json
   
   echo "accessing ${git_host} for organization ${git_org}"
   if [[ ${git_host} == *"github"* ]]; then
-    url=https://api.github.com/orgs/${git_org}/repos
+    url=https://api.${git_host}/orgs/${git_org}/repos?per_page=1000
     curl \
       -H "Accept: application/vnd.github+json" \
       -H "Authorization: Bearer ${git_pat_token}" \
-      -H "X-GitHub-Api-Version: 2022-11-28" \
       ${url} \
       | jq -r '.[] | .name | gsub("[\\n\\t]"; "")' | sort > ${file_response}
   fi
 
   # destinguishing between github and gitlab because of different api url structure
   if [[ ${git_host} == *"gitlab"* ]]; then
-    group_url=${git_host}/api/v4/groups?search=${git_org}
+    group_url=https://${git_host}/api/v4/groups?search=${git_org}
     host_platform=gitlab
     gitlab_groupid=$(
       curl -H "PRIVATE-TOKEN: ${git_pat_token}"\
       ${group_url} \
       | jq -r '.[] | .id')
 
-    url=${git_host}/api/v4/groups/${gitlab_groupid}/projects
+    url=https://${git_host}/api/v4/groups/${gitlab_groupid}/projects
 
     curl -H "PRIVATE-TOKEN: ${git_pat_token}" \
       ${url} \
@@ -123,33 +121,34 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
 
       project_dir=${script_dir}/oomph/projects
       mkdir -p ${project_dir}
-      file=${project_dir}/klibio_${repo}.setup
+      file=prj_${git_host}_${git_org}_${repo}.setup
 
-      if  [[ -e ${file} ]]; then
-            echo "## skip existing project setup file klibio_${repo}.setup"
+      if  [[ -e ${project_dir}/${file} ]]; then
+            echo "## skip existing project setup file ${file}"
       else
-        echo "## create project setup file klibio_${repo}.setup"
+        echo "## create project setup file ${file}"
         while read -r line; do
-          echo $(echo "${line//__REPO__/${repo}}") >> ${file}
+          echo $(echo "${line//__REPO__/${repo}}") >> ${project_dir}/${file}
           if [ -f ${file} ]; then
-              sed -i "s/__ORG__/${git_org}/g" $file
+              sed -i "s/__ORG__/${git_org}/g" ${project_dir}/$file
           fi
-        done < ./oomph/template/${host_platform}_project_template.setup
+        done < ./oomph/template/template_${git_host}_prj.setup
       fi
 
       config_dir=${script_dir}/oomph/config
       mkdir -p ${config_dir}
-      file=${config_dir}/cfg_klibio_${repo}.setup
-      if  [[ -e ${file} ]]; then
-          echo "## skip existing project config file cfg_klibio_${repo}.setup"
+      file=cfg_${git_host}_${git_org}_${repo}.setup
+      if  [[ -e ${config_dir}/${file} ]]; then
+          echo "## skip existing project config file ${file}"
       else
-        echo "## create project config file cfg_klibio_${repo}.setup"
+        echo "## create project config file ${file}"
         while read -r line; do
-          echo $(echo "${line//__REPO__/${repo}}") >> ${file}
+          echo $(echo "${line//__REPO__/${repo}}") >> ${config_dir}/${file}
           if [ -f ${file} ]; then
-              sed -i "s/__ORG__/${git_org}/g" $file
+              sed -i "s/__ORG__/${git_org}/g" ${config_dir}/$file
+              sed -i "s/__HOST__/${git_host}/g" ${config_dir}/$file
           fi
-        done < ./oomph/template/${host_platform}_config_template.setup
+        done < ./oomph/template/template_${git_host}_cfg.setup
       fi
   done
   rm ${file_response}

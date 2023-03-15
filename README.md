@@ -45,10 +45,10 @@ $ start-klibio.sh -o
 
 #### **option 2** - launch oomph with a specific config
 
-launch oomph with a specific config `start-klib.io -o=<org>/<repo>`
+launch oomph with a specific config `start-klib.io -o=https://<host>/<org>/<repo>`
 ```bash
-$ start-klibio.sh -o=klibio/bootstrap
-# launching oomph in separate window with config https://raw.githubusercontent.com/klibio/bootstrap/feature/x/oomph/config/cfg_klibio_bootstrap.setup
+$ start-klibio.sh -o=https://github.com/klibio/bootstrap
+# launching oomph in separate window with config https://raw.githubusercontent.com/klibio/bootstrap/feature/x/oomph/config/cfg_github.com_klibio_bootstrap.setup
 ```
 1. Checks if there is an existing configuration file available.
 2. Opens a oomph gui installer pre-selecting the product and the github project from klibio organisation.

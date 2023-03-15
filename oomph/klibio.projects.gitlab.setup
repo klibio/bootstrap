@@ -169,6 +169,6 @@
       eclipse.preferences.version=1
     </content>
   </setupTask>
-  <project href="projects/klibio_jfrog-artifactory-java-client.setup#/"/>
+  <project href="projects/prj_gitlab.klib.io_dev_jfrog-artifactory-java-client.setup#/"/>
   <description>klib.io provides cool projects.</description>
 </setup:ProjectCatalog>
