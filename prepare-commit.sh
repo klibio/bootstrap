@@ -90,7 +90,6 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
     curl \
       -H "Accept: application/vnd.github+json" \
       -H "Authorization: Bearer ${git_pat_token}" \
-      -H "X-GitHub-Api-Version: 2022-11-28" \
       ${url} \
       | jq -r '.[] | .name | gsub("[\\n\\t]"; "")' | sort > ${file_response}
   fi
@@ -122,32 +121,32 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
 
       project_dir=${script_dir}/oomph/projects
       mkdir -p ${project_dir}
-      file=${project_dir}/prj_${git_host}_${git_org}_${repo}.setup
+      file=prj_${git_host}_${git_org}_${repo}.setup
 
-      if  [[ -e ${file} ]]; then
-            echo "## skip existing project setup file klibio_${repo}.setup"
+      if  [[ -e ${project_dir}/${file} ]]; then
+            echo "## skip existing project setup file ${file}"
       else
-        echo "## create project setup file klibio_${repo}.setup"
+        echo "## create project setup file ${file}"
         while read -r line; do
-          echo $(echo "${line//__REPO__/${repo}}") >> ${file}
+          echo $(echo "${line//__REPO__/${repo}}") >> ${project_dir}/${file}
           if [ -f ${file} ]; then
-              sed -i "s/__ORG__/${git_org}/g" $file
+              sed -i "s/__ORG__/${git_org}/g" ${project_dir}/$file
           fi
         done < ./oomph/template/template_${git_host}_prj.setup
       fi
 
       config_dir=${script_dir}/oomph/config
       mkdir -p ${config_dir}
-      file=${config_dir}/cfg_${git_host}_${git_org}_${repo}.setup
-      if  [[ -e ${file} ]]; then
-          echo "## skip existing project config file cfg_klibio_${repo}.setup"
+      file=cfg_${git_host}_${git_org}_${repo}.setup
+      if  [[ -e ${config_dir}/${file} ]]; then
+          echo "## skip existing project config file ${file}"
       else
-        echo "## create project config file cfg_klibio_${repo}.setup"
+        echo "## create project config file ${file}"
         while read -r line; do
-          echo $(echo "${line//__REPO__/${repo}}") >> ${file}
+          echo $(echo "${line//__REPO__/${repo}}") >> ${config_dir}/${file}
           if [ -f ${file} ]; then
-              sed -i "s/__ORG__/${git_org}/g" $file
-              sed -i "s/__HOST__/${git_host}/g" $file
+              sed -i "s/__ORG__/${git_org}/g" ${config_dir}/$file
+              sed -i "s/__HOST__/${git_host}/g" ${config_dir}/$file
           fi
         done < ./oomph/template/template_${git_host}_cfg.setup
       fi
