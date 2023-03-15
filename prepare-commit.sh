@@ -86,7 +86,7 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
   
   echo "accessing ${git_host} for organization ${git_org}"
   if [[ ${git_host} == *"github"* ]]; then
-    url=https://api.${git_host}/orgs/${git_org}/repos?per_page=100
+    url=https://api.${git_host}/orgs/${git_org}/repos?per_page=1000
     curl \
       -H "Accept: application/vnd.github+json" \
       -H "Authorization: Bearer ${git_pat_token}" \
