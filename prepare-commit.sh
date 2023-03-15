@@ -43,10 +43,10 @@ for i in "$@"; do
     -o=*|--oomph=*)
       exec_oomph_setups=true
       # input form example: https://github.com/klibio/
-      # use everything after the last slash as org
+      # use fourth field with / as separator as orga
       git_org=$(echo ${i#*=} | cut -d '/' -f 4)
 
-      # use everything before the last slash as host
+      # use third field with / as separator as host
       git_host=$(echo ${i#*=} | cut -d '/' -f 3)
       shift # past argument=value      
       ;;
