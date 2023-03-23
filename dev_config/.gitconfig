@@ -1,0 +1,50 @@
+[user]
+    name = <name>
+    email = <email-address>
+    # gpg signing of commits
+    signingkey = <gpg-key>
+
+# gpg signing of commits
+[commit]
+
+    gpgsign = true
+
+# ssh usage
+[core]
+    autocrlf = false
+    sshcommand = 'C:/Windows/System32/OpenSSH/ssh.exe'
+[credential]
+    helper=wincred
+# https://stackoverflow.com/a/6849424/2918516
+[http]
+    postBuffer = 524288000
+
+
+# diff and merge tool configuration
+[diff]
+    tool = bc4
+[difftool "bc4"]
+    path = C:/Program Files/Beyond Compare 4/bcomp.exe
+[merge]
+    tool = bc4
+[mergetool "bc4"]
+    path = C:/Program Files/Beyond Compare 4/bcomp.exe
+
+# git aliases
+[alias]
+    co = checkout
+    ci = commit
+    br = branch
+    pur = pull --rebase
+    pu = push origin master:refs/for/master
+    st = status
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    type = 'cat-file
+    dump = 'cat-file
+
+# Large File Storage (LFS)
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true

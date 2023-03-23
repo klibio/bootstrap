@@ -12,7 +12,7 @@ fi
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
+if [[ HOME_devel* == ${LOCAL_DEV:-false} ]]; then
   echo "###########################################################"
   echo " LOCAL DEV ACTIVE # provision-tools.sh"
   echo "###########################################################"
@@ -20,8 +20,6 @@ fi
 
 # load library
 . ${prov_tool_dir}/klibio.sh
-
-tools_dir=$(echo "${KLIBIO}/tool")
 
 jq_download_link=https://github.com/stedolan/jq/releases/download/jq-1.6
 
@@ -40,5 +38,30 @@ if [ ! -f ${jq} ]; then
   chmod u+x ${jq}
   popd >/dev/null 2>&1
 fi
-echo "using jq version: $(${jq} --version)"
+echo "using $(${jq} --version)"
 
+export htmlq=${tools_dir}/${htmlq_exec}
+htmlq_url=https://github.com/mgdm/htmlq/releases/download/v0.4.0
+mkdir -p ${tools_archives}  && pushd ${tools_archives} >/dev/null 2>&1
+case ${osgi_os} in
+  linux)
+    archive=htmlq-x86_64-linux.tar.gz
+    curl -s${unsafe:-} -O -L ${htmlq_url}/${archive}
+    tar -xvf "${tools_archives}/${archive}" -C "${tools_dir}"
+    ;;
+  mac)
+    archive=htmlq-x86_64-darwin.tar.gz
+    curl -s${unsafe:-} -O -L ${htmlq_url}/${archive}
+    tar -xvf "${tools_archives}/${archive}" -C "${tools_dir}"
+    ;;
+  win32)
+    archive=htmlq-x86_64-windows.zip
+    curl -s${unsafe:-} -O -L ${htmlq_url}/${archive}
+    unzip -qq -o -d "${tools_dir}" "${tools_archives}/${archive}"
+    ;;
+  *)
+    echo -e "#\n# OS is none of the supported (linux|win32|macosx). Aborting... \n#\n" && exit 1
+    ;;
+esac
+popd >/dev/null 2>&1
+echo "using $(${htmlq} --version)"

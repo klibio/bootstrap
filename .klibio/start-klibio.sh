@@ -12,27 +12,38 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-# load library
-. klibio.sh
-
 if [[ "$#" == 0 ]]; then
   echo "$(cat <<-EOM
 # please provide one or more options of the following applications are available
--o|--ommph  oomph eclipse installer
--o=<github-org/repo>|--ommph=<github-org/repo>  oomph eclipse installer with oomph config
+-e|--eclipse
+    # launch eclipse sdk
+-e=<workspace_dir>|--eclipse=<workspace_dir>
+    # launch eclipse with provided workspace location
+-o|--ommph
+    # launch oomph eclipse installer
+-o=<github-org/repo>|--ommph=<github-org/repo>
+    # launch oomph eclipse installer with existiong config setup
 EOM
 )"
 fi
 
 # tool variables
 oomph=0
+eclipse=0
 git_org=klibio
 git_host=github.com
 project=
 
 for i in "$@"; do
   case $i in
-    # tool parameter
+    -e|--eclipse)
+      eclipse=1
+      ;;
+    -e=*|--eclipse=*)
+      eclipse_wrkspc="${i#*=}"
+      eclipse=1
+      shift # past argument=value
+      ;;
     -o|--oomph)
       oomph=1
       ;;
@@ -49,24 +60,36 @@ for i in "$@"; do
       shift # past argument=value
       ;;
     # tool parameter
+    -b=*|--branch=*)
+      branch="${i#*=}"
+      shift # past argument=value
+      ;;
     -u|--unsafe)
       unsafe=k
       ;;
     --dev)
+      export LOCAL_DEV=HOME_devel
       dev_vm_arg="$(cat <<-EOM
--Duser.home=${HOME}/oomph_devel \
+-Duser.home=${HOME}/${LOCAL_DEV} \
 -Doomph.setup.user.home.redirect=true
 EOM
 )"
+      echo "###########################################################"
+      echo "# LOCAL DEV ACTIVE # start-klibio.sh"
+      echo "###########################################################"
       ;;
     --dev=*)
       dev_suffix="${i#*=}"
       shift # past argument=value
+      export LOCAL_DEV=HOME_devel_${dev_suffix}
       dev_vm_arg="$(cat <<-EOM
--Duser.home=${HOME}/oomph_devel_${dev_suffix} \
+-Duser.home=${HOME}/${LOCAL_DEV} \
 -Doomph.setup.user.home.redirect=true
 EOM
 )"
+      echo "###########################################################"
+      echo "# LOCAL DEV ACTIVE # start-klibio.sh"
+      echo "###########################################################"
       ;;
     # default for unknown parameter
     -*|--*)
@@ -78,6 +101,8 @@ EOM
   esac
 done
 
+. ${KLIBIO}/klibio.sh
+
 # testing internet connectivity
 if curl --head -sI www.google.com | grep "HTTP/1.1 200 OK" > /dev/null; then 
   echo "internet connection working"; 
@@ -88,14 +113,15 @@ fi
 
 # Command line argument for specifying a Configuration https://www.eclipse.org/forums/index.php/t/1086000/
 if [[ ${oomph} -eq 1 ]]; then
+  if [[ -f ${oomph_exec} ]]; then
   # minimal oomph version
-  jvm=$(echo ${KLIBIO}/java/ee/JAVA17${java_home_suffix:-}/bin)
-  oomph_exec=$(echo "${KLIBIO}/tool/eclipse-installer/${oomph_exec_suffix}")
   setup_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch:-main}/oomph
   if [[ -z ${oomph_config+x} ]]; then
+    # delete empty logfiles  
+    #find ${KLIBIO}/tool -size 0 -print -delete
     echo "# launching oomph in separate window"
     "${oomph_exec}" \
-      -vm "${jvm}" \
+      -vm "${java_bin}" \
       -vmargs \
       -Doomph.setup.installer.mode=advanced \
         ${dev_vm_arg:-""} \
@@ -106,9 +132,11 @@ if [[ ${oomph} -eq 1 ]]; then
    else
      config_url=${setup_url}/config/cfg_${git_host}_${git_org}_${project}.setup
      if curl -s${unsafe:-} --output /dev/null --head --fail "${config_url}"; then
+        # delete empty logfiles  
+        #find ${KLIBIO}/tool -size 0 -print -delete
        echo "# launching oomph in separate window with config ${config_url}"
        "${oomph_exec}" \
-         -vm "${jvm}" \
+         -vm "${java_bin}" \
          ${config_url} \
          -vmargs \
          -Doomph.setup.installer.mode=advanced \
@@ -120,8 +148,33 @@ if [[ ${oomph} -eq 1 ]]; then
     else
       echo "no oomph config for provided repo existing: ${config_url}"
     fi
+    fi
+  else  
+    echo "no oomph installation found inside ${oomph_exec} - re-install with -o/--oomph"
+  fi
+fi
 
+if [[ ${eclipse} -eq 1 ]]; then
+  if [[ -f ${eclipse_sdk}/${eclipse_exec} ]]; then
+    if [[ -z ${eclipse_wrkspc+x} ]]; then
+      echo "# launching eclipse with workspace ${eclipse_wrkspc}"
+      "${eclipse_sdk}/${eclipse_exec}" \
+        -data "${eclipse_wrkspc}" \
+        -vm "${java_bin}" \
+        2> ${KLIBIO}/tool/${date}_eclipse_err.log \
+        1> ${KLIBIO}/tool/${date}_eclipse_out.log \
+        &
+    else
+      echo "# launching eclipse"
+      "${eclipse_sdk}/${eclipse_exec}" \
+        -vm "${java_bin}" \
+        2> ${KLIBIO}/tool/${date}_eclipse_err.log \
+        1> ${KLIBIO}/tool/${date}_eclipse_out.log \
+        &
    fi
+  else  
+    echo "no eclipse installation found inside ${eclipse_sdk}/${eclipse_exec} - re-install with -e/--eclipse"
+  fi
 fi
 
 set +o nounset  # exit with error on unset variables

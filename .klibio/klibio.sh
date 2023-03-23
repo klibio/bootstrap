@@ -18,7 +18,7 @@ export vcs_ref_short=$(git describe --dirty --always 2>/dev/null )
 export        gh_url="https://raw.githubusercontent.com/klibio/bootstrap/${branch}"
 
 # general 
-if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
+if [[ HOME_devel* == ${LOCAL_DEV:-false} ]]; then
   echo "###########################################################"
   echo "# LOCAL DEV ACTIVE # klibio.sh"
   echo "###########################################################"
@@ -27,7 +27,7 @@ if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
 else
   export KLIBIO=${KLIBIO:-$(echo ~/.klibio)}
 fi
-export PATH=$PATH:$KLIBIO
+export PATH=${PATH}:${KLIBIO}
 export date=$(date +'%Y.%m.%d-%H.%M.%S')
 
 # export variable into build agents e.g. github runner, azure runner
@@ -48,40 +48,66 @@ fi
 # OS specific environment variables
 ###########################################################
 
-if [[ "$OSTYPE" == "msys" ]]; then
-  export os=windows
-  export jq_exec=jq-win64.exe
-  export oomph_exec_suffix=eclipse-inst.exe
-  export oomph_suffix=win64.zip
-  export java_arch=x64
+if [[ $OSTYPE == msys ]]; then
+  # WINDOWS
+  export osgi_os=win32                        # osgi
+  export osgi_ws=win32                        # osgi
+  export osgi_arch=x86_64                     # osgi
+  export java_os=windows                      # java
+  export java_arch=x64                        # java
+  export eclipse_exec=eclipse.exe             # eclipse
+  export oomph_exec_suffix=eclipse-inst.exe   # oomph
+  export oomph_suffix=win64.zip               # oomph
+  export jq_exec=jq-win64.exe                 # others
+  export htmlq_exec=htmlq.exe                 # others
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  export os=mac
-  export jq_exec=jq-osx-amd64
+  # MACOSX
+  export osgi_os=macosx                       # osgi
+  export osgi_ws=cocoa                        # osgi
+  export java_os=mac                          # java
+  export java_home_suffix=/Contents/Home      # java
   if [[ "$(uname -a)" == *"arm"* ]]; then
-    export oomph_suffix=mac-aarch64.tar.gz
-    export java_arch=aarch64
+    export osgi_arch=aarch64                  # osgi
+    export oomph_suffix=mac-aarch64.tar.gz    # oomph
+    export java_arch=aarch64                  # java
   else
-    export oomph_suffix=mac64.tar.gz
-    export java_arch=x64
+    export osgi_arch=x86_64                   # osgi
+    export oomph_suffix=mac64.tar.gz          # oomph
+    export java_arch=x64                      # java
   fi
-  export oomph_exec_suffix="Eclipse Installer.app/Contents/MacOS/eclipse-inst"
-  export java_home_suffix=/Contents/Home
+  export eclipse_exec=Eclipse.app/Contents/MacOS/eclipse.exe                    # eclipse
+  export oomph_exec_suffix="Eclipse Installer.app/Contents/MacOS/eclipse-inst"  # oomph
+  export jq_exec=jq-osx-amd64                 # others
 fi
 
 if [[ "$OSTYPE" == "linux"* ]]; then
-  export os=linux
-  export jq_exec=jq-linux64
+  # LINUX
+  export osgi_os=linux                        # osgi
+  export osgi_ws=gtk                          # osgi
+  export java_os=linux                        # java
   if [[ "$(uname -a)" == *"arm"* ]]; then
-    export oomph_suffix=linux-aarch64.tar.gz
-    export java_arch=aarch64
+    # oomph var
+    export oomph_suffix=linux-aarch64.tar.gz  # oomph
+    export java_arch=aarch64                  # java
   else
-    export oomph_suffix=linux64.tar.gz
-    export java_arch=x64
+    export oomph_suffix=linux64.tar.gz        # oomph
+    export java_arch=x64                      # java
   fi
-  export oomph_exec_suffix=eclipse-inst.exe
+  export eclipse_exec=eclipse                 # eclipse
+  export oomph_exec_suffix=eclipse-inst.exe   # oomph
+  export jq_exec=jq-linux64                   # others
 fi
+
+# more variables - mind order, due to re-use
+export tools_dir="${KLIBIO}/tool"                                        # others
+export tools_archives="${tools_dir}/archives"                            # others
+export eclipse_platform_version=4.26                                     # eclipse
+export eclipse_sdk=${KLIBIO}/eclipse_${eclipse_platform_version}/eclipse # eclipse
+export oomph_dir="${tools_dir}/eclipse-installer"                        # oomph
+export oomph_exec="${oomph_dir}/${oomph_exec_suffix}"                    # oomph
+export java_bin="${KLIBIO}/java/ee/JAVA17${java_home_suffix:-}/bin"      # java
 
 
 ###########################################################
@@ -161,7 +187,7 @@ download_and_extract_file_from_github() {
     mkdir -p ${target_folder}
     curl -s${unsafe:-}SL \
         ${url} \
-        | tar xvzp -C ${target_folder} > /dev/null
+        | tar xvz -C ${target_folder} > /dev/null
 }
 
 github_provision() {
