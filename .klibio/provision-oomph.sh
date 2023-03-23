@@ -13,7 +13,7 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-if [[ "true" == "${LOCAL_DEV:-false}" ]]; then
+if [[ HOME_devel* == ${LOCAL_DEV:-false} ]]; then
   echo "###########################################################"
   echo "# LOCAL DEV ACTIVE # provision-oomph.sh"
   echo "###########################################################"
@@ -21,10 +21,6 @@ fi
 
 # load library
 . klibio.sh
-
-tools_dir=$(echo "${KLIBIO}/tool")
-tools_archives="${tools_dir}/archives"
-installer_dir="${tools_dir}/eclipse-installer"
 
 mkdir -p ${tools_archives}
 
@@ -38,20 +34,20 @@ if [ ! -f ${tools_archives}/${output_file} ]; then
       > ${tools_archives}/${output_file}
 fi
 
-if [[ -d "${installer_dir}" ]]; then
-  echo -e "#\n# using existing installer from ${installer_dir}\n#\n"
+if [[ -f "${oomph_exec}" ]]; then
+  echo -e "#\n# using existing installer from ${oomph_dir}\n#\n"
 else 
-  echo -e "#\n# extracting ${output_file} to ${installer_dir}\n#\n"
-  mkdir -p ${installer_dir}
-  case ${os} in
+  echo -e "#\n# extracting ${output_file} to ${oomph_dir}\n#\n"
+  mkdir -p ${oomph_dir}
+  case ${java_os} in
     linux)
-      tar -zxvf "${tools_archives}/${output_file}" -C "${installer_dir}"
-      ;;
-    windows)
-      unzip -qq -o -d "${installer_dir}" "${tools_archives}/${output_file}"
+      tar -zxvf "${tools_archives}/${output_file}" -C "${oomph_dir}"
       ;;
     mac)
-      tar -xvf "${tools_archives}/${output_file}" -C "${installer_dir}"
+      tar -xvf "${tools_archives}/${output_file}" -C "${oomph_dir}"
+      ;;
+    windows)
+      unzip -qq -o -d "${oomph_dir}" "${tools_archives}/${output_file}"
       ;;
     *)
     echo -e "#\n# OS is none of the supported linux|windows|mac. Aborting... \n#\n" && exit 1

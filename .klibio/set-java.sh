@@ -47,8 +47,9 @@ case ${1:-"x"} in
     ;;
 esac
 
-echo "configure JAVA_HOME=${JAVA_HOME}"
-export JAVA_HOME=${JAVA_HOME}
-export PATH=${JAVA_HOME}/bin:$PATH
-
-java -version
+if [[ -d "${JAVA_HOME}" ]]; then 
+    echo "configure JAVA_HOME=${JAVA_HOME}"
+    export JAVA_HOME=${JAVA_HOME}
+    export PATH=${JAVA_HOME}/bin:$PATH
+    java -version
+fi
