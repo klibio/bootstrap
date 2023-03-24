@@ -1,13 +1,13 @@
 # fix eol with LF for following text based files
 .classpath   text eol=lf
-.project     text eol=lf
+#.project     text eol=lf
 .options     text eol=lf
 .gitignore   text eol=lf
 gradlew      text eol=lf
 packageinfo  text eol=lf
-LICENSE      text eol=lf
+#LICENSE      text eol=lf
 Makefile     text eol=lf
-README       text eol=lf
+#README       text eol=lf
 p2.inf       text eol=lf
 p2.index     text eol=lf
 *.aj         text eol=lf ident
@@ -116,3 +116,5 @@ package-lock.json   binary
 *.woff     binary
 *.woff2    binary
 *.zip      binary
+
+* text=auto

@@ -27,7 +27,7 @@ if [[ HOME_devel* == ${LOCAL_DEV:-false} ]]; then
 else
   export KLIBIO=${KLIBIO:-$(echo ~/.klibio)}
 fi
-export PATH=$PATH:$KLIBIO
+export PATH=${PATH}:${KLIBIO}
 export date=$(date +'%Y.%m.%d-%H.%M.%S')
 
 # export variable into build agents e.g. github runner, azure runner

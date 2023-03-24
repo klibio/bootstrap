@@ -30,6 +30,9 @@ fi
 # tool variables
 oomph=0
 eclipse=0
+git_org=klibio
+git_host=github.com
+project=
 
 for i in "$@"; do
   case $i in
@@ -45,7 +48,14 @@ for i in "$@"; do
       oomph=1
       ;;
     -o=*|--oomph=*)
-      oomph_config="${i#*=}"
+      # input form example: https://github.com/klibio/bootstrap
+      # use everything after the last slash as project
+      project=$(echo ${i#*=} | cut -d '/' -f 5)
+
+      git_org=$(echo ${i#*=} | cut -d '/' -f 4)
+
+      # use everything before the last slash as host
+      git_host=$(echo ${i#*=} | cut -d '/' -f 3)
       oomph=1
       shift # past argument=value
       ;;
@@ -120,7 +130,7 @@ if [[ ${oomph} -eq 1 ]]; then
         1> ${KLIBIO}/tool/${date}_oomph_out.log \
         &
     else
-      config_url=${setup_url}/config/cfg_${oomph_config/\//_}.setup
+     config_url=${setup_url}/config/cfg_${git_host}_${git_org}_${project}.setup
       if curl -s${unsafe:-} --output /dev/null --head --fail "${config_url}"; then
         # delete empty logfiles  
         #find ${KLIBIO}/tool -size 0 -print -delete
