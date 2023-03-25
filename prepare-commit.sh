@@ -13,7 +13,7 @@ set -o nounset  # exit with error on unset variables
 set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
-if [[ "$#" == 0 ]]; then
+function usage () {
   echo "$(cat <<-EOM
 # please provide one or more options of the following options
 -b|--bash   update the archive for the USERHOME <.klibio.tar.gz>
@@ -21,6 +21,9 @@ if [[ "$#" == 0 ]]; then
 -f|--force  overwrite existing files
 EOM
 )"
+}
+
+if [[ "$#" == 0 ]]; then
 exit 0
 fi
 
@@ -57,6 +60,7 @@ for i in "$@"; do
     # default for unknown parameter
     -*|--*)
       echo "unknow option $i provided"
+      usage
       exit 1
       ;;
     *)
