@@ -62,7 +62,7 @@ if [[ $OSTYPE == msys ]]; then
   export htmlq_exec=htmlq.exe                 # others
 fi
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [[ "$OSTYPE" == darwin* ]]; then
   # MACOSX
   export osgi_os=macosx                       # osgi
   export osgi_ws=cocoa                        # osgi
@@ -82,7 +82,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   export jq_exec=jq-osx-amd64                 # others
 fi
 
-if [[ "$OSTYPE" == "linux"* ]]; then
+if [[ "$OSTYPE" == linux* ]]; then
   # LINUX
   export osgi_os=linux                        # osgi
   export osgi_ws=gtk                          # osgi
