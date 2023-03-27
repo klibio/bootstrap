@@ -35,7 +35,7 @@ git_org=klibio
 git_host=github.com
 git_project=
 oomph_update_url=https://download.eclipse.org/oomph/updates/release/latest/
-setup_url=
+setup_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch:-main}/oomph
 
 for i in "$@"; do
   case $i in
@@ -57,7 +57,6 @@ for i in "$@"; do
           git_org=$(echo ${i#*=} | cut -d '/' -f 4)
       git_project=$(echo ${i#*=} | cut -d '/' -f 5)
       # oomph setups
-      setup_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch:-main}/oomph
       config_url=${setup_url}/config/cfg_${git_host}_${git_org}_${git_project}.setup
       if ! curl -s${unsafe:-} --output /dev/null --head --fail "${config_url}"; then
         echo "no oomph config available/provided at ${config_url}"
