@@ -21,7 +21,7 @@
   <setupTask
       xsi:type="setup:EclipseIniTask"
       option="-vm"
-      value="${user.home|path}/.ecdev/java/ee/JAVA17/bin"/>
+      value="${user.home|path}/.klibio/java/ee/JAVA17/bin"/>
   <product href="products/klibio.product.modeller.setup#/"/>
   <product href="products/klibio.product.osgi-dev.setup#/"/>
   <description>klib.io provides cool products.</description>
