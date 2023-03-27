@@ -80,6 +80,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
   export eclipse_exec=Eclipse.app/Contents/MacOS/eclipse.exe                    # eclipse
   export oomph_exec_suffix="Eclipse Installer.app/Contents/MacOS/eclipse-inst"  # oomph
   export jq_exec=jq-osx-amd64                 # others
+  export htmlq_exec=htmlq                     # others
 fi
 
 if [[ "$OSTYPE" == linux* ]]; then
@@ -98,6 +99,7 @@ if [[ "$OSTYPE" == linux* ]]; then
   export eclipse_exec=eclipse                 # eclipse
   export oomph_exec_suffix=eclipse-inst.exe   # oomph
   export jq_exec=jq-linux64                   # others
+  export htmlq_exec=htmlq                     # others
 fi
 
 # more variables - mind order, due to re-use
