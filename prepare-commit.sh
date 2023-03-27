@@ -133,10 +133,10 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
         echo "## create project setup file ${file}"
         while read -r line; do
           echo $(echo "${line//__REPO__/${repo}}") >> ${project_dir}/${file}
-          if [ -f ${file} ]; then
-              sed -i "s/__ORG__/${git_org}/g" ${project_dir}/$file
-          fi
         done < ./oomph/template/template_${git_host}_prj.setup
+        if [ -f ${project_dir}/${file} ]; then
+          sed -i "s/__ORG__/${git_org}/g" ${project_dir}/$file
+        fi
       fi
 
       config_dir=${script_dir}/oomph/config
@@ -148,11 +148,11 @@ if [[ ${exec_oomph_setups} == "true"  ]]; then
         echo "## create project config file ${file}"
         while read -r line; do
           echo $(echo "${line//__REPO__/${repo}}") >> ${config_dir}/${file}
-          if [ -f ${file} ]; then
-              sed -i "s/__ORG__/${git_org}/g" ${config_dir}/$file
-              sed -i "s/__HOST__/${git_host}/g" ${config_dir}/$file
-          fi
         done < ./oomph/template/template_${git_host}_cfg.setup
+        if [ -f ${config_dir}/${file} ]; then
+          sed -i "s/__ORG__/${git_org}/g" ${config_dir}/$file
+          sed -i "s/__HOST__/${git_host}/g" ${config_dir}/$file
+        fi
       fi
   done
   rm ${file_response}
