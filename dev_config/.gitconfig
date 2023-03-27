@@ -25,10 +25,12 @@
     tool = bc4
 [difftool "bc4"]
     path = C:/Program Files/Beyond Compare 4/bcomp.exe
+#    path = "/Applications/Beyond Compare.app/Contents/MacOS/BCompare"
 [merge]
     tool = bc4
 [mergetool "bc4"]
     path = C:/Program Files/Beyond Compare 4/bcomp.exe
+#    path = "/Applications/Beyond Compare.app/Contents/MacOS/BCompare"
 
 # git aliases
 [alias]
