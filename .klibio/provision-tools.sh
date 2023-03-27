@@ -49,7 +49,7 @@ case ${osgi_os} in
     curl -s${unsafe:-} -O -L ${htmlq_url}/${archive}
     tar -xvf "${tools_archives}/${archive}" -C "${tools_dir}"
     ;;
-  mac)
+  macosx)
     archive=htmlq-x86_64-darwin.tar.gz
     curl -s${unsafe:-} -O -L ${htmlq_url}/${archive}
     tar -xvf "${tools_archives}/${archive}" -C "${tools_dir}"
