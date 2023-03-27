@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <setup:Configuration
-xmi:version="2.0"
-xmlns:xmi="http://www.omg.org/XMI"
-xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
-label="klibio/bndtools-klibio-templates">
-<installation
-name="klibio.bndtools-klibio-templates.installation"
-label="klibio/bndtools-klibio-templates Installation">
-<productVersion
-href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='bndtools-klibio-templates']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
-<description>The klibio/bndtools-klibio-templates installation provides cool stuff.</description>
-</installation>
-<workspace
-name="klibio.bndtools-klibio-templates.workspace"
-label="klibio/bndtools-klibio-templates Workspace">
-<stream
-href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='prj_github.com_klibio_bndtools-klibio-templates']/@streams[name='main']"/>
-<description>The klibio/bndtools-klibio-templates workspace provides cool stuff.</description>
-</workspace>
-<description>The boostrap configuration provides cool stuff.</description>
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+    label="klibio/bndtools-klibio-templates">
+  <installation
+      name="klibio.bndtools-klibio-templates.installation"
+      label="klibio/bndtools-klibio-templates Installation">
+    <productVersion
+        href="../products/klibio.product.osgi-dev.setup#//@versions[name='ecl2022-12_bnd_6.4.0']"/>
+    <description>The klibio/bndtools-klibio-templates installation provides cool stuff.</description>
+  </installation>
+  <workspace
+      name="klibio.bndtools-klibio-templates.workspace"
+      label="klibio/bndtools-klibio-templates Workspace">
+    <stream
+        href="../klibio.projects.github.setup#//@projects[name='klibio.bndtools-klibio-templates']/@streams[name='main']"/>
+    <description>The klibio/bndtools-klibio-templates workspace provides cool stuff.</description>
+  </workspace>
+  <description>The boostrap configuration provides cool stuff.</description>
 </setup:Configuration>
