@@ -26,7 +26,7 @@ case ${osgi_os} in
     eclipse_skd_archive=eclipse-SDK-${eclipse_platform_version}-${osgi_os}-${osgi_ws}-${osgi_arch}.tar.gz
     eclipse_exec=eclipse
     ;;
-  mac)
+  macosx)
     eclipse_skd_archive=eclipse-SDK-${eclipse_platform_version}-${osgi_os}-${osgi_ws}-${osgi_arch}.tar.gz
     eclipse_exec=/Contents/Home/eclipse
     ;;
