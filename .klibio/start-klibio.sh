@@ -28,11 +28,14 @@ EOM
 fi
 
 # tool variables
-oomph=0
 eclipse=0
+oomph=0
+config_url=
 git_org=klibio
 git_host=github.com
-project=
+git_project=
+oomph_update_url=https://download.eclipse.org/oomph/updates/release/latest/
+setup_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch:-main}/oomph
 
 for i in "$@"; do
   case $i in
@@ -49,13 +52,16 @@ for i in "$@"; do
       ;;
     -o=*|--oomph=*)
       # input form example: https://github.com/klibio/bootstrap
-      # use everything after the last slash as project
-      project=$(echo ${i#*=} | cut -d '/' -f 5)
-
-      git_org=$(echo ${i#*=} | cut -d '/' -f 4)
-
-      # use everything before the last slash as host
-      git_host=$(echo ${i#*=} | cut -d '/' -f 3)
+      # https://<git_host>/<git_org>/git_project>
+         git_host=$(echo ${i#*=} | cut -d '/' -f 3)
+          git_org=$(echo ${i#*=} | cut -d '/' -f 4)
+      git_project=$(echo ${i#*=} | cut -d '/' -f 5)
+      # oomph setups
+      config_url=${setup_url}/config/cfg_${git_host}_${git_org}_${git_project}.setup
+      if ! curl -s${unsafe:-} --output /dev/null --head --fail "${config_url}"; then
+        echo "no oomph config available/provided at ${config_url}"
+        config_url=
+      fi
       oomph=1
       shift # past argument=value
       ;;
@@ -114,41 +120,21 @@ fi
 # Command line argument for specifying a Configuration https://www.eclipse.org/forums/index.php/t/1086000/
 if [[ ${oomph} -eq 1 ]]; then
   if [[ -f ${oomph_exec} ]]; then
-  # minimal oomph version
-  setup_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch:-main}/oomph
-  if [[ -z ${oomph_config+x} ]]; then
+    # oomph installer with config file
     # delete empty logfiles  
     #find ${KLIBIO}/tool -size 0 -print -delete
     echo "# launching oomph in separate window"
     "${oomph_exec}" \
+      ${config_url} \
       -vm "${java_bin}" \
       -vmargs \
+      ${dev_vm_arg:-""} \
+      -Doomph_update_url=${oomph_update_url} \
       -Doomph.setup.installer.mode=advanced \
-        ${dev_vm_arg:-""} \
       -Doomph.redirection.setups=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/-\>${setup_url}/ \
       2> ${KLIBIO}/tool/${date}_oomph_err.log \
       1> ${KLIBIO}/tool/${date}_oomph_out.log \
       &
-   else
-     config_url=${setup_url}/config/cfg_${git_host}_${git_org}_${project}.setup
-     if curl -s${unsafe:-} --output /dev/null --head --fail "${config_url}"; then
-        # delete empty logfiles  
-        #find ${KLIBIO}/tool -size 0 -print -delete
-       echo "# launching oomph in separate window with config ${config_url}"
-       "${oomph_exec}" \
-         -vm "${java_bin}" \
-         ${config_url} \
-         -vmargs \
-         -Doomph.setup.installer.mode=advanced \
-           ${dev_vm_arg:-""} \
-         -Doomph.redirection.setups=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/-\>${setup_url}/ \
-         2> ${KLIBIO}/tool/${date}_oomph_err.log \
-         1> ${KLIBIO}/tool/${date}_oomph_out.log \
-         &
-    else
-      echo "no oomph config for provided repo existing: ${config_url}"
-    fi
-    fi
   else  
     echo "no oomph installation found inside ${oomph_exec} - re-install with -o/--oomph"
   fi
@@ -158,20 +144,16 @@ if [[ ${eclipse} -eq 1 ]]; then
   if [[ -f ${eclipse_sdk}/${eclipse_exec} ]]; then
     if [[ -z ${eclipse_wrkspc+x} ]]; then
       echo "# launching eclipse with workspace ${eclipse_wrkspc}"
-      "${eclipse_sdk}/${eclipse_exec}" \
-        -data "${eclipse_wrkspc}" \
-        -vm "${java_bin}" \
-        2> ${KLIBIO}/tool/${date}_eclipse_err.log \
-        1> ${KLIBIO}/tool/${date}_eclipse_out.log \
-        &
+        ecl_wrkspc=-data "${eclipse_wrkspc}"
     else
       echo "# launching eclipse"
-      "${eclipse_sdk}/${eclipse_exec}" \
-        -vm "${java_bin}" \
-        2> ${KLIBIO}/tool/${date}_eclipse_err.log \
-        1> ${KLIBIO}/tool/${date}_eclipse_out.log \
-        &
-   fi
+    fi
+    "${eclipse_sdk}/${eclipse_exec}" \
+      {ecl_wrkspc} \
+      -vm "${java_bin}" \
+      2> ${KLIBIO}/tool/${date}_eclipse_err.log \
+      1> ${KLIBIO}/tool/${date}_eclipse_out.log \
+      &
   else  
     echo "no eclipse installation found inside ${eclipse_sdk}/${eclipse_exec} - re-install with -e/--eclipse"
   fi

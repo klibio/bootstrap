@@ -11,12 +11,17 @@
       xsi:type="setup:InstallationTask"
       id="installation"/>
   <setupTask
-      xsi:type="setup.p2:P2Task">
+      xsi:type="setup.p2:P2Task"
+      label="oomph.setup">
     <requirement
         name="org.eclipse.oomph.setup.feature.group"/>
     <repository
         url="${oomph.update.url}"/>
   </setupTask>
+  <setupTask
+      xsi:type="setup:EclipseIniTask"
+      option="-vm"
+      value="${user.home|path}/.ecdev/java/ee/JAVA17/bin"/>
   <product href="products/klibio.product.modeller.setup#/"/>
   <product href="products/klibio.product.osgi-dev.setup#/"/>
   <description>klib.io provides cool products.</description>

@@ -9,12 +9,14 @@ index                   -> io.klib.setup
     project empty       -> io.klib.empty.setup
     project bootstrap   -> io.klib.bootstrap.setup
 
+  setups/*              -> eclipse oomph setups
+
 ## Windows Launch of Eclipse Installer
 
 ```bat
 set config_url=http://git.eclipse.org/c/emf/org.eclipse.emf.git/plain/releng/org.eclipse.emf.releng/EMFDevelopmentEnvironmentConfiguration.setup
 
-:: %USERPROFILE%\.klibio\tool\archives\eclipse-inst-jre-win64.exe ^
+::g %USERPROFILE%\.klibio\tool\archives\eclipse-inst-jre-win64.exe ^
 
 %USERPROFILE%\.klibio\tool\eclipse-installer\eclipse-inst.exe
   -vm "%USERPROFILE%\.klibio\java\ee\JAVA17" ^
