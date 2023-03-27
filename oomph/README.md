@@ -9,6 +9,8 @@ index                   -> io.klib.setup
     project empty       -> io.klib.empty.setup
     project bootstrap   -> io.klib.bootstrap.setup
 
+  setups/*              -> eclipse oomph setups
+
 ## Windows Launch of Eclipse Installer
 
 ```bat
