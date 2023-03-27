@@ -246,5 +246,7 @@
   <project href="projects/prj_github.com_klibio_xmind.setup#/"/>
   <project href="projects/prj_github.com_klibio_zip4j.setup#/"/>
   <project href="projects/prj_github.com_klibio_klib.trackr.setup#/"/>
+  <project href="projects/prj_github.com_klibio_bndtools-eclipse-workspace.setup#/"/>
+  <project href="projects/prj_github.com_klibio_bndtools-klibio-templates.setup#/"/>
   <description>All the projects at Github.com that provide automated setup support along with additional user-added projects</description>
 </setup:ProjectCatalog>
