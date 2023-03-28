@@ -142,6 +142,9 @@ provision_java() {
     echo -e "#\n# create symbolink link ${link_dir}/${java_ee}\n#\n"
     if [ -f ${link_dir}/${java_ee} ]; then rm ${link_dir}/${java_ee}; fi
     ln -s "${install_dir}/${java_release_name}" ${link_dir}/${java_ee}
+    if [[ ${java_os} == mac ]]; then
+      ln -s ${link_dir}/${java_ee}/Contents/Home/bin ${link_dir}/${java_ee}/bin
+    fi
 
     echo -e "#\n# add certificates to cacerts inside ${link_dir}/${java_ee}/lib/security/cacerts\n#\n"
     add_certificates "${link_dir}/${java_ee}"
