@@ -8,14 +8,14 @@ label="klibio/jpmcli">
 name="klibio.jpmcli.installation"
 label="klibio/jpmcli Installation">
 <productVersion
-href="../org.eclipse.setup#//@productCatalogs[name='io.klib.products']/@products[name='jpmcli']/@versions[name='ecl2022-12_bnd_6.4.0']"/>
-<description>The klibio/jpmcli installation provides cool stuff.</description>
+href="../klibio.products.setup#//@products[name='io.klib.product.osgi-dev']/@versions[name='ecl2023-03_bnd_6.4.0']"/>
+<description>The io.klib.product.osgi-dev installation provides cool stuff.</description>
 </installation>
 <workspace
 name="klibio.jpmcli.workspace"
 label="klibio/jpmcli Workspace">
 <stream
-href="../org.eclipse.setup#//@projectCatalogs[name='klibio.projects.github']/@projects[name='prj_github.com_klibio_jpmcli']/@streams[name='main']"/>
+href="../klibio.projects.github.setup#//@projects[name='klibio.jpmcli']/@streams[name='main']"/>
 <description>The klibio/jpmcli workspace provides cool stuff.</description>
 </workspace>
 <description>The boostrap configuration provides cool stuff.</description>
