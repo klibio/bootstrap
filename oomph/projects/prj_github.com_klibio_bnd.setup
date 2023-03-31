@@ -77,11 +77,8 @@ xsi:type="setup.workingsets:WorkingSetTask">
 <workingSet
 name="${scope.project.name}">
 <predicate
-xsi:type="predicates:AndPredicate">
-<operand
-xsi:type="predicates:RepositoryPredicate"
-project="bnd"/>
-</predicate>
+xsi:type="predicates:LocationPredicate"
+pattern="${git.clone.bnd.location}/.*"/>
 </workingSet>
 <description>The dynamic working sets for ${scope.project.label}</description>
 </setupTask>
