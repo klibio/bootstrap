@@ -5,9 +5,10 @@
 quick and easy setup and configuration of 
 
 * java LTS releases [8, 11, 17] e.g. `set-java.sh 11`
-* eclipse/oomph installer 
+* eclipse/oomph installer
+* latest eclipse sdk release
 
-on supported os [windows,mac,linux] and arch [arm64,x64] via bash extension
+on supported os [windows,mac,linux] and arch [arm64,x64] via bash/zsh extension
 
 ## installation
 execute the following script for installation
@@ -17,11 +18,14 @@ execute the following script for installation
 ```
 ### installation parameters
 ```bash
--b=<branch_name>    install from a specific branch
+# tools
 -j                  install java LTS versions
 -o                  install eclipse installer / oomph
--u                  unsecure curl - allow self-signed certificates
+-e                  install eclipse sdk
+# config/tool params
+-u                  allow self-signed certificates - curl ignore certs
 -f                  force overwrite existing files
+-b=<branch_name>    install from a specific branch
 ```
 ## usage
 ### using specific Java LTS release
