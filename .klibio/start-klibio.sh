@@ -123,7 +123,7 @@ if [[ ${oomph} -eq 1 ]]; then
     # oomph installer with config file
     # delete empty logfiles  
     #find ${KLIBIO}/tool -size 0 -print -delete
-    echo "# launching oomph in separate window"
+    echo "# launching oomph in separate window ${config_url}"
     "${oomph_exec}" \
       ${config_url} \
       -vm "${java_bin}" \
