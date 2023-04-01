@@ -78,7 +78,7 @@
         name="${scope.project.name}">
       <predicate
           xsi:type="predicates:LocationPredicate"
-          pattern="${git.clone.__REPO__.location}/.*"/>
+          pattern=".*"/>
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>
   </setupTask>
