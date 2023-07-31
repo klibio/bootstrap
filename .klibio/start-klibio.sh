@@ -15,10 +15,8 @@ set -o pipefail # exit if any pipe command is failing
 if [[ "$#" == 0 ]]; then
   echo "$(cat <<-EOM
 # please provide one or more options of the following applications are available
--e|--eclipse
-    # launch eclipse sdk
--e=<workspace_dir>|--eclipse=<workspace_dir>
-    # launch eclipse with provided workspace location
+-e=<eclipse_install>|--eclipse=<eclipse_install>
+    # launch eclipse from provided install location
 -o|--ommph
     # launch oomph eclipse installer
 -o=<github-org/repo>|--ommph=<github-org/repo>
@@ -28,6 +26,7 @@ EOM
 fi
 
 # tool variables
+
 eclipse=0
 oomph=0
 config_url=
@@ -39,11 +38,11 @@ setup_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch:-main}/oom
 
 for i in "$@"; do
   case $i in
-    -e|--eclipse)
-      eclipse=1
-      ;;
     -e=*|--eclipse=*)
-      eclipse_wrkspc="${i#*=}"
+      eclipse_install="${i#*=}"
+      eclipse_install="${eclipse_install//\\//}"
+      eclipse_install="${eclipse_install%/}"
+      eclipse_install="/${eclipse_install/:/}"
       eclipse=1
       shift # past argument=value
       ;;
@@ -141,21 +140,20 @@ if [[ ${oomph} -eq 1 ]]; then
 fi
 
 if [[ ${eclipse} -eq 1 ]]; then
-  if [[ -f ${eclipse_sdk}/${eclipse_exec} ]]; then
-    if [[ -z ${eclipse_wrkspc+x} ]]; then
-      echo "# launching eclipse with workspace ${eclipse_wrkspc}"
-        ecl_wrkspc=-data "${eclipse_wrkspc}"
-    else
-      echo "# launching eclipse"
-    fi
-    "${eclipse_sdk}/${eclipse_exec}" \
+  eclipse_cmd=${eclipse_install}/eclipse/eclipse
+  if [[ -f ${eclipse_cmd} ]]; then
+      # MIND the DOT at beginning of line
+      echo "# configure local bash environment (environment variables and proxy)"
+      . ~/.klibio/set-env.sh 
+      env | sort | grep -E 'arti|engine|^HOME|^JAVA'
+      echo "# launching ${eclipse_cmd}"
+      "${eclipse_cmd}" \
       {ecl_wrkspc} \
-      -vm "${java_bin}" \
-      2> ${KLIBIO}/tool/${date}_eclipse_err.log \
-      1> ${KLIBIO}/tool/${date}_eclipse_out.log \
-      &
-  else  
-    echo "no eclipse installation found inside ${eclipse_sdk}/${eclipse_exec} - re-install with -e/--eclipse"
+        -vm "${java_bin}" \
+        > ${eclipse_install}/${date}_eclipse.log 2>&1 \
+        &
+    else
+    echo "no eclipse installation found inside ${eclipse_cmd}"
   fi
 fi
 
