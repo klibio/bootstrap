@@ -262,7 +262,7 @@
       </setupTask>
     </setupTask>
   </version>
-  <version name="2023-12"
+  <version name="2023-12 # bnd 7.0.0"
       label="2023-12"
       requiredJavaVersion="1.8">
     <annotation
