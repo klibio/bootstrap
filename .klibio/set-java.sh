@@ -8,8 +8,10 @@ if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
 fi
 
+set_java_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
 # load library
-. klibio.sh
+. ${set_java_dir}/klibio.sh
 java_home_suffix=${java_home_suffix:=}
 JAVA_HOME=${JAVA_HOME:-}
 
@@ -20,14 +22,14 @@ removeFromPath () {
 }
 
 if [ -n "${JAVA_HOME+x}" ]; then  
-    removeFromPath $JAVA_HOME
+    removeFromPath $JAVA_HOME  
 fi
 
 case ${1:-"x"} in
     unset)
         removeFromPath $JAVA_HOME
         unset JAVA_HOME
-        echo "available Java LTS are 8, 11, 17"
+        echo "available Java LTS are 8, 11, 17, 21"
         exit 0
     ;;
     8)
@@ -42,8 +44,12 @@ case ${1:-"x"} in
         removeFromPath $JAVA_HOME
         JAVA_HOME=${KLIBIO}/java/ee/JAVA17${java_home_suffix}
     ;;
+    21)
+        removeFromPath $JAVA_HOME
+        JAVA_HOME=${KLIBIO}/java/ee/JAVA21${java_home_suffix}
+    ;;
     *)
-        echo -e "usage error: set-java <version>\n version can be one of <unset, 8, 11, 17>"
+        echo -e "usage error: set-java <version>\n version can be one of <unset, 8, 11, 17, 21>"
     ;;
 esac
 
