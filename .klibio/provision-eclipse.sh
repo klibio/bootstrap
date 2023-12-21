@@ -19,7 +19,9 @@ if [[ HOME_devel* == ${LOCAL_DEV:-false} ]]; then
 fi
 
 # load library
-. klibio.sh
+. eclib.sh
+# configure proxy if applicable
+unset_proxy
 
 case ${osgi_os} in
   linux)
@@ -50,7 +52,7 @@ eclipse_sdk_url="https://www.eclipse.org/downloads/download.php?file=/eclipse/do
 
 if [ ! -f ${tools_archives}/${eclipse_skd_archive} ]; then
   echo -e "#\n# downloading ${eclipse_skd_archive} to ${tools_archives}\n#\n"
-  curl -s${unsafe:-}SL \
+  curl -u${artifactory_username}:${artifactory_token} -skSL \
       ${eclipse_sdk_url} \
       > ${tools_archives}/${eclipse_skd_archive}
   else

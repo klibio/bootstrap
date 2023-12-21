@@ -3,6 +3,7 @@
 # download and extract the os/arch specific latest eclipse installer version (including JRE)
 # archive is extracted into ${KLIBIO}/tool/eclipse-installer
 #
+prov_oomph_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
@@ -19,17 +20,18 @@ if [[ HOME_devel* == ${LOCAL_DEV:-false} ]]; then
   echo "###########################################################"
 fi
 
-# load library
-. klibio.sh
-
-mkdir -p ${tools_archives}
+# setup script env
+. ${prov_oomph_dir}/eclib.sh
+set-env
+unset_proxy
 
 download_url="https://download.eclipse.org/oomph/products/latest/eclipse-inst-jre-${oomph_suffix}"
 output_file="eclipse-inst-jre-${oomph_suffix}"
 
 if [ ! -f ${tools_archives}/${output_file} ]; then
+  mkdir -p ${tools_archives}
   echo -e "#\n# downloading ${output_file} to ${tools_archives}\n#\n"
-  curl -s${unsafe:-}SL \
+  curl -skSL \
       ${download_url} \
       > ${tools_archives}/${output_file}
 fi
