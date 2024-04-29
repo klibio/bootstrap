@@ -28,8 +28,10 @@ jobs:
           - ARM64
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
-      - shell: bash
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: execution proof-of-performance script pop-github-launch.sh
+        shell: bash
         env: 
           debug: true
         run: |
