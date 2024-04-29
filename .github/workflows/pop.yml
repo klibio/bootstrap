@@ -32,8 +32,8 @@ jobs:
         uses: actions/checkout@v3
       - name: execution proof-of-performance script pop-github-launch.sh
         shell: bash
-        env: 
-          debug: true
+#        env: 
+#          debug: true
         run: |
           ls -la; \
           .github/workflows/pop-github-launch.sh
