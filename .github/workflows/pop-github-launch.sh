@@ -26,10 +26,11 @@ installer_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/insta
 headline "finished # install klibio extension"
 
 headline "start # launching proof-of-performance"
+pop_script=~/.klibio/pop.sh
 ls -la ${HOME}
-if [ ! -f ~/.klibio/pop.sh ]; then 
+if [ ! -f $pop_script ]; then 
   echo "failing curl install of $installer_url"
   exit 1
 fi
-./pop.sh
+/bin/bash $pop_script
 headline "finished # proof-of-performance execution"
