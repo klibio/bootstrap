@@ -288,7 +288,7 @@ is_debug() {
 function assure_local_home() {
   if [[ $HOME == /h/ ]]; then
     echo "env HOME variable is refering to network share $HOME"
-    if [[ -v USERPROFILE ]]; then
+    if [[ "${USERPROFILE+x}" = "x" ]]; then
       xUSERPROFILE=${USERPROFILE//\\//}
       export "HOME=/${xUSERPROFILE//:/}"
       echo "changing to %USERPROFILE%=${HOME}"
