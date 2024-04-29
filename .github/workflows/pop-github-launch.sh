@@ -23,7 +23,7 @@ echo "# running on branch $branch"
 
 installer_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
 echo -e "#\n# install klibio bootstrap from ${installer_url}\n#\n"
-/bin/bash -x -c "$(curl -fsSLO ${installer_url}) bash -j -o -f"
+/bin/bash -c "$(curl -fsSL $installer_url)" bash -j -o -e -b=${branch}
 echo -e "#\n# install klibio bootstrap finished\n#\n"
 
 echo -e "#\n# start # launching proof-of-performance\n#\n"
