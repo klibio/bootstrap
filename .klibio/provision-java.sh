@@ -178,7 +178,7 @@ provision_java_from_artifactory() {
     java_archive_suffix=.tar.gz
   fi
   declare java_archive_name=OpenJDK${java_version}U-jdk_${java_architecture}_${java_os}_hotspot_${java_release_name}${java_archive_suffix}
-  declare java_archive_link="${artifactory_url}/cec-sdk-release/origin/github.com/adoptium/temurin${java_version}-binaries/releases/tag/$(urlencode $1)/${java_archive_name}"
+  declare java_archive_link="https://github.com/adoptium/temurin${java_version}-binaries/releases/tag/$(urlencode $1)/${java_archive_name}"
   echo -e "#\n# downloading Java from ${java_archive_link}\n#\n"
   
   pushd ${java_dir} >/dev/null 2>&1
@@ -223,9 +223,9 @@ provision_java_from_artifactory() {
 echo -e "\n##############################\n# Java setup on ${java_os}\n##############################\n"
 
 if [[ "aarch64" != "${java_arch}" ]]; then
-  provision_java_from_artifactory "jdk8u382-b05" jdk ${java_arch}
+  provision_java "jdk8u382-b05" jdk ${java_arch}
 else
   echo "skip java 8 cause not available on architecture aarch64"
 fi
-provision_java_from_artifactory "jdk-11.0.20.1+1" jdk ${java_arch}
-provision_java_from_artifactory "jdk-17.0.8.1+1" jdk ${java_arch}
+provision_java "jdk-11.0.20.1+1" jdk ${java_arch}
+provision_java "jdk-17.0.8.1+1" jdk ${java_arch}
