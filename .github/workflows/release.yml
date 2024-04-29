@@ -4,7 +4,7 @@ on:
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
-name: Create Release
+name: create release
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Create Release
+      - name: create celease
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -26,3 +26,11 @@ jobs:
             - introducing gihub release usage
           draft: false
           prerelease: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installation bash script
+          path: |
+            install-klibio.sh
+            .klibio.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
