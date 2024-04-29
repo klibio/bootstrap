@@ -20,17 +20,16 @@ fi
 #$(curl -fsSLO ${lib_url})
 #. klibio.sh
 
-headline "start # install klibio extension from ${installer_url}"
+echo -e "#\n# start # install klibio extension from ${installer_url}\n#\n"
 installer_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
 /bin/bash -c "$(curl -fsSLO ${installer_url})" bash -j -o -f
-headline "finished # install klibio extension"
+echo -e "#\n# finished # install klibio extension\n#\n"
 
-headline "start # launching proof-of-performance"
+echo -e "#\n# start # launching proof-of-performance\n#\n"
 pop_script=~/.klibio/pop.sh
-ls -la ${HOME}
 if [ ! -f $pop_script ]; then 
   echo "failing curl install of $installer_url"
   exit 1
 fi
 /bin/bash $pop_script
-headline "finished # proof-of-performance execution"
+echo -e "#\n# finished # proof-of-performance execution\n#\n"
