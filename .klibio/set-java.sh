@@ -8,8 +8,10 @@ if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
 fi
 
+set_java_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
 # load library
-. klibio.sh
+. ${set_java_dir}/klibio.sh
 java_home_suffix=${java_home_suffix:=}
 JAVA_HOME=${JAVA_HOME:-}
 

@@ -1,4 +1,4 @@
-# klibio powershell script for configuring environment variables inside USER scope
+# powershell script for configuring environment variables inside USER scope
 
 "configure user scope environment variables used on windows for klibio library"
 

@@ -21,6 +21,8 @@ fi
 
 # load library
 . ${prov_java_dir}/klibio.sh
+set-env
+
 . ${prov_java_dir}/provision-tools.sh
 
 java_rest_api=https://api.adoptium.net
@@ -95,7 +97,7 @@ add_certificates() {
   fi
 }
 
-provision_java() {
+provision_java_from_internet() {
   java_version=${1:-17}
   java_image_type=${2:-jdk}
   java_architecture=${3:-x64}
@@ -126,7 +128,8 @@ provision_java() {
 
   declare install_dir=${java_dir}/exec
   declare link_dir=${java_dir}/ee
-  mkdir -p ${install_dir} >/dev/null 2>&1 && mkdir -p ${link_dir} >/dev/null 2>&1 && pushd ${install_dir} >/dev/null 2>&1
+  mkdir -p ${install_dir} >/dev/null 2>&1 && mkdir -p ${link_dir} >/dev/null 2>&1 \
+    && pushd ${install_dir} >/dev/null 2>&1
   if [ -d "${install_dir}/${java_release_name}" ]; then
     echo -e "#\n# using existing Java from ${install_dir}/${java_release_name}\n#\n"
   else 
@@ -153,12 +156,76 @@ provision_java() {
   popd >/dev/null 2>&1
 }
 
+provision_java_from_artifactory() {
+  
+  regex='jdk-?([0-9]*).*'
+  [[ $1 =~ ${regex} ]]
+  java_version=${BASH_REMATCH[1]}
+
+  regex='jdk-?(.*)'
+  [[ $1 =~ ${regex} ]]
+  java_release_name=${BASH_REMATCH[1]}
+  java_release_name=${java_release_name//+/_}
+  java_release_name=${java_release_name//-/}
+  java_image_type=${2:-jdk}
+  java_architecture=${3:-x64}
+  java_ee=JAVA${java_version}
+  declare $java_ee=java${java_version}
+
+  if [[ ${java_os} == windows ]]; then
+    java_archive_suffix=.zip
+  else 
+    java_archive_suffix=.tar.gz
+  fi
+  declare java_archive_name=OpenJDK${java_version}U-jdk_${java_architecture}_${java_os}_hotspot_${java_release_name}${java_archive_suffix}
+  declare java_archive_link="${artifactory_url}/cec-sdk-release/origin/github.com/adoptium/temurin${java_version}-binaries/releases/tag/$(urlencode $1)/${java_archive_name}"
+  echo -e "#\n# downloading Java from ${java_archive_link}\n#\n"
+  
+  pushd ${java_dir} >/dev/null 2>&1
+  declare archive_dir=${java_dir}/archives
+  mkdir -p ${archive_dir} >/dev/null 2>&1 && pushd ${archive_dir} >/dev/null 2>&1
+  if [ ! -f ${java_archive_name} ]; then
+    curl -u${artifactory_username}:${artifactory_token} -sk -C - -O -L ${java_archive_link}
+  fi
+  popd >/dev/null 2>&1
+
+  declare install_dir=${java_dir}/exec
+  declare link_dir=${java_dir}/ee
+  mkdir -p ${install_dir} >/dev/null 2>&1 
+  mkdir -p ${link_dir} >/dev/null 2>&1
+  pushd ${install_dir} >/dev/null 2>&1
+  if [ -d "${install_dir}/$1" ]; then
+    echo -e "#\n# using existing Java from ${install_dir}/$1\n#\n"
+  else 
+    echo -e "#\n# extracting Java into ${install_dir}/$1\n#\n"
+    if [[ ${java_archive_name} == *.zip ]]; then
+      unzip -qq -d "${install_dir}" "${archive_dir}/${java_archive_name}"
+    elif [[ ${java_archive_name} == *.tar.gz ]]; then
+      tar xvzf "${archive_dir}/${java_archive_name}" -C "${install_dir}"
+    else
+      echo -e "#\n# the archive format could not be recognized \n#\n"
+    fi
+
+    echo -e "#\n# create symbolink link ${link_dir}/${java_ee} from ${install_dir}/$1\n#\n"
+    if [ -f ${link_dir}/${java_ee} ]; then rm ${link_dir}/${java_ee}; fi
+    ln -s "${install_dir}/$1" ${link_dir}/${java_ee}
+    if [[ ${java_os} == mac ]]; then
+      ln -s ${link_dir}/${java_ee}/Contents/Home/bin ${link_dir}/${java_ee}/bin
+    fi
+
+    echo -e "#\n# add certificates to cacerts inside ${link_dir}/${java_ee}/lib/security/cacerts\n#\n"
+    add_certificates "${link_dir}/${java_ee}"
+  fi
+  popd >/dev/null 2>&1
+  popd >/dev/null 2>&1
+}
+
 echo -e "\n##############################\n# Java setup on ${java_os}\n##############################\n"
 
 if [[ "aarch64" != "${java_arch}" ]]; then
-  provision_java 8 jdk ${java_arch}
+  provision_java_from_artifactory "jdk8u382-b05" jdk ${java_arch}
 else
   echo "skip java 8 cause not available on architecture aarch64"
 fi
-provision_java 11 jdk ${java_arch}
-provision_java 17 jdk ${java_arch}
+provision_java_from_artifactory "jdk-11.0.20.1+1" jdk ${java_arch}
+provision_java_from_artifactory "jdk-17.0.8.1+1" jdk ${java_arch}

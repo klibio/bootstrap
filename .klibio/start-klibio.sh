@@ -2,7 +2,7 @@
 #
 # start klibio applications/tools  
 #
-script_dir=$(dirname $(readlink -f $0))
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
@@ -13,7 +13,8 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 if [[ "$#" == 0 ]]; then
-  echo "$(cat <<-EOM
+  echo "$(
+    cat <<-EOM
 # please provide one or more options of the following applications are available
 -e=<eclipse_install>|--eclipse=<eclipse_install>
     # launch eclipse from provided install location
@@ -74,7 +75,8 @@ for i in "$@"; do
       ;;
     --dev)
       export LOCAL_DEV=HOME_devel
-      dev_vm_arg="$(cat <<-EOM
+    dev_vm_arg="$(
+      cat <<-EOM
 -Duser.home=${HOME}/${LOCAL_DEV} \
 -Doomph.setup.user.home.redirect=true
 EOM
@@ -87,7 +89,8 @@ EOM
       dev_suffix="${i#*=}"
       shift # past argument=value
       export LOCAL_DEV=HOME_devel_${dev_suffix}
-      dev_vm_arg="$(cat <<-EOM
+    dev_vm_arg="$(
+      cat <<-EOM
 -Duser.home=${HOME}/${LOCAL_DEV} \
 -Doomph.setup.user.home.redirect=true
 EOM
@@ -101,8 +104,7 @@ EOM
       echo "unknow option $i provided"
       exit 1
       ;;
-    *)
-      ;;
+  *) ;;
   esac
 done
 
@@ -115,6 +117,8 @@ else
   echo "no internet connection - check your proxy settings - exiting"; 
   exit 1
 fi
+echo "# configure local bash environment"
+. ${script_dir}/set-env.sh 
 
 # Command line argument for specifying a Configuration https://www.eclipse.org/forums/index.php/t/1086000/
 if [[ ${oomph} -eq 1 ]]; then
@@ -128,7 +132,9 @@ if [[ ${oomph} -eq 1 ]]; then
       -vm "${java_bin}" \
       -vmargs \
       ${dev_vm_arg:-""} \
-      -Doomph_update_url=${oomph_update_url} \
+      -Dorg.eclipse.oomph.setup.donate=false \
+      -Doomph.update.url=${oomph_update_url} \
+      -Doomph.installer.update.url=${oomph_installer_update_url} \
       -Doomph.setup.installer.mode=advanced \
       -Doomph.redirection.setups=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/-\>${setup_url}/ \
       2> ${KLIBIO}/tool/${date}_oomph_err.log \
