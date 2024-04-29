@@ -27,5 +27,9 @@ headline "finished # install klibio extension"
 
 headline "start # launching proof-of-performance"
 ls -la ${HOME}
-pop.sh
+if [ ! -f ~/.klibio/pop.sh ]; then 
+  echo "failing curl install of $installer_url"
+  exit 1
+fi
+./pop.sh
 headline "finished # proof-of-performance execution"
