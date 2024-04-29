@@ -14,7 +14,7 @@ if [[ ${debug:-false} == true ]]; then
   echo "# DEBUG env end"
 fi
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
-echo -e "#\n# running on branch $branch\n#\n"
+echo "# running on branch $branch"
 
 # load lib functions when local execution
 #lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/.klibio/klibio.sh
@@ -22,9 +22,9 @@ echo -e "#\n# running on branch $branch\n#\n"
 #. klibio.sh
 
 installer_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
-echo -e "#\n# start # install klibio extension from ${installer_url}\n#\n"
-/bin/bash -x -c $(curl -fsSLO ${installer_url} bash -j -o -f)
-echo -e "#\n# finished # install klibio extension\n#\n"
+echo -e "#\n# install klibio bootstrap from ${installer_url}\n#\n"
+/bin/bash -x -c "$(curl -fsSLO ${installer_url}) bash -j -o -f"
+echo -e "#\n# install klibio bootstrap finished\n#\n"
 
 echo -e "#\n# start # launching proof-of-performance\n#\n"
 env | grep HOME
