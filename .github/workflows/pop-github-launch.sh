@@ -27,5 +27,5 @@ headline "finished # install klibio extension"
 
 headline "start # launching proof-of-performance"
 ls -la ${HOME}
-${KLIBIO}/pop.sh
+pop.sh
 headline "finished # proof-of-performance execution"
