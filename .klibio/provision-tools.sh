@@ -21,7 +21,7 @@ fi
 # load library
 . ${prov_tool_dir}/klibio.sh
 
-jq_download_link=https://github.com/stedolan/jq/releases/download/jq-1.6
+jq_download_link=https://github.com/jqlang/jq/releases/download/jq-1.7.1
 
  # check for curl and exit if not available
 if which curl > /dev/null; then

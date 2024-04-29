@@ -58,7 +58,7 @@ if [[ $OSTYPE == msys ]]; then
   export eclipse_exec=eclipse.exe             # eclipse
   export oomph_exec_suffix=eclipse-inst.exe   # oomph
   export oomph_suffix=win64.zip               # oomph
-  export jq_exec=jq-windows-amd64.exe       # others
+  export jq_exec=jq-windows-amd64.exe         # others
   export htmlq_exec=htmlq.exe                 # others
 fi
 
