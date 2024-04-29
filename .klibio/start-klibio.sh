@@ -2,7 +2,7 @@
 #
 # start klibio applications/tools  
 #
-script_dir=$(dirname $(readlink -f $0))
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 # activate bash checks
 if [[ ${debug:-false} == true ]]; then
   set -o xtrace   # activate bash debug
@@ -13,12 +13,11 @@ set -o errexit  # exit if any statement returns a non-true return value
 set -o pipefail # exit if any pipe command is failing
 
 if [[ "$#" == 0 ]]; then
-  echo "$(cat <<-EOM
+  echo "$(
+    cat <<-EOM
 # please provide one or more options of the following applications are available
--e|--eclipse
-    # launch eclipse sdk
--e=<workspace_dir>|--eclipse=<workspace_dir>
-    # launch eclipse with provided workspace location
+-e=<eclipse_install>|--eclipse=<eclipse_install>
+    # launch eclipse from provided install location
 -o|--ommph
     # launch oomph eclipse installer
 -o=<github-org/repo>|--ommph=<github-org/repo>
@@ -28,6 +27,7 @@ EOM
 fi
 
 # tool variables
+
 eclipse=0
 oomph=0
 config_url=
@@ -39,11 +39,11 @@ setup_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch:-main}/oom
 
 for i in "$@"; do
   case $i in
-    -e|--eclipse)
-      eclipse=1
-      ;;
     -e=*|--eclipse=*)
-      eclipse_wrkspc="${i#*=}"
+      eclipse_install="${i#*=}"
+      eclipse_install="${eclipse_install//\\//}"
+      eclipse_install="${eclipse_install%/}"
+      eclipse_install="/${eclipse_install/:/}"
       eclipse=1
       shift # past argument=value
       ;;
@@ -75,7 +75,8 @@ for i in "$@"; do
       ;;
     --dev)
       export LOCAL_DEV=HOME_devel
-      dev_vm_arg="$(cat <<-EOM
+    dev_vm_arg="$(
+      cat <<-EOM
 -Duser.home=${HOME}/${LOCAL_DEV} \
 -Doomph.setup.user.home.redirect=true
 EOM
@@ -88,7 +89,8 @@ EOM
       dev_suffix="${i#*=}"
       shift # past argument=value
       export LOCAL_DEV=HOME_devel_${dev_suffix}
-      dev_vm_arg="$(cat <<-EOM
+    dev_vm_arg="$(
+      cat <<-EOM
 -Duser.home=${HOME}/${LOCAL_DEV} \
 -Doomph.setup.user.home.redirect=true
 EOM
@@ -102,8 +104,7 @@ EOM
       echo "unknow option $i provided"
       exit 1
       ;;
-    *)
-      ;;
+  *) ;;
   esac
 done
 
@@ -116,6 +117,8 @@ else
   echo "no internet connection - check your proxy settings - exiting"; 
   exit 1
 fi
+echo "# configure local bash environment"
+. ${script_dir}/set-env.sh 
 
 # Command line argument for specifying a Configuration https://www.eclipse.org/forums/index.php/t/1086000/
 if [[ ${oomph} -eq 1 ]]; then
@@ -129,7 +132,9 @@ if [[ ${oomph} -eq 1 ]]; then
       -vm "${java_bin}" \
       -vmargs \
       ${dev_vm_arg:-""} \
-      -Doomph_update_url=${oomph_update_url} \
+      -Dorg.eclipse.oomph.setup.donate=false \
+      -Doomph.update.url=${oomph_update_url} \
+      -Doomph.installer.update.url=${oomph_installer_update_url} \
       -Doomph.setup.installer.mode=advanced \
       -Doomph.redirection.setups=http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/-\>${setup_url}/ \
       2> ${KLIBIO}/tool/${date}_oomph_err.log \
@@ -141,21 +146,20 @@ if [[ ${oomph} -eq 1 ]]; then
 fi
 
 if [[ ${eclipse} -eq 1 ]]; then
-  if [[ -f ${eclipse_sdk}/${eclipse_exec} ]]; then
-    if [[ -z ${eclipse_wrkspc+x} ]]; then
-      echo "# launching eclipse with workspace ${eclipse_wrkspc}"
-        ecl_wrkspc=-data "${eclipse_wrkspc}"
-    else
-      echo "# launching eclipse"
-    fi
-    "${eclipse_sdk}/${eclipse_exec}" \
+  eclipse_cmd=${eclipse_install}/eclipse/eclipse
+  if [[ -f ${eclipse_cmd} ]]; then
+      # MIND the DOT at beginning of line
+      echo "# configure local bash environment (environment variables and proxy)"
+      . ~/.klibio/set-env.sh 
+      env | sort | grep -E 'arti|engine|^HOME|^JAVA'
+      echo "# launching ${eclipse_cmd}"
+      "${eclipse_cmd}" \
       {ecl_wrkspc} \
-      -vm "${java_bin}" \
-      2> ${KLIBIO}/tool/${date}_eclipse_err.log \
-      1> ${KLIBIO}/tool/${date}_eclipse_out.log \
-      &
-  else  
-    echo "no eclipse installation found inside ${eclipse_sdk}/${eclipse_exec} - re-install with -e/--eclipse"
+        -vm "${java_bin}" \
+        > ${eclipse_install}/${date}_eclipse.log 2>&1 \
+        &
+    else
+    echo "no eclipse installation found inside ${eclipse_cmd}"
   fi
 fi
 

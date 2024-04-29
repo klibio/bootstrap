@@ -13,18 +13,26 @@ if [[ ${debug:-false} == true ]]; then
   env | sort
   echo "# DEBUG env end"
 fi
-
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
-lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/.klibio/klibio.sh
-$(curl -fsSLO ${lib_url})
-. klibio.sh
+echo "# running on branch $branch"
 
-headline "start # install klibio extension from ${installer_url}"
+# load lib functions when local execution
+#lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/.klibio/klibio.sh
+#$(curl -fsSLO ${lib_url})
+#. klibio.sh
+
 installer_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
-/bin/bash -c "$(curl -fsSLO ${installer_url})" bash -j -o -f
-headline "finished # install klibio extension"
+echo -e "#\n# install klibio bootstrap from ${installer_url}\n#\n"
+which bash
+/bin/bash -c "$(curl -fsSL $installer_url)" bash -j -o -e -b=${branch}
+echo -e "#\n# install klibio bootstrap finished\n#\n"
 
-headline "start # launching proof-of-performance"
-ls -la ${HOME}
-${KLIBIO}/pop.sh
-headline "finished # proof-of-performance execution"
+echo -e "#\n# start # launching proof-of-performance\n#\n"
+env | grep HOME
+pop_script=${HOME}/.klibio/pop.sh
+if [ ! -f $pop_script ]; then 
+  echo "failing curl install of $installer_url"
+  exit 1
+fi
+/bin/bash -x $pop_script
+echo -e "#\n# finished # proof-of-performance execution\n#\n"
