@@ -23,7 +23,7 @@ echo -e "#\n# running on branch $branch\n#\n"
 
 installer_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/install-klibio.sh
 echo -e "#\n# start # install klibio extension from ${installer_url}\n#\n"
-/bin/bash -c "$(curl -fsSLO ${installer_url})" bash -j -o -f
+/bin/bash -x -c "$(curl -fsSLO ${installer_url})" bash -j -o -f
 echo -e "#\n# finished # install klibio extension\n#\n"
 
 echo -e "#\n# start # launching proof-of-performance\n#\n"
@@ -32,5 +32,5 @@ if [ ! -f $pop_script ]; then
   echo "failing curl install of $installer_url"
   exit 1
 fi
-/bin/bash $pop_script
+/bin/bash -x $pop_script
 echo -e "#\n# finished # proof-of-performance execution\n#\n"
