@@ -27,7 +27,8 @@ echo -e "#\n# start # install klibio extension from ${installer_url}\n#\n"
 echo -e "#\n# finished # install klibio extension\n#\n"
 
 echo -e "#\n# start # launching proof-of-performance\n#\n"
-pop_script=~/.klibio/pop.sh
+env | grep HOME
+pop_script=${HOME}/.klibio/pop.sh
 if [ ! -f $pop_script ]; then 
   echo "failing curl install of $installer_url"
   exit 1
