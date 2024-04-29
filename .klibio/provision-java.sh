@@ -223,10 +223,10 @@ provision_java_from_artifactory() {
 echo -e "\n##############################\n# Java setup on ${java_os}\n##############################\n"
 
 if [[ "aarch64" != "${java_arch}" ]]; then
-  provision_java_from_internet "jdk8u382-b05" jdk ${java_arch}
+  provision_java_from_internet 8 jdk ${java_arch}
 else
   echo "skip java 8 cause not available on architecture aarch64"
 fi
-provision_java_from_internet "jdk-11.0.20.1+1" jdk ${java_arch}
-provision_java_from_internet "jdk-17.0.8.1+1" jdk ${java_arch}
-provision_java_from_internet "jdk-21.0.3+9" jdk ${java_arch}
+provision_java_from_internet 11 jdk ${java_arch}
+provision_java_from_internet 17 jdk ${java_arch}
+provision_java_from_internet 21 jdk ${java_arch}
