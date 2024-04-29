@@ -13,9 +13,10 @@ if [[ ${debug:-false} == true ]]; then
   env | sort
   echo "# DEBUG env end"
 fi
+branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
+echo -e "#\n# running on branch $branch\n#\n"
 
 # load lib functions when local execution
-#branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null ) || branch=${branch:-main}
 #lib_url=https://raw.githubusercontent.com/klibio/bootstrap/${branch}/.klibio/klibio.sh
 #$(curl -fsSLO ${lib_url})
 #. klibio.sh
