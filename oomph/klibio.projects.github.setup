@@ -248,6 +248,6 @@
   <project href="projects/prj_github.com_klibio_klib.trackr.setup#/"/>
   <project href="projects/prj_github.com_klibio_bndtools-eclipse-workspace.setup#/"/>
   <project href="projects/prj_github.com_klibio_bndtools-klibio-templates.setup#/"/>
-  <project href="projects/prj_github.com_A7exSchin_EclipseInstallationManager.setup#/"/>
+  <project href="projects/prj_github.com_klibio_EclipseInstallationManager.setup#/"/>
   <description>All the projects at Github.com that provide automated setup support along with additional user-added projects</description>
 </setup:ProjectCatalog>
