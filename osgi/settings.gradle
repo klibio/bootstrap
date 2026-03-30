@@ -1,0 +1,18 @@
+/* ============================================================
+   settings.gradle — bnd Gradle workspace root for osgi/
+   All bundle sub-projects are discovered automatically by
+   the biz.aQute.bnd.workspace plugin (any dir with bnd.bnd).
+   ============================================================ */
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:7.1.0'
+    }
+}
+
+apply plugin: 'biz.aQute.bnd.workspace'
+
+rootProject.name = 'io.klib.bootstrap'

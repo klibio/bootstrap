@@ -2,3 +2,14 @@
 HOME_devel*/
 resp.json
 gh_repos_response.json
+
+# ─── bnd workspace build artifacts ───────────────────────────────
+osgi/*/bin/
+osgi/*/bin_test/
+osgi/*/generated/
+osgi/cnf/local/
+osgi/cnf/cache/
+osgi/.gradle/
+osgi/build/
+osgi/**/build/
+

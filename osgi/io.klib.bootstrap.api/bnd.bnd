@@ -1,0 +1,9 @@
+Bundle-SymbolicName:    io.klib.bootstrap.api
+Bundle-Name:            io.klib Bootstrap API
+Bundle-Description:     Public service interfaces for the klibio bootstrap framework.
+
+Export-Package: io.klib.bootstrap.api
+
+-buildpath: \
+	osgi.annotation;version=latest, \
+	org.osgi.service.component.annotations;version=latest

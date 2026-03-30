@@ -1,0 +1,57 @@
+Bundle-SymbolicName:    io.klib.bootstrap.test.integration
+Bundle-Name:            io.klib Bootstrap Integration Tests
+Bundle-Description:     OSGi integration tests using eclipse-osgi-technology/osgi-test and JUnit 5.
+
+# Test classes are in src/ so they land in the bundle (required for OSGi deployment)
+Private-Package: io.klib.bootstrap.test
+
+# Declare which classes are JUnit test cases (bnd test runner reads this)
+Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.jupiter.api.Test}
+
+-buildpath: \
+	io.klib.bootstrap.api;version=project, \
+	io.klib.bootstrap.core;version=project, \
+	osgi.annotation;version=latest, \
+	osgi.core;version=latest, \
+	org.osgi.service.component;version=latest, \
+	org.osgi.test.common;version=latest, \
+	org.osgi.test.junit5;version=latest, \
+	junit-jupiter-api;version=latest, \
+	junit-jupiter-engine;version=latest, \
+	junit-platform-launcher;version=latest, \
+	org.apiguardian.api;version=latest
+
+# ─── OSGi integration test run configuration ─────────────────────
+# Used by the Gradle testOSGi task and by: bnd test integration.bndrun
+-runfw: org.apache.felix.framework;version='[7.0,8)'
+-runee: JavaSE-21
+-tester: biz.aQute.tester.junit-platform
+
+-runrequires: \
+	osgi.identity;filter:='(osgi.identity=io.klib.bootstrap.test.integration)', \
+	osgi.identity;filter:='(osgi.identity=io.klib.bootstrap.core)', \
+	osgi.identity;filter:='(osgi.identity=io.klib.bootstrap.api)'
+
+# Pre-resolved runbundles (refresh with: bnd resolve integration.bndrun)
+-runbundles: \
+	io.klib.bootstrap.api;version=snapshot, \
+	io.klib.bootstrap.core;version=snapshot, \
+	io.klib.bootstrap.test.integration;version=snapshot, \
+	biz.aQute.tester.junit-platform;version='[7.1.0,7.1.1)', \
+	org.apache.felix.scr;version='[2.2.6,2.2.7)', \
+	org.apache.felix.log;version='[1.3.0,1.3.1)', \
+	org.osgi.service.component;version='[1.5.1,1.5.2)', \
+	org.osgi.util.promise;version='[1.3.0,1.3.1)', \
+	org.osgi.util.function;version='[1.1.0,1.1.1)', \
+	junit-jupiter-api;version='[5.11.4,5.11.5)', \
+	junit-jupiter-engine;version='[5.11.4,5.11.5)', \
+	junit-jupiter-params;version='[5.11.4,5.11.5)', \
+	junit-platform-commons;version='[1.11.4,1.11.5)', \
+	junit-platform-engine;version='[1.11.4,1.11.5)', \
+	junit-platform-launcher;version='[1.11.4,1.11.5)', \
+	org.opentest4j;version='[1.3.0,1.3.1)', \
+	org.osgi.test.common;version='[1.3.0,1.3.1)', \
+	org.osgi.test.junit5;version='[1.3.0,1.3.1)'
+
+-runproperties: \
+	org.osgi.framework.bootdelegation=sun.*,com.sun.*

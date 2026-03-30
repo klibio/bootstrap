@@ -1,0 +1,29 @@
+/* ============================================================
+   build.gradle — root workspace build
+   Applies Gradle Java toolchain (Java 21) and JUnit Platform
+   to every bnd bundle sub-project discovered in the workspace.
+   ============================================================ */
+
+subprojects {
+    if (pluginManager.hasPlugin('biz.aQute.bnd')) {
+
+        // Group from namespace; version is managed by bnd via cnf/build.bnd base.version
+        group = 'io.klib'
+
+        // Compile with Java 21 toolchain (auto-downloads if not found)
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(21)
+            }
+        }
+
+        // JUnit 5 test runner
+        tasks.named('test') {
+            useJUnitPlatform()
+            testLogging {
+                events 'passed', 'failed', 'skipped'
+                exceptionFormat 'full'
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+# Local indexed repository — stores locally built bundle JARs
+-plugin.Local: \
+	aQute.bnd.deployer.repository.LocalIndexedRepo; \
+		name            =   Local; \
+		local           =   ${workspace}/cnf/local; \
+		readonly        =   false
+
+# Maven Central via BndPomRepository — eagerly resolves OSGi bundles from the POM dependency list.
+# This plugin builds its BSN index on first use and caches it in ${storageDir}.
+-plugin.Central: \
+	aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+		name            =   Central; \
+		releaseUrls     =   https://repo1.maven.org/maven2/; \
+		pom             =   ${workspace}/cnf/pom.xml; \
+		snapshotUrls    =   https://oss.sonatype.org/content/repositories/snapshots/
+
+

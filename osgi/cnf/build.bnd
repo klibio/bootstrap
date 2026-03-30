@@ -1,0 +1,44 @@
+########################
+## WORKSPACE BUILD SETTINGS
+########################
+-require-bnd: "(version>=7.0.0)"
+
+# Java 21 source / target
+javac.source:           21
+javac.target:           21
+-release:               21
+
+# Workspace version
+base.version:           0.3.0
+Bundle-Version:         ${base.version}.${tstamp}-SNAPSHOT
+
+# Default bundle headers
+Bundle-Vendor:          klibio
+Bundle-License:         https://opensource.org/licenses/MIT
+Bundle-DocURL:          https://github.com/klibio/bootstrap
+
+# Reproducible builds
+-reproducible:          true
+-noextraheaders:        true
+
+# Derive Java module name from BSN
+Automatic-Module-Name:  ${def;bsn}
+
+# Workspace-wide compile additions (provided scope — not exported into -runbundles)
+-buildpath+: \
+	osgi.annotation;~version=latest;~maven-scope=provided, \
+	osgi.core;~version=latest;~maven-scope=provided
+
+# Workspace-wide test additions
+-testpath+: \
+	osgi.annotation;~version=latest, \
+	osgi.core;~version=latest
+
+# DS annotation processing
+-dsannotations: *
+
+# OSGi version range policies
+-provider-policy: ${range;[==,=+)}
+-consumer-policy: ${range;[==,+)}
+
+# NOTE: cnf/ext/*.bnd files are auto-included by bnd workspace — do NOT add explicit -include here
