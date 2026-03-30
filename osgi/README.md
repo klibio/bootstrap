@@ -146,6 +146,39 @@ Eclipse will resolve the workspace dependencies automatically via the
 
 ---
 
+## Eclipse Java compiler settings
+
+Every Eclipse project in this workspace ships a
+`.settings/org.eclipse.jdt.core.prefs` file that sets the JDT compiler to
+**Java 21**:
+
+```properties
+eclipse.preferences.version=1
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=21
+org.eclipse.jdt.core.compiler.compliance=21
+org.eclipse.jdt.core.compiler.release=enabled
+org.eclipse.jdt.core.compiler.source=21
+```
+
+These values mirror the `javac.source`/`javac.target` already declared in
+`cnf/build.bnd`, so both the Gradle build and the Eclipse IDE use the same
+compiler level.
+
+### How the settings are applied automatically
+
+Eclipse reads `.settings/org.eclipse.jdt.core.prefs` the moment a project is
+imported — **no manual action is required**.  The table below lists all
+available options ranked by how automatic they are:
+
+| # | Mechanism | Automatic? | When it applies |
+|---|-----------|-----------|-----------------|
+| **1** | **Project-level `.settings/org.eclipse.jdt.core.prefs`** (used here) | ✅ **Yes** | As soon as *File → Import → Existing Projects* completes — Eclipse JDT reads the file for every imported project. |
+| **2** | **BNDTools `build.bnd` (`javac.source` / `javac.target`)** | ✅ **Yes** | BNDTools reads the workspace `build.bnd` and configures each bnd project's JDT compiler settings automatically. This workspace already defines `javac.source=21` and `javac.target=21` in `cnf/build.bnd`. |
+| **3** | **Oomph setup model (`.setup` file)** | ✅ **Yes** | An Oomph project model can run during Eclipse startup to import preferences, install plug-ins, and set workspace options. Most useful for distributing a fully-automated team workspace via the Eclipse Installer. Higher setup cost. |
+| **4** | **Eclipse Preferences File (`.epf`) — manual import** | ❌ **No** | An `.epf` file holds workspace-level preferences but must be imported by the developer via *File → Import → General → Preferences*. Useful as a fallback or for workspace-scope settings (e.g. formatter, clean-up) that cannot live in a project folder. |
+
+---
+
 ## Key version numbers
 
 | Component | Version |
